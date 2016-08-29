@@ -1,4 +1,4 @@
-# Task runner
+# Dynamis app frontend 2 
 
 [![Heroku Build is here](https://heroku-badge.herokuapp.com/?app=dynamis-frontend)](https://dynamis-frontend.herokuapp.com)
 
