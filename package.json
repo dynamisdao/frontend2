@@ -5,7 +5,8 @@
   "author": null,
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "postinstall":"gulp build"
   },
   "dependencies": {
     "ejs": "2.4.1",
