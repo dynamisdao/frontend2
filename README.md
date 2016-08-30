@@ -2,6 +2,10 @@
 
 [![Heroku Build is here](https://heroku-badge.herokuapp.com/?app=dynamis-frontend)](https://dynamis-frontend.herokuapp.com)
 
+## Screens
+
+[![screens.png](https://s17.postimg.org/zcsil13rz/screens.png)](https://postimg.org/image/gx81nmpnf/)
+
 ## Dependencies
 
 1. Latest version of [NodeJS](http://nodejs.org/) (min v0.12.2)
