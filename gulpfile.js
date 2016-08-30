@@ -1114,5 +1114,8 @@ gulp.task('build:wp', function() {
     runSequence('images:resize-sprite-source', 'css:lazy-rules', 'css:import-modules', 'css:compile', 'images:sprites');
 });
 
+// see https://elements.heroku.com/buildpacks/aquicore/heroku-buildpack-nodejs-gulp
+gulp.task('heroku:production', ['build']);
+
 // Defaut Task
 gulp.task('default', ['serve']);
