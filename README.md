@@ -2,9 +2,11 @@
 
 [![Heroku Build is here](https://heroku-badge.herokuapp.com/?app=dynamis-frontend)](https://dynamis-frontend.herokuapp.com)
 
+[![Stories in Ready](https://badge.waffle.io/dynamisdao/frontend2.svg?label=ready&title=Ready)](http://waffle.io/dynamisdao/frontend2)
+
 ## Screens
 
-[![screens.png](https://s17.postimg.org/zcsil13rz/screens.png)](https://postimg.org/image/gx81nmpnf/)
+[![screens.png](https://s16.postimg.org/6gow9tctx/screens.png)](https://postimg.org/image/jkugmi4vl/)
 
 ## Dependencies
 
