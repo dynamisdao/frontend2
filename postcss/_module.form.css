@@ -18,6 +18,11 @@
 
 .form .form-actions:after { @mixin clearfix; }
 
+/*  Form-Identity */
+
+.form-identity .form-row { margin-bottom: 35px; }
+.form-identity .form-row:last-child { margin-bottom: 0; }
+
 /*  Form-Account  */
 
 .form-account .form-head { margin-bottom: 21px; }
