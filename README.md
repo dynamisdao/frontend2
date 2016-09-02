@@ -17,12 +17,12 @@
 3. Windows only - [GraphicsMagick](http://sourceforge.net/projects/graphicsmagick/files/graphicsmagick-binaries/1.3.21/)
 
 
-## App installation and b
+## App installation
 
 $ `npm install (use GitBash on Windows / Terminal on OSX) in the directory of the project. Accept all requests. If error occurs, run again.
 
 
-## Running and build the app
+## Running and building the app
 
 This should be used every time when you start working on the project:
 
