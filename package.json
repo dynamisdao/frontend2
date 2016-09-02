@@ -6,15 +6,16 @@
   "main": "js/app.js",
   "scripts": {
     "clean": "rimraf dist/",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.config.production.js --progress --profile --colors",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.production.config.js --progress --profile --colors",
     "dev": "babel-node server.js",
     "lint": "eslint js/**",
     "start": "npm run dev"
   },
   "dependencies": {
-    "babel-polyfill": "^6.13.0",
     "autoprefixer": "~6.3.1",
+    "babel-polyfill": "^6.13.0",
     "browser-sync": "^2.10.1",
+    "cross-env": "^2.0.1",
     "ejs": "2.4.1",
     "express": "4.13.3",
     "file-exists": "^1.0.0",
@@ -32,6 +33,7 @@
     "postcss-simple-extend": "^1.0.0",
     "postcss-simple-vars": "~1.2.0",
     "postcss-sprites": "^2.0.2",
+    "precss": "^1.4.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-redux": "^4.4.5",
@@ -41,7 +43,6 @@
     "redux-thunk": "^2.1.0",
     "run-sequence": "^1.1.5",
     "stylelint": "^4.1.0",
-    "precss": "^1.4.0",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.15.1",
     "yargs": "^3.32.0"
