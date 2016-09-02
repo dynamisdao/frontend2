@@ -16,11 +16,11 @@ class IndexComponent extends Component {
                   <strong>Dynamis</strong>
                     is a peer to peer income coverage app which offers a better way
                     to manage the costs and risks associated with severance benefits.
-                  <a href="/about.html" className="link">…learn more</a>
+                  <a href="" className="link">…learn more</a>
                 </p>
               </div>
               <div className="intro-actions">
-                <a href="/identity-page.html" className="btn btn-white">Create a Policy</a>
+                <a href="" className="btn btn-white">Create a Policy</a>
               </div>
 
             </div>

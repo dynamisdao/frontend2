@@ -11,10 +11,10 @@ class FooterComponent extends Component {
           <nav className="nav nav-footer">
             <ul>
               <li>
-                <a href="/about.html">About Dynamis</a>
+                <a href="">About Dynamis</a>
               </li>
               <li>
-                <a href="/privacy_policy.html">Privacy Policy</a>
+                <a href="">Privacy Policy</a>
               </li>
               <li>
                 <a href="">FAQs</a>
