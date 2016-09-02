@@ -4,18 +4,17 @@ const path = require('path');
 const webpack = require('webpack');
 const precss = require('precss');
 const autoprefixer = require('autoprefixer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
     './src'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/'
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -23,7 +22,12 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify('development'),
       'process.env.BROWSER': true
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      template: 'index.template.html',
+      inject: 'body',
+      filename: 'index.html'
+    })
   ],
   module: {
     loaders: [{
