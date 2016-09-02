@@ -10,7 +10,7 @@
     "dev": "babel-node server.js",
     "lint": "eslint js/**",
     "start": "npm run dev",
-    "postinstall": "npm run buid"
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "babel-polyfill": "^6.13.0",
