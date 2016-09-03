@@ -69,9 +69,7 @@
     "style-loader": "^0.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2",
-    "webpack-stream": "^3.2.0"
-  },
-  "devDependencies": {
+    "webpack-stream": "^3.2.0",
     "html-webpack-plugin": "^2.22.0"
   }
 }
