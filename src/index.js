@@ -9,7 +9,6 @@ import store from './store';
 import './assets/css/style.css';
 import './assets/postcss/_load.css';
 
-require('babel-polyfill');
 
 render(
   <Provider store={store}>

@@ -22,9 +22,22 @@
 $ `npm install (use GitBash on Windows / Terminal on OSX) in the directory of the project. Accept all requests. If error occurs, run again.
 
 
-## Running and building the app
+## Building the app
+
+This should be used every time when you start working on the project:
+
+$ `npm run build` (use GitBash on Windows / Terminal on OSX) in the directory of the project
+
+
+## Running the app
+
+This should be used every time when you start working on the project:
+
+$ `npm run prod` (use GitBash on Windows / Terminal on OSX) in the directory of the project
+
+
+## Building the develop app 
 
 This should be used every time when you start working on the project:
 
 $ `npm start` (use GitBash on Windows / Terminal on OSX) in the directory of the project
-
