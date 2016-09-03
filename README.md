@@ -1,6 +1,11 @@
 # Dynamis app frontend 2 
 
+## Continuous Deployment
+**master** branch build:
 [![Heroku Build is here](https://heroku-badge.herokuapp.com/?app=dynamis-frontend)](https://dynamis-frontend.herokuapp.com)
+
+**develop** branch build:
+[![Heroku Build is here](https://heroku-badge.herokuapp.com/?app=dynamis-frontend-develop)](https://dynamis-frontend-develop.herokuapp.com)
 
 [![Stories in Ready](https://badge.waffle.io/dynamisdao/frontend2.svg?label=ready&title=Ready)](http://waffle.io/dynamisdao/frontend2)
 
