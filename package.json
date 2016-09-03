@@ -9,9 +9,8 @@
     "build": "cross-env NODE_ENV=production webpack --config webpack.production.config.js --progress --profile --colors",
     "dev": "babel-node server.js",
     "lint": "eslint js/**",
-    "start": "npm run dev",
-    "prod": "node server.production",
-    "postinstall": "npm run build && npm run prod"
+    "start": "node server.production",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "autoprefixer": "^6.3.7",
