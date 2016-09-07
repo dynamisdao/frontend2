@@ -21,7 +21,7 @@ class AccountCreationComponent extends Component {
                 <div className="section-group section-group-secondary">
                   <AccountCreationForm
                     identityUser={this.props.identityUser}
-                    accoutCreate={this.props.accoutCreate}
+                    accountCreate={this.props.accountCreate}
                   />
                   <StepsAsideComponent
                     body={
@@ -42,7 +42,7 @@ class AccountCreationComponent extends Component {
 }
 
 AccountCreationComponent.propTypes = {
-  accoutCreate: PropTypes.func.isRequired,
+  accountCreate: PropTypes.func.isRequired,
   identityUser: PropTypes.object.isRequired
 };
 
