@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
-import HeaderSecondaryComponent from '../headerSecondary/component';
+import { urls } from '../../../routes';
 
 class IndexComponent extends Component {
 
   render() {
     return (
       <div>
-        <HeaderSecondaryComponent />
         <div className="intro">
           <div className="shell">
             <div className="intro-inner">
@@ -20,7 +20,7 @@ class IndexComponent extends Component {
                 </p>
               </div>
               <div className="intro-actions">
-                <a href="" className="btn btn-white">Create a Policy</a>
+                <Link to={urls.identity.path} className="btn btn-white">Create a Policy</Link>
               </div>
 
             </div>
