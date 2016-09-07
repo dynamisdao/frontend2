@@ -35,6 +35,9 @@ class IdentityForm extends Component {
   handleSubmit(values) {
     if (this.state.isNext) {
       browserHistory.push(urls.accountCreation.path);
+      window.localStorage.setItem('eth', values.eth);
+      window.localStorage.setItem('username', this.props.identityUser.username);
+      window.localStorage.setItem('avatarPath', this.props.identityUser.avatarPath);
     } else {
       this.props.identity(values.username);
     }

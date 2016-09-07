@@ -54,6 +54,11 @@ class AccountCreationForm extends Component {
 
   render() {
     const { handleSubmit, identityUser } = this.props;
+    const handleLink = (event) => {
+      event.preventDefault();
+      browserHistory.push(urls.identity.path);
+      ['eth', 'username', 'avatarPath'].map(f => window.localStorage.removeItem(f));
+    };
     return (
       <div>
         <div className="user">
@@ -62,14 +67,19 @@ class AccountCreationForm extends Component {
               <i className="ico-check-secondary" />
               Online Identity
             </h2>
-            <Link to={urls.identity.path} className="link">change keybase user</Link>
+            <a href="" onClick={handleLink} to={urls.identity.path} className="link">change keybase user</a>
           </header>
           <div className="user-body">
             <a href="">
               <span>
-                <img src={identityUser.avatarPath} alt="avatar" width="39" height="39" />
+                <img
+                  src={identityUser.avatarPath ? identityUser.avatarPath : window.localStorage.getItem('avatarPath')}
+                  alt="avatar" width="39" height="39"
+                />
               </span>
-              <small>{identityUser.username}</small>
+              <small>
+                {identityUser.username ? identityUser.username : window.localStorage.getItem('username')}
+              </small>
             </a>
           </div>
         </div>
