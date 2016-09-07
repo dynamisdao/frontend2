@@ -106,7 +106,7 @@ class IdentityForm extends Component {
               </div>
               <div className="form-actions">
                 <button type="submit" className="btn btn-blue btn-big">
-                  {identityUser.username ? 'Next' : 'Get Data'}
+                  {isNext ? 'Next' : 'Get Data'}
                 </button>
                 <a href="" className="link">What’s keybase?</a>
               </div>
