@@ -1,4 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
+
+import { urls } from '../../../routes';
 
 class FooterComponent extends Component {
 
@@ -11,7 +14,7 @@ class FooterComponent extends Component {
           <nav className="nav nav-footer">
             <ul>
               <li>
-                <a href="">About Dynamis</a>
+                <Link to={urls.about.path}>About Dynamis</Link>
               </li>
               <li>
                 <a href="">Privacy Policy</a>
