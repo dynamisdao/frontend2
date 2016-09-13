@@ -10,6 +10,7 @@ import AccountCreationComponent from './components/base/accountCreation/componen
 
 import MainComponent from './components/main/component';
 import MainIndexComponent from './components/main/index/component';
+import HistoryForm1Component from './components/main/historyForm1/component';
 
 export const urls = {
   index: {
@@ -28,7 +29,10 @@ export const urls = {
     path: 'account-creation'
   },
   main: {
-    path: '/main'
+    path: '/main',
+    historyForm1: {
+      path: '/main/history-form-1'
+    }
   }
 };
 
@@ -44,6 +48,7 @@ export default (
     </Route>
     <Route path={urls.main.path} component={MainComponent}>
       <IndexRoute component={MainIndexComponent} />
+      <Route path={urls.main.historyForm1.path} component={HistoryForm1Component} />
     </Route>
   </Route>
 );

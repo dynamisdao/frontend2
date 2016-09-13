@@ -1,3 +1,3 @@
 module.exports = {
-  baseUrl: 'http://dynamisapp.herokuapp.com'
+  baseUrl: ' https://dynamisapp-develop.herokuapp.com/'
 };

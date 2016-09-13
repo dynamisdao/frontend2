@@ -17,8 +17,10 @@ function profileReducer(state = initialState, action) {
       const identityUser = { };
       if (action.payload.them) {
         identityUser.username = action.payload.them.basics.username;
-        if (action.payload.them.pictures.primary.url) {
-          identityUser.avatarPath = action.payload.them.pictures.primary.url;
+        if (action.payload.them.pictures) {
+          if (action.payload.them.pictures.primary.url) {
+            identityUser.avatarPath = action.payload.them.pictures.primary.url;
+          }
         } else {
           identityUser.avatarPath = 'https://keybase.io/images/no-photo/placeholder-avatar-180-x-180.png';
         }

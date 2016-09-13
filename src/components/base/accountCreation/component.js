@@ -22,6 +22,7 @@ class AccountCreationComponent extends Component {
                   <AccountCreationForm
                     identityUser={this.props.identityUser}
                     accountCreate={this.props.accountCreate}
+                    clearIdentity={this.props.clearIdentity}
                   />
                   <StepsAsideComponent
                     body={
@@ -43,6 +44,7 @@ class AccountCreationComponent extends Component {
 
 AccountCreationComponent.propTypes = {
   accountCreate: PropTypes.func.isRequired,
+  clearIdentity: PropTypes.func.isRequired,
   identityUser: PropTypes.object.isRequired
 };
 

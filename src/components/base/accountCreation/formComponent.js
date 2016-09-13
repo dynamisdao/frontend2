@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link, browserHistory } from 'react-router';
+import * as types from '../../../constants/profile';
 
 import { urls } from '../../../routes';
 
@@ -31,10 +32,18 @@ class AccountCreationForm extends Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderField = this.renderField.bind(this);
+    this.handleLink = this.handleLink.bind(this);
   }
 
   handleSubmit(values) {
     this.props.accountCreate(values);
+  }
+
+  handleLink(event) {
+    event.preventDefault();
+    this.props.clearIdentity();
+    browserHistory.push(urls.identity.path);
+    ['eth', 'username', 'avatarPath'].map(f => window.localStorage.removeItem(f));
   }
 
   renderField({ input, label, type, meta: { touched, error } }) {
@@ -54,11 +63,6 @@ class AccountCreationForm extends Component {
 
   render() {
     const { handleSubmit, identityUser } = this.props;
-    const handleLink = (event) => {
-      event.preventDefault();
-      browserHistory.push(urls.identity.path);
-      ['eth', 'username', 'avatarPath'].map(f => window.localStorage.removeItem(f));
-    };
     return (
       <div>
         <div className="user">
@@ -67,7 +71,7 @@ class AccountCreationForm extends Component {
               <i className="ico-check-secondary" />
               Online Identity
             </h2>
-            <a href="" onClick={handleLink} to={urls.identity.path} className="link">change keybase user</a>
+            <a href="" onClick={this.handleLink} to={urls.identity.path} className="link">change keybase user</a>
           </header>
           <div className="user-body">
             <a href="">
@@ -107,6 +111,7 @@ class AccountCreationForm extends Component {
 
 AccountCreationForm.propTypes = {
   accountCreate: PropTypes.func.isRequired,
+  clearIdentity: PropTypes.func.isRequired,
   identityUser: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired
 };
