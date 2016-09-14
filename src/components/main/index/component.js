@@ -1,9 +1,18 @@
 import React, { Component, PropTypes } from 'react';
+import { browserHistory } from 'react-router';
 
+import StepsAsideComponent from '../../base/fiveStepsAside/component';
+import HeaderStep from '../../base/headerStep/component';
+
+import { urls } from '../../../routes';
 
 class MainIndexComponent extends Component {
 
   render() {
+    const handleNextButton = () => {
+      browserHistory.push(urls.main.historyForm1.path);
+    };
+    
     return (
       <div className="main">
         <div className="shell">
@@ -11,50 +20,7 @@ class MainIndexComponent extends Component {
             <h5 className="section-title">Create a Policy</h5>
 
             <div className="section-inner">
-              <header className="section-head">
-                <ul className="list-links">
-                  <li className="prev">
-                    <span>
-                      <i className="ico-check" />
-                    </span>
-
-                    <a href="">Online I.D</a>
-                  </li>
-                  
-                  <li className="active">
-                    <span>
-                      <i className="ico-check" />
-                    </span>
-
-                    <a href="">Account Creation</a>
-                  </li>
-                  
-                  <li>
-                    <span>
-                      <i className="ico-check" />
-                    </span>
-
-                    <a href="">Employment Verification</a>
-                  </li>
-                  
-                  <li>
-                    <span>
-                      <i className="ico-check" />
-                    </span>
-
-                    <a href="">Coverage Selection</a>
-                  </li>
-
-                  <li>
-                    <span>
-                      <i className="ico-check" />
-                    </span>
-
-                    <a href="">Self Essessment</a>
-                  </li>
-                </ul>
-              </header>
-              
+              <HeaderStep currenStep={3} />
               <div className="section-body">
                 <div className="section-group section-group-secondary">
                   <div className="user">
@@ -110,19 +76,23 @@ class MainIndexComponent extends Component {
                           </tr>
                         </table>
                       </div>
+                      <div className="form-actions">
+                        <button
+                          type="submit" className="btn btn-blue btn-big"
+                          onClick={handleNextButton}
+                        >
+                          Next
+                        </button>
+                      </div>
                     </div>
                   </div>
-                  
-                  <aside className="section-aside">
-                    <p>
-                      <span>Hey, BTW, If you close your browser during this process</span> and come back to it later. We’ll remember right where you left off.
-                    </p>
-
-                    <img
-                      src="src/assets/css/images/temp/logo-image.png"
-                      alt="" className="logo-image" width="51" height="54"
-                    />
-                  </aside>
+                  <StepsAsideComponent
+                    body={
+                      <p>
+                        <span>Hey, BTW, If you close your browser during this process</span> and
+                        come back to it later. We’ll remember right where you left off.
+                      </p>}
+                  />
                 </div>
               </div>
             </div>
