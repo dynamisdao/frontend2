@@ -1,6 +1,6 @@
 import objectAssign from 'object-assign';
 
-import { LOGIN, IDENTITY } from '../constants/profile';
+import * as types from '../constants/profile';
 
 const initialState = {
   isAuth: false,
@@ -11,9 +11,12 @@ const initialState = {
 
 function profileReducer(state = initialState, action) {
   switch (action.type) {
-    case LOGIN:
+    case types.LOGIN:
       return objectAssign({}, state, action.payload);
-    case IDENTITY: {
+    case types.GET_ACCOUNT: {
+      return objectAssign({}, state, { user: action.payload }, { isAuth: true });
+    }
+    case types.IDENTITY: {
       const identityUser = { };
       if (action.payload.them) {
         identityUser.username = action.payload.them.basics.username;
@@ -26,6 +29,10 @@ function profileReducer(state = initialState, action) {
         }
       }
       return objectAssign({}, state, { identityUser });
+    }
+    case types.LOGOUT: {
+      window.localStorage.removeItem('accountId');
+      return objectAssign({}, state, action.payload);
     }
     default:
       return state;

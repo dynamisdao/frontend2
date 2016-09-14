@@ -5,13 +5,14 @@ import { getHeaders } from '../utils';
 
 const toastr = window.toastr;
 
-export function fetchProfile(accountId) {
+export function fetchProfile(accountId, successCallback, errorCallback) {
   return dispatch => {
     let isError = false;
     const returnObj = { type: types.GET_ACCOUNT, payload: {} };
-    fetch(`${config.baseUrl}/api/v1/accounts/${accountId}/`,
+    fetch(`${config.baseUrl}api/v1/accounts/${accountId}/`,
       { method: 'GET',
         headers: getHeaders(),
+        credentials: 'include'
       })
       .then(response => {
         if (response.status >= 400) {
@@ -23,9 +24,13 @@ export function fetchProfile(accountId) {
       })
       .then(json => {
         if (!isError) {
+          if (successCallback) successCallback.apply();
           returnObj.payload = json;
+          window.localStorage.setItem('accountId', accountId);
           returnObj.payload.isAuth = true;
           dispatch(returnObj);
+        } else {
+          if (errorCallback) errorCallback.apply();
         }
       });
   };
@@ -35,7 +40,7 @@ export function login(data, successCallback, errorCallback) {
   return dispatch => {
     let isError = false;
     const returnObj = { type: types.LOGIN, payload: {} };
-    fetch(`${config.baseUrl}/api/v1/login/`,
+    fetch(`${config.baseUrl}api/v1/login/`,
       { method: 'POST',
         headers: getHeaders(),
         body: JSON.stringify(data)
@@ -48,16 +53,10 @@ export function login(data, successCallback, errorCallback) {
       })
       .then(json => {
         if (!isError) {
-          if (successCallback) {
-            successCallback.apply();
-          }
-          dispatch(fetchProfile(json.accountid));
+          dispatch(fetchProfile(json.accountid, successCallback, errorCallback));
         } else {
-          returnObj.payload.isAuth = false;
           toastr.error(json.non_field_errors[0]);
-          if (errorCallback) {
-            errorCallback.apply();
-          }
+          if (errorCallback) errorCallback.apply();
         }
         dispatch(returnObj);
       });
