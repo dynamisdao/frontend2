@@ -10,7 +10,7 @@ const PositionPanelComponent = (props) => {
         </p>
         <span>July 20, 2015 – Present</span>
         <strong>9.75 months</strong>
-        <a href="" className="link">edit</a>
+        <a href="" className="link" onClick={props.edit}>edit</a>
       </div>
       <div className="position-body">
         <p>Reference</p>
@@ -27,7 +27,8 @@ const PositionPanelComponent = (props) => {
 };
 
 PositionPanelComponent.propTypes = {
-  position: PropTypes.object.isRequired
+  position: PropTypes.object.isRequired,
+  edit: PropTypes.func.isRequired
 };
 
 export default PositionPanelComponent;

@@ -1,2 +1,3 @@
 export const ADD_POSITION = 'ADD_POSITION';
+export const EDIT_POSITION = 'EDIT_POSITION';
 

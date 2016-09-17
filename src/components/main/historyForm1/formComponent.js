@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { browserHistory } from 'react-router';
 
 import PositionPanelComponent from './positionPanel';
+import CalendarPanelComponent from './calendarPanel';
 
 import { urls } from '../../../routes';
 
@@ -10,6 +11,11 @@ export const fields = [
   'companyName', 'jobTitile',
   'city', 'state', 'from', 'to',
   'confirmerName', 'confirmerEmail'];
+
+const dataList = [
+  '01.2016', '02.2016', '03.2016', '04.2016', '05.2016', '06.2016', '07.2016', '08.2016',
+  '09.2016', '10.2016', '11.2016', '12.2016'
+];
 
 const validate = values => {
   const errors = {};
@@ -39,13 +45,56 @@ const validate = values => {
 class HistoryForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isCurrentWork: false,
+      fromValue: 'from',
+      toValue: 'to'
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
     this.renderInputField = this.renderInputField.bind(this);
+    this.handleToSelectField = this.handleToSelectField.bind(this);
+    this.handleFromSelectField = this.handleFromSelectField.bind(this);
+    this.handleCheckBoxField = this.handleCheckBoxField.bind(this);
   }
 
   handleSubmit(values) {
-    this.props.addPosition(values);
-    this.props.reset();
+    const position = values;
+    position.id = this.props.positionList.length + 1;
+    position.to = this.state.toValue;
+    position.from = this.state.fromValue;
+    position.isCurrentWork = this.state.isCurrentWork;
+    this.props.addPosition(position);
+    this.props.initialize();
+    this.setState({
+      fromValue: 'from',
+      toValue: 'to'
+    });
+  }
+
+  handleEdit(position) {
+    return (event) => {
+      event.preventDefault();
+      this.props.initialize(position);
+      this.setState({
+        toValue: position.to,
+        fromValue: position.from,
+        isCurrentWork: position.isCurrentWork
+      });
+      this.props.editPosition(position.id);
+    };
+  }
+
+  handleToSelectField(event) {
+    this.setState({ toValue: event.target.value });
+  }
+
+  handleFromSelectField(event) {
+    this.setState({ fromValue: event.target.value });
+  }
+
+  handleCheckBoxField() {
+    this.setState({ isCurrentWork: !this.state.isCurrentWork });
   }
 
   renderInputField({ input, label, type, className, meta: { touched, error } }) {
@@ -62,6 +111,7 @@ class HistoryForm extends Component {
 
   render() {
     const { handleSubmit, positionList } = this.props;
+    const { isCurrentWork } = this.state;
     return (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
         <div className="form-head">
@@ -69,8 +119,11 @@ class HistoryForm extends Component {
           <h5>enter your last 4 years of employment</h5>
           <div className="form-head-inner">
             {positionList.map(position =>
-              <PositionPanelComponent key={position.jobTitile} position={position} />
+              <PositionPanelComponent key={position.id} position={position} edit={this.handleEdit(position)} />
             )}
+            {positionList.length > 0 ?
+              <CalendarPanelComponent positionList={positionList} /> : null
+            }
           </div>
         </div>
         <div className="form-content">
@@ -101,35 +154,54 @@ class HistoryForm extends Component {
                   />
                 </div>
               </div>
-          
+
               <div className="form-row">
                 <div className="form-col form-col-1of3">
                   <div className="form-col form-col-1of2">
                     <label htmlFor="field-from" className="form-label hidden">From</label>
-                    
                     <div className="form-controls">
-                      <select name="field-from" id="field-from" className="select">
+                      <select
+                        onChange={this.handleFromSelectField}
+                        value={this.state.fromValue}
+                        name="field-to" id="field-to"
+                        className="select"
+                      >
                         <option value="">From</option>
+                        {dataList.map(date =>
+                          <option key={date} value={date}>{date}</option>
+                        )}
                       </select>
                     </div>
                   </div>
-                  
-                  <div className="form-col form-col-1of2">
-                    <label htmlFor="field-to" className="form-label hidden">To</label>
-                    
-                    <div className="form-controls">
-                      <select name="field-to" id="field-to" className="select">
-                        <option value="">To</option>
-                      </select>
-                    </div>
-                  </div>
+                  {!isCurrentWork ?
+                    <div className="form-col form-col-1of2">
+                      <label htmlFor="field-to" className="form-label hidden">To</label>
+                      <div className="form-controls">
+                        <select
+                          onChange={this.handleToSelectField}
+                          value={this.state.toValue}
+                          name="field-to" id="field-to"
+                          className="select"
+                        >
+                          <option value="">To</option>
+                          {dataList.map(date =>
+                            <option key={date} value={date}>{date}</option>
+                          )}
+                        </select>
+                      </div>
+                    </div> : null
+                  }
                 </div>
-                
                 <div className="form-col form-col-1of3">
                   <div className="checkbox">
-                    <input type="checkbox" name="field-currently-work-here" id="field-currently-work-here" />
-                    
-                    <label className="form-label" htmlFor="field-currently-work-here">I currently work here</label>
+                    <input
+                      checked={this.state.isCurrentWork}
+                      onChange={this.handleCheckBoxField}
+                      value={this.state.isCurrentWork}
+                      type="checkbox" name="field-currently-work-here"
+                      id="field-currently-work-here"
+                    />
+                    <label className="form-label checked" htmlFor="field-currently-work-here">I currently work here</label>
                   </div>
                 </div>
               </div>
@@ -168,7 +240,12 @@ class HistoryForm extends Component {
           <div className="form-actions">
             <button type="submit" className="btn btn-blue btn-big btn-big-secondary">Add Position</button>
           
-            <button type="submit" className="btn btn-silver btn-big btn-big-secondary">Complete Section</button>
+            <button
+              className="btn btn-silver btn-big btn-big-secondary"
+              disabled={positionList.length === 0}
+            >
+              Complete Section
+            </button>
           </div>
         </div>
       </form>
@@ -181,7 +258,9 @@ HistoryForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   untouch: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
-  positionList: PropTypes.array.isRequired
+  positionList: PropTypes.array.isRequired,
+  initialize: PropTypes.func.isRequired,
+  editPosition: PropTypes.func.isRequired
 };
 
 export default reduxForm({
