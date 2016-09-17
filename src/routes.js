@@ -11,6 +11,7 @@ import AccountCreationComponent from './components/base/accountCreation/componen
 import MainComponent from './components/main/component';
 import MainIndexComponent from './components/main/index/component';
 import HistoryForm1Component from './components/main/historyForm1/component';
+import CoverageFormComponent from './components/main/coverageForm/component';
 
 export const urls = {
   index: {
@@ -32,6 +33,9 @@ export const urls = {
     path: '/main',
     historyForm1: {
       path: '/history-form-1'
+    },
+    coverageForm: {
+      path: '/coverage-form'
     }
   }
 };
@@ -49,6 +53,7 @@ export default (
     <Route path={urls.main.path} component={MainComponent}>
       <IndexRoute component={MainIndexComponent} />
       <Route path={urls.main.historyForm1.path} component={HistoryForm1Component} />
+      <Route path={urls.main.coverageForm.path} component={CoverageFormComponent} />
     </Route>
   </Route>
 );
