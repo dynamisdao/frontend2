@@ -10,3 +10,9 @@ export function addPosition(values) {
   };
 }
 
+export function editPosition(id) {
+  return {
+    type: types.EDIT_POSITION,
+    payload: { id }
+  };
+}

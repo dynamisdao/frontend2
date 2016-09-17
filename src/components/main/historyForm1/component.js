@@ -21,6 +21,7 @@ class HistoryForm1Component extends Component {
                   <div className="form form-history">
                     <HistoryForm
                       addPosition={this.props.addPosition}
+                      editPosition={this.props.editPosition}
                       positionList={this.props.positionList}
                     />
                   </div>
@@ -36,7 +37,8 @@ class HistoryForm1Component extends Component {
 
 HistoryForm1Component.propTypes = {
   addPosition: PropTypes.func.isRequired,
-  positionList: PropTypes.array.isRequired
+  positionList: PropTypes.array.isRequired,
+  editPosition: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {

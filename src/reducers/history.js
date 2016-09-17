@@ -1,6 +1,6 @@
 import objectAssign from 'object-assign';
 
-import { ADD_POSITION } from '../constants/history';
+import * as types from '../constants/history';
 
 const initialState = {
   positionList: []
@@ -8,10 +8,16 @@ const initialState = {
 
 function profileReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_POSITION: {
+    case types.ADD_POSITION: {
       const positionList = state.positionList;
       positionList.push(action.payload.values);
       return objectAssign({}, state, positionList);
+    }
+    case types.EDIT_POSITION: {
+      const editPositionList = state.positionList;
+      const index = editPositionList.indexOf(editPositionList.find(p => p.id === action.payload.id));
+      editPositionList.splice(index, 1);
+      return objectAssign({}, state, { positionList: editPositionList });
     }
     default:
       return state;

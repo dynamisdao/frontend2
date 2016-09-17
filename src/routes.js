@@ -31,7 +31,7 @@ export const urls = {
   main: {
     path: '/main',
     historyForm1: {
-      path: '/main/history-form-1'
+      path: '/history-form-1'
     }
   }
 };
