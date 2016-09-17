@@ -65,7 +65,7 @@ class HistoryForm extends Component {
     position.from = this.state.fromValue;
     position.isCurrentWork = this.state.isCurrentWork;
     this.props.addPosition(position);
-    this.props.reset();
+    this.props.initialize();
     this.setState({
       fromValue: 'from',
       toValue: 'to'
@@ -167,8 +167,8 @@ class HistoryForm extends Component {
                         className="select"
                       >
                         <option value="">From</option>
-                        {dataList.map(data =>
-                          <option value={data}>{data}</option>
+                        {dataList.map(date =>
+                          <option key={date} value={date}>{date}</option>
                         )}
                       </select>
                     </div>
@@ -184,8 +184,8 @@ class HistoryForm extends Component {
                           className="select"
                         >
                           <option value="">To</option>
-                          {dataList.map(data =>
-                            <option value={data}>{data}</option>
+                          {dataList.map(date =>
+                            <option key={date} value={date}>{date}</option>
                           )}
                         </select>
                       </div>

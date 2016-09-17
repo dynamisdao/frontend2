@@ -26,8 +26,8 @@ const CalendarPanelComponent = (props) => {
       <li className="month">
         <span>2016</span>
         <ul className="list-months">
-        {monthsList.filter(m => m.year === 2016).map(month =>
-          <li className={month.isSelect ? 'blue' : null}>
+        {monthsList.filter(m => m.year === 2016).map((month, key) =>
+          <li key={key} className={month.isSelect ? 'blue' : null}>
             <a href="" />
           </li>
         )}
@@ -36,8 +36,8 @@ const CalendarPanelComponent = (props) => {
       <li className="month">
         <span>2015</span>
         <ul className="list-months">
-        {monthsList.filter(m => m.year === 2015).map(month =>
-          <li className={month.isSelect ? 'blue' : null}>
+        {monthsList.filter(m => m.year === 2015).map((month, key) =>
+          <li key={key} className={month.isSelect ? 'blue' : null}>
             <a href="" />
           </li>
         )}
@@ -46,8 +46,8 @@ const CalendarPanelComponent = (props) => {
       <li className="month">
         <span>2014</span>
         <ul className="list-months">
-        {monthsList.filter(m => m.year === 2014).map(month =>
-          <li className={month.isSelect ? 'blue' : null}>
+        {monthsList.filter(m => m.year === 2014).map((month, key) =>
+          <li key={key} className={month.isSelect ? 'blue' : null}>
             <a href="" />
           </li>
         )}
@@ -56,8 +56,8 @@ const CalendarPanelComponent = (props) => {
       <li className="month">
         <span>2013</span>
         <ul className="list-months">
-        {monthsList.filter(m => m.year === 2013).map(month =>
-          <li className={month.isSelect ? 'blue' : null}>
+        {monthsList.filter(m => m.year === 2013).map((month, key) =>
+          <li key={key} className={month.isSelect ? 'blue' : null}>
             <a href="" />
           </li>
         )}
