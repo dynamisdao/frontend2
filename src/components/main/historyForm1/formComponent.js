@@ -56,6 +56,12 @@ class HistoryForm extends Component {
     this.handleToSelectField = this.handleToSelectField.bind(this);
     this.handleFromSelectField = this.handleFromSelectField.bind(this);
     this.handleCheckBoxField = this.handleCheckBoxField.bind(this);
+    this.handleComplete = this.handleComplete.bind(this);
+  }
+
+  handleComplete(event) {
+    event.preventDefault();
+    browserHistory.push(urls.main.coverageForm.path);
   }
 
   handleSubmit(values) {
@@ -241,8 +247,12 @@ class HistoryForm extends Component {
             <button type="submit" className="btn btn-blue btn-big btn-big-secondary">Add Position</button>
           
             <button
-              className="btn btn-silver btn-big btn-big-secondary"
+              className={positionList.length === 0 ?
+                'btn btn-silver btn-big btn-big-secondary' :
+                'btn btn-blue btn-big btn-big-secondary'
+              }
               disabled={positionList.length === 0}
+              onClick={this.handleComplete}
             >
               Complete Section
             </button>
