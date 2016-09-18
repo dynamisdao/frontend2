@@ -20,6 +20,12 @@ class AssessmentFormComponent extends Component {
     this.handleCoveragePeriod = this.handleCoveragePeriod.bind(this);
   }
 
+  componentWillMount() {
+    if (this.props.positionList.length === 0) {
+      browserHistory.push(urls.main.historyForm1.path);
+    }
+  }
+
   handleEdit(position) {
     return (event) => {
       event.preventDefault();

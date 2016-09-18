@@ -49,6 +49,7 @@ class MainIndexComponent extends Component {
             
             <div className="account-body">
               <table className="table-account">
+                <tbody> 
                 <tr>
                   <td>Username:</td>
 
@@ -64,6 +65,7 @@ class MainIndexComponent extends Component {
                     <span>•••••••••••••</span>
                   </td>
                 </tr>
+                </tbody> 
               </table>
             </div>
             <div className="form-actions">
