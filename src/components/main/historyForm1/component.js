@@ -12,7 +12,7 @@ class HistoryForm1Component extends Component {
         <div className="form form-history">
           <HistoryForm
             addPosition={this.props.addPosition}
-            editPosition={this.props.editPosition}
+            deletePosition={this.props.deletePosition}
             positionList={this.props.positionList}
           />
         </div>
@@ -24,7 +24,7 @@ class HistoryForm1Component extends Component {
 HistoryForm1Component.propTypes = {
   addPosition: PropTypes.func.isRequired,
   positionList: PropTypes.array.isRequired,
-  editPosition: PropTypes.func.isRequired
+  deletePosition: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -37,4 +37,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(HistoryActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HistoryForm1Component);
+export default connect(mapStateToProps, mapDispatchToProps, null, { pure: false })(HistoryForm1Component);
