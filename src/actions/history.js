@@ -10,9 +10,9 @@ export function addPosition(values) {
   };
 }
 
-export function editPosition(id) {
+export function deletePosition(id) {
   return {
-    type: types.EDIT_POSITION,
+    type: types.DELETE_POSITION,
     payload: { id }
   };
 }

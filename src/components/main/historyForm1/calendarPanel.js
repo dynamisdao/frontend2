@@ -1,25 +1,10 @@
 import React, { PropTypes } from 'react';
 
-import { calculationDate } from '../../../utils';
+import { getMonthsQuantity } from '../../../utils';
 
 const CalendarPanelComponent = (props) => {
-  const workPeriods = props.positionList.map(p =>
-    ({ fromValue: calculationDate(p.from),
-      toValue: calculationDate(p.to, p.isCurrent)
-  }));
+  const monthsList = getMonthsQuantity(props.positionList).monthsList;
 
-  const monthsList = [];
-  for (let year = 2013; year <= 2016; year++) {
-    for (let month = 1; month <= 12; month++) {
-      let isSelect = false;
-      for (const p of workPeriods) {
-        if (p.fromValue.year <= year && year <= p.toValue.year && p.fromValue.month <= month && month <= p.toValue.month) {
-          isSelect = true;
-        }
-      }
-      monthsList.push({ year, month, isSelect });
-    }
-  }
   return (
     <ol className="months">
       <h5>Employment by Months</h5>

@@ -29,7 +29,6 @@ class MainIndexComponent extends Component {
               <span>
                 <i className="material-icons">person</i>
               </span>
-
               <small>Ratcatcow</small>
             </a>
           </div>
@@ -43,12 +42,12 @@ class MainIndexComponent extends Component {
 
                 Account
               </h2>
-              
               <a href="" className="link">edit</a>
             </header>
             
             <div className="account-body">
               <table className="table-account">
+                <tbody>
                 <tr>
                   <td>Username:</td>
 
@@ -64,6 +63,7 @@ class MainIndexComponent extends Component {
                     <span>•••••••••••••</span>
                   </td>
                 </tr>
+                </tbody>
               </table>
             </div>
             <div className="form-actions">

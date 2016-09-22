@@ -6,6 +6,7 @@ import PositionPanelComponent from './positionPanel';
 import CalendarPanelComponent from './calendarPanel';
 
 import { urls } from '../../../routes';
+import { getMonthsQuantity } from '../../../utils';
 
 export const fields = [
   'companyName', 'jobTitile',
@@ -13,6 +14,12 @@ export const fields = [
   'confirmerName', 'confirmerEmail'];
 
 const dataList = [
+  '01.2013', '02.2013', '03.2013', '04.2013', '05.2013', '06.2013', '07.2013', '08.2013',
+  '09.2013', '10.2013', '11.2013', '12.2013',
+  '01.2014', '02.2014', '03.2014', '04.2014', '05.2014', '06.2014', '07.2014', '08.2014',
+  '09.2014', '10.2014', '11.2014', '12.2014',
+  '01.2015', '02.2015', '03.2015', '04.2015', '05.2015', '06.2015', '07.2015', '08.2015',
+  '09.2015', '10.2015', '11.2015', '12.2015',
   '01.2016', '02.2016', '03.2016', '04.2016', '05.2016', '06.2016', '07.2016', '08.2016',
   '09.2016', '10.2016', '11.2016', '12.2016'
 ];
@@ -52,6 +59,7 @@ class HistoryForm extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.renderInputField = this.renderInputField.bind(this);
     this.handleToSelectField = this.handleToSelectField.bind(this);
     this.handleFromSelectField = this.handleFromSelectField.bind(this);
@@ -87,7 +95,14 @@ class HistoryForm extends Component {
         fromValue: position.from,
         isCurrentWork: position.isCurrentWork
       });
-      this.props.editPosition(position.id);
+      this.props.deletePosition(position.id);
+    };
+  }
+
+  handleDelete(position) {
+    return (event) => {
+      event.preventDefault();
+      this.props.deletePosition(position.id);
     };
   }
 
@@ -125,7 +140,12 @@ class HistoryForm extends Component {
           <h5>enter your last 4 years of employment</h5>
           <div className="form-head-inner">
             {positionList.map(position =>
-              <PositionPanelComponent key={position.id} position={position} edit={this.handleEdit(position)} />
+              <PositionPanelComponent
+                key={position.id} position={position}
+                edit={this.handleEdit(position)}
+                delete={this.handleDelete(position)}
+                monthsQuantity={getMonthsQuantity(positionList).quantity}
+              />
             )}
             {positionList.length > 0 ?
               <CalendarPanelComponent positionList={positionList} /> : null
@@ -270,7 +290,7 @@ HistoryForm.propTypes = {
   reset: PropTypes.func.isRequired,
   positionList: PropTypes.array.isRequired,
   initialize: PropTypes.func.isRequired,
-  editPosition: PropTypes.func.isRequired
+  deletePosition: PropTypes.func.isRequired
 };
 
 export default reduxForm({

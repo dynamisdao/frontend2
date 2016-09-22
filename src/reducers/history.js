@@ -13,7 +13,7 @@ function profileReducer(state = initialState, action) {
       positionList.push(action.payload.values);
       return objectAssign({}, state, positionList);
     }
-    case types.EDIT_POSITION: {
+    case types.DELETE_POSITION: {
       const editPositionList = state.positionList;
       const index = editPositionList.indexOf(editPositionList.find(p => p.id === action.payload.id));
       editPositionList.splice(index, 1);

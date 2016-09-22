@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import { getMonthtStringByNumber } from '../../../utils';
+
 const PositionPanelComponent = (props) => {
   return (
     <div className="position position-secondary">
@@ -8,9 +10,21 @@ const PositionPanelComponent = (props) => {
         <p>
           <span>{props.position.companyName}</span> <span>{props.position.city}, {props.position.state}</span>
         </p>
-        <span>July 20, 2015 – Present</span>
-        <strong>9.75 months</strong>
-        <a href="" className="link" onClick={props.edit}>edit</a>
+        <span>
+          {getMonthtStringByNumber(props.position.from.split('.')[0])}, {props.position.from.split('.')[1]} -
+          {props.position.isCurrentWork ? ' Present' :
+          ` ${getMonthtStringByNumber(props.position.to.split('.')[0])},
+          ${props.position.to.split('.')[1]}`}
+        </span>
+        <strong>
+          {props.monthsQuantity > 11 ? `${(props.monthsQuantity -
+            (props.monthsQuantity % 12)) / 12} years` : null} {props.monthsQuantity % 12 ?
+            `${props.monthsQuantity % 12} months` : null}
+        </strong>
+        <div className="link">
+          <a href="" onClick={props.edit}>edit</a> /
+          <a href="" onClick={props.delete}> delete</a>
+        </div>
       </div>
       <div className="position-body">
         <p>Reference</p>
@@ -28,7 +42,9 @@ const PositionPanelComponent = (props) => {
 
 PositionPanelComponent.propTypes = {
   position: PropTypes.object.isRequired,
-  edit: PropTypes.func.isRequired
+  edit: PropTypes.func.isRequired,
+  delete: PropTypes.func.isRequired,
+  monthsQuantity: PropTypes.number.isRequired
 };
 
 export default PositionPanelComponent;
