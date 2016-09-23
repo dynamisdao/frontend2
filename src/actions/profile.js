@@ -39,7 +39,7 @@ export function fetchProfile(accountId, successCallback, errorCallback) {
 export function login(data, successCallback, errorCallback) {
   return dispatch => {
     let isError = false;
-    const returnObj = { type: types.LOGIN, payload: {} };
+    dispatch({ type: types.LOGIN_START, payload: {} });
     fetch(`${config.baseUrl}api/v1/login/`,
       { method: 'POST',
         headers: getHeaders(),
@@ -57,8 +57,8 @@ export function login(data, successCallback, errorCallback) {
         } else {
           toastr.error(json.non_field_errors[0]);
           if (errorCallback) errorCallback.apply();
+          dispatch({ type: types.LOGIN_ERROR, payload: {} });
         }
-        dispatch(returnObj);
       });
   };
 }

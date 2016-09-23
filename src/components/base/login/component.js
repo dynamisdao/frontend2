@@ -19,7 +19,7 @@ class LoginComponent extends Component {
                 <div className="section-group section-group-primary">
                   <div className="section-content">
                     <div className="form form-account">
-                      <LoginForm login={this.props.login} />
+                      <LoginForm login={this.props.login} isFetched={this.props.isFetched} />
                     </div>
                   </div>
                   <StepsAsideComponent
@@ -40,11 +40,17 @@ class LoginComponent extends Component {
 }
 
 LoginComponent.propTypes = {
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  isFetched: PropTypes.bool.isRequired
 };
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(ProfileActions, dispatch);
 }
+function mapStateToProps(state) {
+  return {
+    isFetched: state.profile.isFetched
+  };
+}
 
-export default connect(undefined, mapDispatchToProps)(LoginComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);

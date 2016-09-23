@@ -50,7 +50,7 @@ class LoginForm extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, isFetched } = this.props;
     return (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
         <div className="form-head">
@@ -61,7 +61,13 @@ class LoginForm extends Component {
           <Field name="password" type="password" component={this.renderField} label="Password" />
         </div>
         <div className="form-actions">
-          <button type="submit" className="btn btn-blue btn-big btn-big-secondary">Login</button>
+          <button
+            type="submit"
+            className="btn btn-blue btn-big btn-big-secondary"
+            disabled={isFetched}
+          >
+            Login {isFetched ? <i className="fa fa-spin fa-spinner" /> : null}
+          </button>
         </div>
       </form>
     );
@@ -70,6 +76,7 @@ class LoginForm extends Component {
 
 LoginForm.propTypes = {
   login: PropTypes.func.isRequired,
+  isFetched: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   array: PropTypes.object.isRequired,
   untouch: PropTypes.func.isRequired

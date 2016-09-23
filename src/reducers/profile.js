@@ -11,10 +11,14 @@ const initialState = {
 
 function profileReducer(state = initialState, action) {
   switch (action.type) {
-    case types.LOGIN:
-      return objectAssign({}, state, action.payload);
+    case types.LOGIN_START:
+      return objectAssign({}, state, { isFetched: true });
+    case types.LOGIN_SUCCESS:
+      return objectAssign({}, state, { isFetched: false });
+    case types.LOGIN_ERROR:
+      return objectAssign({}, state, { isFetched: false });
     case types.GET_ACCOUNT: {
-      return objectAssign({}, state, { user: action.payload }, { isAuth: true });
+      return objectAssign({}, state, { user: action.payload }, { isAuth: true }, { isFetched: false });
     }
     case types.IDENTITY: {
       const identityUser = { };
