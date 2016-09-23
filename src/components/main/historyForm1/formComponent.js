@@ -55,7 +55,10 @@ class HistoryForm extends Component {
     this.state = {
       isCurrentWork: false,
       fromValue: 'from',
-      toValue: 'to'
+      toValue: 'to',
+      fromIsValid: true,
+      toIsValid: true,
+      dataIsValid: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
@@ -73,17 +76,25 @@ class HistoryForm extends Component {
   }
 
   handleSubmit(values) {
-    const position = values;
-    position.id = this.props.positionList.length + 1;
-    position.to = this.state.toValue;
-    position.from = this.state.fromValue;
-    position.isCurrentWork = this.state.isCurrentWork;
-    this.props.addPosition(position);
-    this.props.initialize();
-    this.setState({
-      fromValue: 'from',
-      toValue: 'to'
-    });
+    if ((this.state.toValue !== 'to' || this.state.fromValue !== 'from') && this.state.dataIsValid) {
+      const position = values;
+      position.id = this.props.positionList.length + 1;
+      position.to = this.state.toValue;
+      position.from = this.state.fromValue;
+      position.isCurrentWork = this.state.isCurrentWork;
+      this.props.addPosition(position);
+      this.props.initialize();
+      this.setState({
+        fromValue: 'from',
+        toValue: 'to',
+        isCurrentWork: false
+      });
+    } else if (this.state.dataIsValid) {
+      this.setState({
+        fromIsValid: false,
+        toIsValid: false
+      });
+    }
   }
 
   handleEdit(position) {
@@ -93,7 +104,10 @@ class HistoryForm extends Component {
       this.setState({
         toValue: position.to,
         fromValue: position.from,
-        isCurrentWork: position.isCurrentWork
+        isCurrentWork: position.isCurrentWork,
+        fromIsValid: true,
+        toIsValid: true,
+        dataIsValid: true
       });
       this.props.deletePosition(position.id);
     };
@@ -107,11 +121,41 @@ class HistoryForm extends Component {
   }
 
   handleToSelectField(event) {
-    this.setState({ toValue: event.target.value });
+    const value = event.target.value;
+    if (value === 'to') {
+      this.setState({ toIsValid: false });
+    } else {
+      this.setState({ toIsValid: true });
+    }
+    if (this.state.fromValue !== 'from') {
+      if (value.split('.')[1] < this.state.fromValue.split('.')[1] ||
+        (value.split('.')[1] === this.state.fromValue.split('.')[1] &&
+          value.split('.')[0] < this.state.fromValue.split('.')[0])) {
+        this.setState({ dataIsValid: false });
+      } else {
+        this.setState({ dataIsValid: true });
+      }
+    }
+    this.setState({ toValue: value });
   }
 
   handleFromSelectField(event) {
-    this.setState({ fromValue: event.target.value });
+    const value = event.target.value;
+    if (value === 'from') {
+      this.setState({ fromIsValid: false });
+    } else {
+      this.setState({ fromIsValid: true });
+    }
+    if (this.state.toValue !== 'to') {
+      if (value.split('.')[1] > this.state.toValue.split('.')[1] ||
+        (value.split('.')[1] === this.state.toValue.split('.')[1] &&
+          value.split('.')[0] > this.state.toValue.split('.')[0])) {
+        this.setState({ dataIsValid: false });
+      } else {
+        this.setState({ dataIsValid: true });
+      }
+    }
+    this.setState({ fromValue: value });
   }
 
   handleCheckBoxField() {
@@ -132,7 +176,7 @@ class HistoryForm extends Component {
 
   render() {
     const { handleSubmit, positionList } = this.props;
-    const { isCurrentWork } = this.state;
+    const { isCurrentWork, toIsValid, fromIsValid, dataIsValid } = this.state;
     return (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
         <div className="form-head">
@@ -144,7 +188,7 @@ class HistoryForm extends Component {
                 key={position.id} position={position}
                 edit={this.handleEdit(position)}
                 delete={this.handleDelete(position)}
-                monthsQuantity={getMonthsQuantity(positionList).quantity}
+                monthsQuantity={getMonthsQuantity([position]).quantity}
               />
             )}
             {positionList.length > 0 ?
@@ -192,11 +236,13 @@ class HistoryForm extends Component {
                         name="field-to" id="field-to"
                         className="select"
                       >
-                        <option value="">From</option>
+                        <option value="from">From</option>
                         {dataList.map(date =>
                           <option key={date} value={date}>{date}</option>
                         )}
                       </select>
+                      {!fromIsValid ? <span className="error">Required</span> : null}
+                      {!dataIsValid ? <span className="error">From should be later To</span> : null}
                     </div>
                   </div>
                   {!isCurrentWork ?
@@ -209,11 +255,12 @@ class HistoryForm extends Component {
                           name="field-to" id="field-to"
                           className="select"
                         >
-                          <option value="">To</option>
+                          <option value="to">To</option>
                           {dataList.map(date =>
                             <option key={date} value={date}>{date}</option>
                           )}
                         </select>
+                        {!toIsValid ? <span className="error">Required</span> : null}
                       </div>
                     </div> : null
                   }
@@ -227,7 +274,9 @@ class HistoryForm extends Component {
                       type="checkbox" name="field-currently-work-here"
                       id="field-currently-work-here"
                     />
-                    <label className="form-label checked" htmlFor="field-currently-work-here">I currently work here</label>
+                    <label className="form-label" htmlFor="field-currently-work-here">
+                      I currently work here
+                    </label>
                   </div>
                 </div>
               </div>
@@ -247,18 +296,14 @@ class HistoryForm extends Component {
                 />
               </div>
             </div>
-          
             <div className="form-section">
               <h5>Upload Supporting Documents</h5>
-          
               <div className="form-row">
                 <label htmlFor="field-upload" className="form-label-upload">
                   <input type="file" className="field-upload" name="field-upload" id="field-upload" value="" placeholder="upload" />
-          
                   <i className="material-icons">attach_file</i>
                 </label>
-          
-                <a href="#" className="link">e.g. pay stub, acceptance letter, 401k</a>
+                <a href="" className="link">e.g. pay stub, acceptance letter, 401k</a>
               </div>
             </div>
           </div>

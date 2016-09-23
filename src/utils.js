@@ -25,7 +25,7 @@ export function calculationDate(date, current) {
 export function getMonthsQuantity(positionList) {
   const workPeriods = positionList.map(p =>
     ({ fromValue: calculationDate(p.from),
-      toValue: calculationDate(p.to, p.isCurrent)
+      toValue: calculationDate(p.to, p.isCurrentWork)
   }));
   const monthsList = [];
   let quantity = 0;
@@ -50,13 +50,13 @@ export function getMonthsQuantity(positionList) {
 export function getMonthtStringByNumber(number) {
   switch (number) {
     case '01':
-      return 'January';
+      return 'Jan';
     case '02':
-      return 'February';
+      return 'Feb';
     case '03':
-      return 'March';
+      return 'Mar';
     case '04':
-      return 'April';
+      return 'Apr';
     case '05':
       return 'May';
     case '06':
@@ -64,15 +64,15 @@ export function getMonthtStringByNumber(number) {
     case '07':
       return 'July';
     case '08':
-      return 'August';
+      return 'Aug';
     case '09':
-      return 'September';
+      return 'Sept';
     case '10':
-      return 'October';
+      return 'Oct';
     case '11':
-      return 'November';
+      return 'Nov';
     case '12':
-      return 'December';
+      return 'Dec';
     default:
       return null;
   }

@@ -6,7 +6,6 @@ import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 import store from './store';
 
-import './assets/css/style.css';
 import './assets/postcss/_load.css';
 
 
