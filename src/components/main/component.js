@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 
 import FooterComponent from '../base/footer/component';
 import HeaderLogedComponent from '../base/headerLoged/component';
-import HeaderStep from '../base/headerStep/component';
 
 class MainComponent extends Component {
 
@@ -14,12 +13,7 @@ class MainComponent extends Component {
           <div className="shell">
             <section className="section section-form">
               <h5 className="section-title">Create a Policy</h5>
-              <div className="section-inner">
-                <HeaderStep currenStep={3} />
-                <div className="section-body">
-                  {this.props.children}
-                </div>
-              </div>
+              {this.props.children}
             </section>
           </div>
         </div>
