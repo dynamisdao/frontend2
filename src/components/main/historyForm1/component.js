@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import * as HistoryActions from '../../../actions/history';
 import HistoryForm from './formComponent';
-import UnsavedModal from '../../base/unsavedModal/component';
+{/*import UnsavedModal from '../../base/unsavedModal/component'; */}
 import HeaderStep from '../../base/headerStep/component';
 
 class HistoryForm1Component extends Component {
@@ -20,7 +20,7 @@ class HistoryForm1Component extends Component {
                 deletePosition={this.props.deletePosition}
                 positionList={this.props.positionList}
               />
-              <UnsavedModal route={this.props.route} />
+              {/* <UnsavedModal route={this.props.route} />  */}
             </div>
           </div>
         </div>

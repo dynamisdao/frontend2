@@ -29,8 +29,8 @@ export function fetchProfile(accountId, successCallback, errorCallback) {
           window.localStorage.setItem('accountId', accountId);
           returnObj.payload.isAuth = true;
           dispatch(returnObj);
-        } else {
-          if (errorCallback) errorCallback.apply();
+        } else if (errorCallback) {
+          errorCallback.apply();
         }
       });
   };
@@ -88,7 +88,7 @@ export function identity(username, successCallback) {
             successCallback.apply(null);
           }
           if (json.status.code > 0) toastr.error(json.status.desc);
-          dispatch({ type: types.IDENTITY_SUCCSSES, payload: json });
+          dispatch({ type: types.IDENTITY_SUCCESS, payload: json });
         } else {
           dispatch({ type: types.IDENTITY_ERROR, payload: {} });
         }
@@ -98,14 +98,35 @@ export function identity(username, successCallback) {
 
 export function clearIdentity() {
   return {
-    type: types.IDENTITY_SUCCSSES,
+    type: types.IDENTITY_SUCCESS,
     payload: {}
   };
 }
 
-export function accountCreate() {
-  return {
-    type: types.ACCOUNT_CREATE,
-    payload: { isAuth: false }
+export function accountCreate(data, successCallback, errorCallback) {
+  return dispatch => {
+    let isError = false;
+    dispatch({ type: types.ACCOUNT_CREATE_START, payload: {} });
+    fetch(`${config.baseUrl}api/v1/accounts/`,
+      { method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (response.status >= 400) {
+          isError = true;
+        }
+        return response.json();
+      })
+      .then(json => {
+        if (!isError) {
+          if (successCallback) successCallback.apply();
+          dispatch({ type: types.ACCOUNT_CREATE_SUCCESS, payload: {} });
+        } else {
+          toastr.error(json.email[0]);
+          if (errorCallback) errorCallback.apply();
+          dispatch({ type: types.ACCOUNT_CREATE_ERROR, payload: {} });
+        }
+      });
   };
 }

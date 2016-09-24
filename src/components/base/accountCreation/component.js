@@ -23,6 +23,7 @@ class AccountCreationComponent extends Component {
                     identityUser={this.props.identityUser}
                     accountCreate={this.props.accountCreate}
                     clearIdentity={this.props.clearIdentity}
+                    isFetched={this.props.isFetched}
                   />
                   <StepsAsideComponent
                     body={
@@ -45,12 +46,14 @@ class AccountCreationComponent extends Component {
 AccountCreationComponent.propTypes = {
   accountCreate: PropTypes.func.isRequired,
   clearIdentity: PropTypes.func.isRequired,
-  identityUser: PropTypes.object.isRequired
+  identityUser: PropTypes.object.isRequired,
+  isFetched: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    identityUser: state.profile.identityUser
+    identityUser: state.profile.identityUser,
+    isFetched: state.profile.isFetched
   };
 }
 

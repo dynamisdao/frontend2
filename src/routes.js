@@ -7,6 +7,7 @@ import AboutComponent from './components/base/about/component';
 import LoginComponent from './components/base/login/component';
 import IdentityComponent from './components/base/identity/component';
 import AccountCreationComponent from './components/base/accountCreation/component';
+import SendEmailMessageComponent from './components/base/sendEmailMessage/component';
 
 import MainComponent from './components/main/component';
 import MainIndexComponent from './components/main/index/component';
@@ -29,6 +30,9 @@ export const urls = {
   },
   accountCreation: {
     path: 'account-creation'
+  },
+  sendEmail: {
+    path: 'send-email'
   },
   main: {
     path: '/main',
@@ -53,6 +57,7 @@ export default (
       <Route path={urls.login.path} component={LoginComponent} />
       <Route path={urls.identity.path} component={IdentityComponent} />
       <Route path={urls.accountCreation.path} component={AccountCreationComponent} />
+      <Route path={urls.sendEmail.path} component={SendEmailMessageComponent} />
     </Route>
     <Route path={urls.main.path} component={MainComponent}>
       <IndexRoute component={MainIndexComponent} />
