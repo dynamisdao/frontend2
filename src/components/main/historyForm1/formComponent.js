@@ -242,7 +242,7 @@ class HistoryForm extends Component {
                         )}
                       </select>
                       {!fromIsValid ? <span className="error">Required</span> : null}
-                      {!dataIsValid ? <span className="error">From should be later To</span> : null}
+                      {!dataIsValid ? <span className="error">From should begin before To</span> : null}
                     </div>
                   </div>
                   {!isCurrentWork ?
