@@ -20,7 +20,9 @@ function profileReducer(state = initialState, action) {
     case types.GET_ACCOUNT: {
       return objectAssign({}, state, { user: action.payload }, { isAuth: true }, { isFetched: false });
     }
-    case types.IDENTITY: {
+    case types.IDENTITY_START:
+      return objectAssign({}, state, { isFetched: true });
+    case types.IDENTITY_SUCCSSES: {
       const identityUser = { };
       if (action.payload.them) {
         identityUser.username = action.payload.them.basics.username;
@@ -32,8 +34,10 @@ function profileReducer(state = initialState, action) {
           identityUser.avatarPath = 'https://keybase.io/images/no-photo/placeholder-avatar-180-x-180.png';
         }
       }
-      return objectAssign({}, state, { identityUser });
+      return objectAssign({}, state, { identityUser }, { isFetched: false });
     }
+    case types.IDENTITY_ERROR:
+      return objectAssign({}, state, { isFetched: false });
     case types.LOGOUT: {
       window.localStorage.removeItem('accountId');
       return objectAssign({}, state, action.payload);

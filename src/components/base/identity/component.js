@@ -22,6 +22,7 @@ class IdentityComponent extends Component {
                   <IdentityForm
                     identity={this.props.identity}
                     identityUser={this.props.identityUser}
+                    isFetched={this.props.isFetched}
                   />
                   <StepsAsideComponent
                     body={
@@ -45,12 +46,14 @@ class IdentityComponent extends Component {
 
 IdentityComponent.propTypes = {
   identity: PropTypes.func.isRequired,
-  identityUser: PropTypes.object.isRequired
+  identityUser: PropTypes.object.isRequired,
+  isFetched: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    identityUser: state.profile.identityUser
+    identityUser: state.profile.identityUser,
+    isFetched: state.profile.isFetched
   };
 }
 

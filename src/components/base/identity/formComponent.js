@@ -26,6 +26,16 @@ class IdentityForm extends Component {
     this.renderField = this.renderField.bind(this);
   }
 
+  componentWillMount() {
+    if (window.localStorage.getItem('username')) {
+      this.props.initialize({
+        username: window.localStorage.getItem('username'),
+        eth: window.localStorage.getItem('eth')
+      });
+      this.setState({ isNext: true });
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (this.props.identityUser !== nextProps.identityUser && nextProps.identityUser.username) {
       this.setState({ isNext: true });
@@ -46,6 +56,7 @@ class IdentityForm extends Component {
   handleOnChangeUserName() {
     if (this.state.isNext) {
       this.setState({ isNext: false });
+      ['eth', 'username', 'avatarPath'].map(f => window.localStorage.removeItem(f));
     }
   }
 
@@ -66,7 +77,7 @@ class IdentityForm extends Component {
   }
 
   render() {
-    const { handleSubmit, identityUser } = this.props;
+    const { handleSubmit, identityUser, isFetched } = this.props;
     const { isNext } = this.state;
     return (
       <div>
@@ -81,9 +92,12 @@ class IdentityForm extends Component {
             <div className="user-body">
               <a href="">
                 <span>
-                  <img src={identityUser.avatarPath} alt="avatar" width="39" height="39" />
+                  <img
+                    src={identityUser.avatarPath || window.localStorage.getItem('avatarPath')}
+                    alt="avatar" width="39" height="39"
+                  />
                 </span>
-                <small>{identityUser.username}</small>
+                <small>{identityUser.username || window.localStorage.getItem('username')}</small>
               </a>
             </div>
           </div> : null
@@ -105,9 +119,21 @@ class IdentityForm extends Component {
                 />
               </div>
               <div className="form-actions">
-                <button type="submit" className="btn btn-blue btn-big">
-                  {isNext ? 'Next' : 'Get Data'}
-                </button>
+                {isNext ?
+                  <button
+                    type="submit"
+                    className="btn btn-blue btn-big"
+                  >
+                    Next
+                  </button> :
+                  <button
+                    type="submit"
+                    className="btn btn-blue btn-big"
+                    disabled={isFetched}
+                  >
+                    Get Data {isFetched ? <i className="fa fa-spin fa-spinner" /> : null}
+                  </button>
+                }
                 <a href="" className="link">What’s keybase?</a>
               </div>
             </form>
@@ -123,7 +149,9 @@ IdentityForm.propTypes = {
   identityUser: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   array: PropTypes.object.isRequired,
-  untouch: PropTypes.func.isRequired
+  untouch: PropTypes.func.isRequired,
+  initialize: PropTypes.func.isRequired,
+  isFetched: PropTypes.bool.isRequired
 };
 
 export default reduxForm({

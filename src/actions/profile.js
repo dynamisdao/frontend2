@@ -73,7 +73,7 @@ export function logout() {
 export function identity(username, successCallback) {
   return dispatch => {
     let isError = false;
-    const returnObj = { type: types.IDENTITY, payload: {} };
+    dispatch({ type: types.IDENTITY_START, payload: {} });
     fetch(`https://keybase.io/_/api/1.0/user/lookup.json?username=${username}`,
       { method: 'GET' })
       .then(response => {
@@ -84,12 +84,13 @@ export function identity(username, successCallback) {
       })
       .then(json => {
         if (!isError) {
-          returnObj.payload = json;
           if (successCallback) {
             successCallback.apply(null);
           }
           if (json.status.code > 0) toastr.error(json.status.desc);
-          dispatch(returnObj);
+          dispatch({ type: types.IDENTITY_SUCCSSES, payload: json });
+        } else {
+          dispatch({ type: types.IDENTITY_ERROR, payload: {} });
         }
       });
   };
@@ -97,7 +98,7 @@ export function identity(username, successCallback) {
 
 export function clearIdentity() {
   return {
-    type: types.IDENTITY,
+    type: types.IDENTITY_SUCCSSES,
     payload: {}
   };
 }

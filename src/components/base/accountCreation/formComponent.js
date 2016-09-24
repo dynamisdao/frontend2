@@ -41,9 +41,7 @@ class AccountCreationForm extends Component {
 
   handleLink(event) {
     event.preventDefault();
-    this.props.clearIdentity();
     browserHistory.push(urls.identity.path);
-    ['eth', 'username', 'avatarPath'].map(f => window.localStorage.removeItem(f));
   }
 
   renderField({ input, label, type, meta: { touched, error } }) {
