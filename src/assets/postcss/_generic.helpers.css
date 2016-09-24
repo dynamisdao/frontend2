@@ -39,7 +39,6 @@
 /*  Grid  */
 
 .cols { margin: 0 -12px; position: relative; }
-.cols:after { @extend clearfix; }
 
 .col { float: left; width: 100%; padding: 0 12px; }
 
