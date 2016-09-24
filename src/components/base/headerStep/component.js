@@ -1,12 +1,13 @@
 import React from 'react';
 
 const HeaderStepsComponent = (props) => {
+
   const renderStep = (step, label) => (
     <li className={step < props.currenStep ? 'prev' : step === props.currenStep ? 'active' : null}>
       <span>
         <i className="ico-check" />
       </span>
-      <a href="">{label}</a>
+      {label}
     </li>
   );
   return (
