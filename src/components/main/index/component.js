@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
+import * as ProfileActions from '../../../actions/profile';
 import StepsAsideComponent from '../../base/fiveStepsAside/component';
 import HeaderStep from '../../base/headerStep/component';
 
@@ -8,11 +11,17 @@ import { urls } from '../../../routes';
 
 class MainIndexComponent extends Component {
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user.keybase_username && !this.props.user.keybase_username) {
+      this.props.identity(nextProps.user.keybase_username);
+    }
+  }
+
   render() {
     const handleNextButton = () => {
       browserHistory.push(urls.main.historyForm1.path);
     };
-
+    const { identityUser } = this.props;
     return (
       <div className="section-inner">
         <HeaderStep currenStep={2} />
@@ -26,17 +35,25 @@ class MainIndexComponent extends Component {
                   Online Identity
                 </h2>
 
-                <a href="" className="link">change keybase user</a>
+                {/*<a href="" className="link">change keybase user</a>*/}
               </header>
 
-              <div className="user-body">
-                <a href="">
-                  <span>
-                    <i className="material-icons">person</i>
-                  </span>
-                  <small>Ratcatcow</small>
-                </a>
-              </div>
+              {identityUser ?
+                <div className="user-body">
+                  <a
+                    href={`http://www.keybase.io/${identityUser.username}`}
+                    target="_blank"
+                  >
+                    <span>
+                      <img
+                        src={identityUser.avatarPath}
+                        width="39" height="39"
+                      />
+                    </span>
+                    <small>{identityUser.username}</small>
+                  </a>
+                </div> : null
+              }
             </div>
 
             <div className="section-content">
@@ -47,7 +64,6 @@ class MainIndexComponent extends Component {
 
                     Account
                   </h2>
-                  <a href="" className="link">edit</a>
                 </header>
                 
                 <div className="account-body">
@@ -95,4 +111,21 @@ class MainIndexComponent extends Component {
   }
 }
 
-export default MainIndexComponent;
+MainIndexComponent.propTypes = {
+  identity: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  identityUser: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state) {
+  return {
+    user: state.profile.user,
+    identityUser: state.profile.identityUser
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(ProfileActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainIndexComponent);

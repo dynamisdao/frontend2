@@ -140,7 +140,12 @@ class IdentityForm extends Component {
                     Get Data {isFetched ? <i className="fa fa-spin fa-spinner" /> : null}
                   </button>
                 }
-                <a href="" className="link">What’s keybase?</a>
+                <a
+                  href="https://keybase.io"
+                  className="link" target="_blank"
+                >
+                  What’s keybase?
+                </a>
               </div>
             </form>
           </div>
