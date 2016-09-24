@@ -156,7 +156,11 @@ class HistoryForm extends Component {
   }
 
   handleCheckBoxField() {
-    this.setState({ isCurrentWork: !this.state.isCurrentWork, dateIsValid: true });
+    this.setState({
+      isCurrentWork: !this.state.isCurrentWork,
+      dateIsValid: true,
+      toValue: 'to'
+    });
   }
 
   renderInputField({ input, label, type, className, meta: { touched, error } }) {
