@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link, browserHistory } from 'react-router';
-import * as types from '../../../constants/profile';
 
 import { urls } from '../../../routes';
 
-export const fields = ['eth', 'username'];
+export const fields = ['email', 'password1', 'password2'];
 
 const validate = values => {
   const errors = {};
@@ -14,15 +13,15 @@ const validate = values => {
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address';
   }
-  if (!values.password) {
-    errors.password = 'Required';
-  } else if (values.password.length < 6) {
-    errors.password = 'Must be 6 characters or more';
+  if (!values.password1) {
+    errors.password1 = 'Required';
+  } else if (values.password1.length < 6) {
+    errors.password1 = 'Must be 6 characters or more';
   }
-  if (!values.confirmPassword) {
-    errors.confirmPassword = 'Required';
-  } else if (values.confirmPassword !== values.password) {
-    errors.password = 'Paswords must match';
+  if (!values.password2) {
+    errors.password2 = 'Required';
+  } else if (values.password1 !== values.password2) {
+    errors.password2 = 'Paswords must match';
   }
   return errors;
 };
@@ -36,7 +35,16 @@ class AccountCreationForm extends Component {
   }
 
   handleSubmit(values) {
-    this.props.accountCreate(values);
+    this.props.accountCreate(
+      values,
+      () => (browserHistory.push(urls.sendEmail.path)),
+      () => {
+        this.props.array.removeAll('password1');
+        this.props.array.removeAll('password2');
+      }
+    );
+    this.props.untouch('password1');
+    this.props.untouch('password2');
   }
 
   handleLink(event) {
@@ -60,7 +68,7 @@ class AccountCreationForm extends Component {
   }
 
   render() {
-    const { handleSubmit, identityUser } = this.props;
+    const { handleSubmit, identityUser, isFetched } = this.props;
     return (
       <div>
         <div className="user">
@@ -90,12 +98,16 @@ class AccountCreationForm extends Component {
             <form onSubmit={handleSubmit(this.handleSubmit)}>
               <div className="form-body">
                 <Field name="email" type="text" component={this.renderField} label="Your Email" />
-                <Field name="password" type="password" component={this.renderField} label="Create a Password" />
-                <Field name="confirmPassword" type="password" component={this.renderField} label="Retype Password" />
+                <Field name="password1" type="password" component={this.renderField} label="Create a Password" />
+                <Field name="password2" type="password" component={this.renderField} label="Retype Password" />
               </div>
               <div className="form-actions">
-                <button type="submit" className="btn btn-blue btn-big btn-big-secondary">
-                  Create Login
+                <button
+                  type="submit"
+                  className="btn btn-blue btn-big btn-big-secondary"
+                  disabled={isFetched}
+                >
+                  Create Login {isFetched ? <i className="fa fa-spin fa-spinner" /> : null}
                 </button>
                 <a href="" className="link">What’s keybase?</a>
               </div>
@@ -110,8 +122,11 @@ class AccountCreationForm extends Component {
 AccountCreationForm.propTypes = {
   accountCreate: PropTypes.func.isRequired,
   clearIdentity: PropTypes.func.isRequired,
+  untouch: PropTypes.func.isRequired,
   identityUser: PropTypes.object.isRequired,
-  handleSubmit: PropTypes.func.isRequired
+  array: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  isFetched: PropTypes.bool.isRequired
 };
 
 export default reduxForm({

@@ -22,7 +22,7 @@ function profileReducer(state = initialState, action) {
     }
     case types.IDENTITY_START:
       return objectAssign({}, state, { isFetched: true });
-    case types.IDENTITY_SUCCSSES: {
+    case types.IDENTITY_SUCCESS: {
       const identityUser = { };
       if (action.payload.them) {
         identityUser.username = action.payload.them.basics.username;
@@ -42,6 +42,12 @@ function profileReducer(state = initialState, action) {
       window.localStorage.removeItem('accountId');
       return objectAssign({}, state, action.payload);
     }
+    case types.ACCOUNT_CREATE_START:
+      return objectAssign({}, state, { isFetched: true });
+    case types.ACCOUNT_CREATE_SUCCESS:
+      return objectAssign({}, state, { isFetched: false });
+    case types.ACCOUNT_CREATE_ERROR:
+      return objectAssign({}, state, { isFetched: false });
     default:
       return state;
   }
