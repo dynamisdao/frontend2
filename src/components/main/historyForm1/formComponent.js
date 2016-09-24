@@ -13,7 +13,7 @@ export const fields = [
   'city', 'state', 'from', 'to',
   'confirmerName', 'confirmerEmail'];
 
-const dataList = [
+const dateList = [
   '01.2013', '02.2013', '03.2013', '04.2013', '05.2013', '06.2013', '07.2013', '08.2013',
   '09.2013', '10.2013', '11.2013', '12.2013',
   '01.2014', '02.2014', '03.2014', '04.2014', '05.2014', '06.2014', '07.2014', '08.2014',
@@ -40,9 +40,6 @@ const validate = values => {
   if (!values.city) {
     errors.city = 'Required';
   }
-  if (!values.state) {
-    errors.state = 'Required';
-  }
   if (!values.confirmerName) {
     errors.confirmerName = 'Required';
   }
@@ -58,7 +55,7 @@ class HistoryForm extends Component {
       toValue: 'to',
       fromIsValid: true,
       toIsValid: true,
-      dataIsValid: true
+      dateIsValid: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
@@ -76,7 +73,7 @@ class HistoryForm extends Component {
   }
 
   handleSubmit(values) {
-    if ((this.state.toValue !== 'to' || this.state.fromValue !== 'from') && this.state.dataIsValid) {
+    if ((this.state.toValue !== 'to' || this.state.fromValue !== 'from') && this.state.dateIsValid) {
       const position = values;
       position.id = this.props.positionList.length + 1;
       position.to = this.state.toValue;
@@ -89,7 +86,7 @@ class HistoryForm extends Component {
         toValue: 'to',
         isCurrentWork: false
       });
-    } else if (this.state.dataIsValid) {
+    } else if (this.state.dateIsValid) {
       this.setState({
         fromIsValid: false,
         toIsValid: false
@@ -107,7 +104,7 @@ class HistoryForm extends Component {
         isCurrentWork: position.isCurrentWork,
         fromIsValid: true,
         toIsValid: true,
-        dataIsValid: true
+        dateIsValid: true
       });
       this.props.deletePosition(position.id);
     };
@@ -131,9 +128,9 @@ class HistoryForm extends Component {
       if (value.split('.')[1] < this.state.fromValue.split('.')[1] ||
         (value.split('.')[1] === this.state.fromValue.split('.')[1] &&
           value.split('.')[0] < this.state.fromValue.split('.')[0])) {
-        this.setState({ dataIsValid: false });
+        this.setState({ dateIsValid: false });
       } else {
-        this.setState({ dataIsValid: true });
+        this.setState({ dateIsValid: true });
       }
     }
     this.setState({ toValue: value });
@@ -150,16 +147,16 @@ class HistoryForm extends Component {
       if (value.split('.')[1] > this.state.toValue.split('.')[1] ||
         (value.split('.')[1] === this.state.toValue.split('.')[1] &&
           value.split('.')[0] > this.state.toValue.split('.')[0])) {
-        this.setState({ dataIsValid: false });
+        this.setState({ dateIsValid: false });
       } else {
-        this.setState({ dataIsValid: true });
+        this.setState({ dateIsValid: true });
       }
     }
     this.setState({ fromValue: value });
   }
 
   handleCheckBoxField() {
-    this.setState({ isCurrentWork: !this.state.isCurrentWork });
+    this.setState({ isCurrentWork: !this.state.isCurrentWork, dateIsValid: true });
   }
 
   renderInputField({ input, label, type, className, meta: { touched, error } }) {
@@ -176,7 +173,7 @@ class HistoryForm extends Component {
 
   render() {
     const { handleSubmit, positionList } = this.props;
-    const { isCurrentWork, toIsValid, fromIsValid, dataIsValid } = this.state;
+    const { isCurrentWork, toIsValid, fromIsValid, dateIsValid } = this.state;
     return (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
         <div className="form-head">
@@ -237,12 +234,12 @@ class HistoryForm extends Component {
                         className="select"
                       >
                         <option value="from">From</option>
-                        {dataList.map(date =>
+                        {dateList.map(date =>
                           <option key={date} value={date}>{date}</option>
                         )}
                       </select>
                       {!fromIsValid ? <span className="error">Required</span> : null}
-                      {!dataIsValid ? <span className="error">From should begin before To</span> : null}
+                      {!dateIsValid ? <span className="error">From should begin before To</span> : null}
                     </div>
                   </div>
                   {!isCurrentWork ?
@@ -256,7 +253,7 @@ class HistoryForm extends Component {
                           className="select"
                         >
                           <option value="to">To</option>
-                          {dataList.map(date =>
+                          {dateList.map(date =>
                             <option key={date} value={date}>{date}</option>
                           )}
                         </select>
