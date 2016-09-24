@@ -90,14 +90,20 @@ class IdentityForm extends Component {
               </h2>
             </header>
             <div className="user-body">
-              <a href="">
+              <a
+                href={`http://www.keybase.io/${identityUser.username ||
+                  window.localStorage.getItem('username')}`}
+                target="_blank"
+              >
                 <span>
                   <img
-                    src={identityUser.avatarPath || window.localStorage.getItem('avatarPath')}
+                    src={identityUser.avatarPath ||
+                      window.localStorage.getItem('avatarPath')}
                     alt="avatar" width="39" height="39"
                   />
                 </span>
-                <small>{identityUser.username || window.localStorage.getItem('username')}</small>
+                <small>{identityUser.username ||
+                  window.localStorage.getItem('username')}</small>
               </a>
             </div>
           </div> : null

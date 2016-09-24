@@ -77,18 +77,30 @@ class AccountCreationForm extends Component {
               <i className="ico-check-secondary" />
               Online Identity
             </h2>
-            <a href="" onClick={this.handleLink} to={urls.identity.path} className="link">change keybase user</a>
+            <a
+              href=""
+              onClick={this.handleLink} to={urls.identity.path}
+              className="link"
+            >
+              change keybase user
+            </a>
           </header>
           <div className="user-body">
-            <a href="">
+            <a
+              href={`http://www.keybase.io/${identityUser.username ||
+                window.localStorage.getItem('username')}`}
+              target="_blank"
+            >
               <span>
                 <img
-                  src={identityUser.avatarPath ? identityUser.avatarPath : window.localStorage.getItem('avatarPath')}
+                  src={identityUser.avatarPath ? identityUser.avatarPath :
+                    window.localStorage.getItem('avatarPath')}
                   alt="avatar" width="39" height="39"
                 />
               </span>
               <small>
-                {identityUser.username ? identityUser.username : window.localStorage.getItem('username')}
+                {identityUser.username ? identityUser.username :
+                  window.localStorage.getItem('username')}
               </small>
             </a>
           </div>
