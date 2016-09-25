@@ -21,15 +21,17 @@ const PositionPanelComponent = (props) => {
             (props.monthsQuantity % 12)) / 12} years` : null} {props.monthsQuantity % 12 ?
             `${props.monthsQuantity % 12} months` : null}
         </strong>
-        <div className="link">
-          <a href="" onClick={props.edit}>edit</a> /
-          <a href="" onClick={props.delete}> delete</a>
-        </div>
+        {props.edit ?
+          <div className="link">
+            <a href="" onClick={props.edit}>edit</a> /
+            <a href="" onClick={props.delete}> delete</a>
+          </div> : null
+        }
       </div>
       <div className="position-body">
         <p>Reference</p>
         <p>
-          <span>{props.position.confirmerName}</span> <span>{props.position.confirmerEmail}</span>
+          <span>{props.position.ёconfirmerName}</span> <span>{props.position.confirmerEmail}</span>
         </p>
         <a href="" className="link">
           <i className="material-icons">attach_file</i>
@@ -42,9 +44,9 @@ const PositionPanelComponent = (props) => {
 
 PositionPanelComponent.propTypes = {
   position: PropTypes.object.isRequired,
-  edit: PropTypes.func.isRequired,
-  delete: PropTypes.func.isRequired,
-  monthsQuantity: PropTypes.number.isRequired
+  edit: PropTypes.func,
+  delete: PropTypes.func,
+  monthsQuantity: PropTypes.number
 };
 
 export default PositionPanelComponent;

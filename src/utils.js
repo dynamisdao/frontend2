@@ -77,3 +77,20 @@ export function getMonthtStringByNumber(number) {
       return null;
   }
 }
+
+export function getSignApplication(data, user) {
+  const obj = {
+    identity: {
+      verification_method: 'keybase',
+      verification_data: {
+        username: user.username,
+        proofs: []
+      },
+      employmentHistory: {
+        jobs: data
+      },
+      requestedPremiumAmount: '238'
+    }
+  };
+  return JSON.stringify(obj);
+}

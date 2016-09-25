@@ -14,6 +14,7 @@ import MainIndexComponent from './components/main/index/component';
 import HistoryForm1Component from './components/main/historyForm1/component';
 import CoverageFormComponent from './components/main/coverageForm/component';
 import AssessmentFormComponent from './components/main/assessmentForm/component';
+import SignFormComponent from './components/main/signForm/component';
 
 export const urls = {
   index: {
@@ -44,6 +45,9 @@ export const urls = {
     },
     assessmentForm: {
       path: '/assessment-form'
+    },
+    signForm: {
+      path: '/sign-form'
     }
   }
 };
@@ -64,6 +68,7 @@ export default (
       <Route path={urls.main.historyForm1.path} component={HistoryForm1Component} />
       <Route path={urls.main.coverageForm.path} component={CoverageFormComponent} />
       <Route path={urls.main.assessmentForm.path} component={AssessmentFormComponent} />
+      <Route path={urls.main.signForm.path} component={SignFormComponent} />
     </Route>
   </Route>
 );
