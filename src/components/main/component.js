@@ -11,10 +11,7 @@ class MainComponent extends Component {
         <HeaderLogedComponent />
         <div className="main">
           <div className="shell">
-            <section className="section section-form">
-              <h5 className="section-title">Create a Policy</h5>
-              {this.props.children}
-            </section>
+            {this.props.children}
           </div>
         </div>
         <FooterComponent />

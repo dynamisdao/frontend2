@@ -97,7 +97,7 @@ $breakpoint-mobile-portrait {
 .form-assessment .form-body { margin-bottom: 90px; }
 .form-assessment .form-actions { padding-left: 8px; }
 .form-assessment .form-section { font: 400 18px/1.33 'Maven Pro', sans-serif; color: #4a4a4a; }
-.form-assessment .form-section:first-child { margin-bottom: 250px; }
+.form-assessment .form-section:first-child { margin-bottom: 50px; }
 .form-assessment .list-radios { padding-left: 50px; }
 
 .form-assessment .form-head h2 { display: inline-block; vertical-align: middle; margin-right: 4px; }
@@ -135,7 +135,7 @@ $breakpoint-mobile-portrait {
 
 .form-signature .form-content { background: #fff; padding: 7px 15px 7px 21px; margin-top: -5px; }
 
-.form-signature .form-body { width: 60.5%; display: inline-block; vertical-align: middle; margin-right: 13px; padding-top: 13px; }
+.form-signature .form-body { width: 100%; display: inline-block; vertical-align: middle; margin-right: 13px; padding-top: 13px; }
 .form-signature .form-actions { display: inline-block; vertical-align: middle; }
 .form-signature .field { font-size: 15px; line-height: 1.27; padding: 0 15px 11px 0; }
 

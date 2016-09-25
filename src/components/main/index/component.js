@@ -23,90 +23,93 @@ class MainIndexComponent extends Component {
     };
     const { identityUser } = this.props;
     return (
-      <div className="section-inner">
-        <HeaderStep currenStep={2} />
-        <div className="section-body">
-          <div className="section-group section-group-secondary">
-            <div className="user">
-              <header className="user-head">
-                <h2>
-                  <i className="ico-check-secondary" />
-
-                  Online Identity
-                </h2>
-
-                {/*<a href="" className="link">change keybase user</a>*/}
-              </header>
-
-              {identityUser ?
-                <div className="user-body">
-                  <a
-                    href={`http://www.keybase.io/${identityUser.username}`}
-                    target="_blank"
-                  >
-                    <span>
-                      <img
-                        src={identityUser.avatarPath}
-                        width="39" height="39"
-                      />
-                    </span>
-                    <small>{identityUser.username}</small>
-                  </a>
-                </div> : null
-              }
-            </div>
-
-            <div className="section-content">
-              <div className="account">
-                <header className="account-head">
+      <section className="section section-form">
+      <h5 className="section-title">Create a Policy</h5>
+        <div className="section-inner">
+          <HeaderStep currenStep={2} />
+          <div className="section-body">
+            <div className="section-group section-group-secondary">
+              <div className="user">
+                <header className="user-head">
                   <h2>
                     <i className="ico-check-secondary" />
 
-                    Account
+                    Online Identity
                   </h2>
+
+                  {/*<a href="" className="link">change keybase user</a>*/}
                 </header>
-                
-                <div className="account-body">
-                  <table className="table-account">
-                    <tbody>
-                    <tr>
-                      <td>Username:</td>
 
-                      <td>
-                        <span>ratcatcow@gmail.com</span>
-                      </td>
-                    </tr>
-                    
-                    <tr>
-                      <td>Password:</td>
+                {identityUser ?
+                  <div className="user-body">
+                    <a
+                      href={`http://www.keybase.io/${identityUser.username}`}
+                      target="_blank"
+                    >
+                      <span>
+                        <img
+                          src={identityUser.avatarPath}
+                          width="39" height="39"
+                        />
+                      </span>
+                      <small>{identityUser.username}</small>
+                    </a>
+                  </div> : null
+                }
+              </div>
 
-                      <td>
-                        <span>•••••••••••••</span>
-                      </td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div className="form-actions">
-                  <button
-                    type="submit" className="btn btn-blue btn-big"
-                    onClick={handleNextButton}
-                  >
-                    Next
-                  </button>
+              <div className="section-content">
+                <div className="account">
+                  <header className="account-head">
+                    <h2>
+                      <i className="ico-check-secondary" />
+
+                      Account
+                    </h2>
+                  </header>
+                  
+                  <div className="account-body">
+                    <table className="table-account">
+                      <tbody>
+                      <tr>
+                        <td>Username:</td>
+
+                        <td>
+                          <span>ratcatcow@gmail.com</span>
+                        </td>
+                      </tr>
+                      
+                      <tr>
+                        <td>Password:</td>
+
+                        <td>
+                          <span>•••••••••••••</span>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="form-actions">
+                    <button
+                      type="submit" className="btn btn-blue btn-big"
+                      onClick={handleNextButton}
+                    >
+                      Next
+                    </button>
+                  </div>
                 </div>
               </div>
+              <StepsAsideComponent
+                body={
+                  <p>
+                    <span>Hey, BTW, If you close your browser during this process</span> and
+                    come back to it later. We’ll remember right where you left off.
+                  </p>}
+              />
             </div>
-            <StepsAsideComponent
-              body={
-                <p>
-                  <span>Hey, BTW, If you close your browser during this process</span> and
-                  come back to it later. We’ll remember right where you left off.
-                </p>}
-            />
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 }

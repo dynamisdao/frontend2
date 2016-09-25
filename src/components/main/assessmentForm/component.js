@@ -16,7 +16,8 @@ class AssessmentFormComponent extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
+    this.handleEditPositions = this.handleEditPositions.bind(this);
+    this.handleAdjustCoverage = this.handleAdjustCoverage.bind(this);
     this.handleWorkPeriod = this.handleWorkPeriod.bind(this);
     this.handleCoveragePeriod = this.handleCoveragePeriod.bind(this);
   }
@@ -27,15 +28,19 @@ class AssessmentFormComponent extends Component {
     }
   }
 
-  handleEdit(position) {
-    return (event) => {
-      event.preventDefault();
-      this.props.editPosition(position.id);
-    };
+  handleEditPositions(event) {
+    event.preventDefault();
+    browserHistory.push(urls.main.historyForm1.path);
+  }
+
+  handleAdjustCoverage(event) {
+    event.preventDefault();
+    browserHistory.push(urls.main.coverageForm.path);
   }
 
   handleSubmit(event) {
     event.preventDefault();
+    browserHistory.push(urls.main.signForm.path);
   }
 
   handleWorkPeriod(value) {
@@ -61,61 +66,61 @@ class AssessmentFormComponent extends Component {
       </li>
     );
     return (
-      <div className="section-inner">
-        <HeaderStep currenStep={5} />
-        <div className="section-body">
-          <div className="section-group-quaternary">
-            <div className="form form-history">
-              <div className="form-head">
-                <h2>
-                  <i className="ico-check-secondary" />
-                  Employment History
-                </h2>
-                <a href="" className="link">add a position</a>
-                <div className="form-head-inner">
-                  {positionList.map(position =>
-                    <PositionPanelComponent
-                      key={position.id}
-                      position={position}
-                      edit={this.handleEdit(position)}
-                    />
-                  )}
-                  {positionList.length > 0 ?
-                    <CalendarPanelComponent positionList={positionList} /> : null
-                  }
+      <section className="section section-form">
+        <h5 className="section-title">Create a Policy</h5>
+        <div className="section-inner">
+          <HeaderStep currenStep={5} />
+          <div className="section-body">
+            <div className="section-group-quaternary">
+              <div className="form form-history">
+                <div className="form-head">
+                  <h2>
+                    <i className="ico-check-secondary" />
+                    Employment History
+                  </h2>
+                  <a href="" onClick={this.handleEditPositions} className="link">edit positions</a>
+                  <div className="form-head-inner">
+                    {positionList.map(position =>
+                      <PositionPanelComponent
+                        key={position.id}
+                        position={position}
+                      />
+                    )}
+                    {positionList.length > 0 ?
+                      <CalendarPanelComponent positionList={positionList} /> : null
+                    }
+                  </div>
+                  <h2>Desired Coverage</h2>
+                  <p>
+                    Below is an estimate of benefits.
+                    <br />
+                    As your application becomes more complete you can see
+                    how this affects your premiums and your coverage:
+                  </p>
                 </div>
-                <h2>Desired Coverage</h2>
-                <p>
-                  Below is an estimate of benefits.
-                  <br />
-                  As your application becomes more complete you can see
-                  how this affects your premiums and your coverage:
-                </p>
               </div>
-            </div>
-            <div className="coverage">
-              <div className="coverage-head">
-                <h2>
-                  <i className="ico-check-secondary" />
-                  Desired Coverage
-                </h2>
-                <a href="" className="link">adjust coverage</a>
+              <div className="coverage">
+                <div className="coverage-head">
+                  <h2>
+                    <i className="ico-check-secondary" />
+                    Desired Coverage
+                  </h2>
+                  <a href="" onClick={this.handleAdjustCoverage} className="link">adjust coverage</a>
+                </div>
+                <div className="coverage-body">
+                  <ul className="prices prices-secondary">
+                    <li className="price">
+                      <h5>Your Estimated Premium:</h5>
+                      <p>$8/month</p>
+                    </li>
+                    <li className="price price-secondary">
+                      <h5>While Your Coverage Could Be:</h5>
+                      <p>$1100/month</p>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div className="coverage-body">
-                <ul className="prices prices-secondary">
-                  <li className="price">
-                    <h5>Your Estimated Premium:</h5>
-                    <p>$8/month</p>
-                  </li>
-                  <li className="price price-secondary">
-                    <h5>While Your Coverage Could Be:</h5>
-                    <p>$1100/month</p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="form form-assessment">
-              <form action="?" method="post">
+              <div className="form form-assessment">
                 <div className="form-head">
                   <h2>Self Assessment</h2>
                   <a href="" className="link">
@@ -167,23 +172,22 @@ class AssessmentFormComponent extends Component {
                   </section>
                 </div>
                 <div className="form-actions">
-                  <button type="submit" className="btn btn-blue btn-big btn-big-secondary" >
+                  <button onClick={this.handleSubmit} className="btn btn-blue btn-big btn-big-secondary" >
                     Submit Estimate
                   </button>
                   <a href="" className="link">Wait, I want to edit my settings</a>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 }
 
 AssessmentFormComponent.propTypes = {
-  positionList: PropTypes.array.isRequired,
-  editPosition: PropTypes.func.isRequired
+  positionList: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state) {
