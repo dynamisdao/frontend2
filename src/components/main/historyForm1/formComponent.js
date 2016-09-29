@@ -169,6 +169,8 @@ class HistoryForm extends Component {
         <label htmlFor="field-compant-name" className="form-label hidden">{label}</label>
         <div className="form-controls">
           <input {...input} className="field" placeholder={label} type={type} />
+        </div>
+        <div>
           {touched && error && <span className="error">{error}</span>}
         </div>
       </div>
@@ -242,6 +244,8 @@ class HistoryForm extends Component {
                           <option key={date} value={date}>{date}</option>
                         )}
                       </select>
+                    </div>
+                    <div>
                       {!fromIsValid ? <span className="error">Required</span> : null}
                       {!dateIsValid ? <span className="error">From should begin before To</span> : null}
                     </div>
@@ -261,6 +265,8 @@ class HistoryForm extends Component {
                             <option key={date} value={date}>{date}</option>
                           )}
                         </select>
+                      </div>
+                      <div>
                         {!toIsValid ? <span className="error">Required</span> : null}
                       </div>
                     </div> : null

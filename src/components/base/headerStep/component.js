@@ -21,7 +21,7 @@ const HeaderStepsComponent = (props) => {
         {renderStep(2, 'Account Creation', handleLink)}
         {renderStep(3, 'Employment Verification', handleLink)}
         {renderStep(4, 'Coverage Selection', handleLink)}
-        {renderStep(5, 'Self Essessment', handleLink)}
+        {renderStep(5, 'Self Assessment', handleLink)}
       </ul>
     </header>
   );

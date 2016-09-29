@@ -16,8 +16,9 @@ class SignFormComponent extends Component {
 
   componentWillMount() {
     if (this.props.positionList.length === 0) {
-      this.props.createPolicy(this.props.positionList);
       browserHistory.push(urls.main.historyForm1.path);
+    } else {
+      this.props.createPolicy(this.props.positionList);
     }
   }
 

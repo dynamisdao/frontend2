@@ -21,10 +21,10 @@ class MainIndexComponent extends Component {
     const handleNextButton = () => {
       browserHistory.push(urls.main.historyForm1.path);
     };
-    const { identityUser } = this.props;
+    const { identityUser, user } = this.props;
     return (
       <section className="section section-form">
-      <h5 className="section-title">Create a Policy</h5>
+        <h5 className="section-title">Create a Policy</h5>
         <div className="section-inner">
           <HeaderStep currenStep={2} />
           <div className="section-body">
@@ -75,7 +75,7 @@ class MainIndexComponent extends Component {
                         <td>Username:</td>
 
                         <td>
-                          <span>ratcatcow@gmail.com</span>
+                          <span>{user.email}</span>
                         </td>
                       </tr>
                       

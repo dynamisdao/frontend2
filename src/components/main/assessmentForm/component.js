@@ -175,7 +175,13 @@ class AssessmentFormComponent extends Component {
                   <button onClick={this.handleSubmit} className="btn btn-blue btn-big btn-big-secondary" >
                     Submit Estimate
                   </button>
-                  <a href="" className="link">Wait, I want to edit my settings</a>
+                  <a
+                    href=""
+                    onClick={this.handleEditPositions}
+                    className="link"
+                  >
+                    Wait, I want to edit my settings
+                  </a>
                 </div>
               </div>
             </div>
