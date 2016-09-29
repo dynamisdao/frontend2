@@ -59,7 +59,6 @@ export const urls = {
   }
 };
 
-
 export default (
   <Route>
     <Route path={urls.index.path} component={BaseComponent}>
