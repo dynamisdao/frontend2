@@ -9,9 +9,16 @@ import { urls } from '../../../routes';
 import { getSignApplication } from '../../../utils';
 
 class SignFormComponent extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.handleEditPositions = this.handleEditPositions.bind(this);
+  }
+
+  componentWillMount() {
+    if (this.props.positionList.length === 0) {
+      this.props.createPolicy(this.props.positionList);
+      browserHistory.push(urls.main.historyForm1.path);
+    }
   }
 
   handleEditPositions(event) {
@@ -19,11 +26,6 @@ class SignFormComponent extends Component {
     browserHistory.push(urls.main.historyForm1.path);
   }
 
-  componentWillMount() {
-    if (this.props.positionList.length === 0) {
-      browserHistory.push(urls.main.historyForm1.path);
-    }
-  }
   render() {
     const getFeatureField = (title, value) => (
       <li className="feature">
@@ -120,7 +122,8 @@ class SignFormComponent extends Component {
 
 SignFormComponent.propTypes = {
   positionList: PropTypes.array.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  createPolicy: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
