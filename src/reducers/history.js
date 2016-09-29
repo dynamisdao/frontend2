@@ -3,7 +3,8 @@ import objectAssign from 'object-assign';
 import * as types from '../constants/history';
 
 const initialState = {
-  positionList: []
+  positionList: [],
+  policyId: undefined
 };
 
 function profileReducer(state = initialState, action) {
@@ -18,6 +19,10 @@ function profileReducer(state = initialState, action) {
       const index = editPositionList.indexOf(editPositionList.find(p => p.id === action.payload.id));
       editPositionList.splice(index, 1);
       return objectAssign({}, state, { positionList: editPositionList });
+    }
+    case types.CREATE_POLICY: {
+      debugger
+      return objectAssign({}, state, { policyId: json });
     }
     default:
       return state;

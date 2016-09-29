@@ -16,3 +16,49 @@ export function deletePosition(id) {
     payload: { id }
   };
 }
+
+export function updatePolicy(policyid, data) {
+  return dispatch => {
+    let isError = false;
+    fetch(`${config.baseUrl}api/v1/policies/${policyid}/`,
+      { method: 'PUT',
+        headers: getHeaders(),
+        body: JSON.stringify(data),
+        credentials: 'include'
+      })
+      .then(response => {
+        if (response.status >= 400) {
+          isError = true;
+        }
+        return response.json();
+      })
+      .then(json => {
+        if (!isError) {
+          dispatch({ type: types.UPDATE_POLICY, payload: json });
+        }
+      });
+  };
+}
+
+export function createPolicy(data) {
+  return dispatch => {
+    let isError = false;
+    fetch(`${config.baseUrl}api/v1/policies/`,
+      { method: 'POST',
+        headers: getHeaders(),
+        credentials: 'include'
+      })
+      .then(response => {
+        if (response.status >= 400) {
+          isError = true;
+        }
+        return response.json();
+      })
+      .then(json => {
+        if (!isError) {
+          dispatch({ type: types.CREATE_POLICY, payload: json });
+          dispatch(updatePolicy(json, data));
+        }
+      });
+  };
+}
