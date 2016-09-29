@@ -169,6 +169,8 @@ class HistoryForm extends Component {
         <label htmlFor="field-compant-name" className="form-label hidden">{label}</label>
         <div className="form-controls">
           <input {...input} className="field" placeholder={label} type={type} />
+        </div>
+        <div>
           {touched && error && <span className="error">{error}</span>}
         </div>
       </div>
