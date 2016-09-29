@@ -24,10 +24,52 @@ class HeaderLogedComponent extends Component {
   }
 
   render() {
-    const { user, logout } = this.props;
+    const { user, isNavigation } = this.props;
     return (
-      <header className="header header-secondary header-loged">
+      <header className={!isNavigation ? 'header header-secondary header-loged' : 'header'}>
         <a href="" className="logo">Dynamis</a>
+        {isNavigation ?
+          <div>
+            <nav className="nav nav-primary">
+              <ul>
+                <li className="current">
+                  <a href="">
+                    My<br />
+                    Policy
+                  </a>
+                </li>
+                <li>
+                  <a href="">
+                    Make a<br />
+                    Payment
+                  </a>
+                </li>
+                <li>
+                  <a href="">
+                    Open a<br />
+                    Claim
+                  </a>
+                </li>
+                <li>
+                  <a href="">
+                    Assessor<br />
+                    Dashboard
+                  </a>
+                </li>
+              </ul>
+            </nav>
+            <nav className="nav nav-secondary">
+              <ul>
+                <li>
+                  <a href="">
+                    <i className="ico-wallet" />
+                    Wallet
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div> : null
+        }
         <nav className="nav nav-user">
           <ul>
             <li>
@@ -54,7 +96,8 @@ class HeaderLogedComponent extends Component {
 HeaderLogedComponent.propTypes = {
   user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
-  fetchProfile: PropTypes.func.isRequired
+  fetchProfile: PropTypes.func.isRequired,
+  isNavigation: PropTypes.bool
 };
 
 function mapStateToProps(state) {

@@ -43,8 +43,7 @@ export function login(data, successCallback, errorCallback) {
     fetch(`${config.baseUrl}api/v1/login/`,
       { method: 'POST',
         headers: getHeaders(),
-        body: JSON.stringify(data),
-        credentials: 'include'
+        body: JSON.stringify(data)
       })
       .then(response => {
         if (response.status >= 400) {

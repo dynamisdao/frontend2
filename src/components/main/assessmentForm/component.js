@@ -57,10 +57,10 @@ class AssessmentFormComponent extends Component {
 
   render() {
     const { positionList } = this.props;
-    const getRadioFireld = (label, name, handler) => (
+    const getRadioFireld = (label, name, handler, checked) => (
       <li>
         <div className="radio">
-          <input type="radio" name={name} id={label} onClick={handler} />
+          <input type="radio" name={name} id={label} onClick={handler} defaultChecked={checked} />
           <label className="form-label" htmlFor={label}>{label}</label>
         </div>
       </li>
@@ -137,7 +137,7 @@ class AssessmentFormComponent extends Component {
                       might be going back to school or starting a family.
                     </p>
                     <ul className="list-radios">
-                      {getRadioFireld('Less than 1 year', 'workPeriod', this.handleWorkPeriod('less_1_year'))}
+                      {getRadioFireld('Less than 1 year', 'workPeriod', this.handleWorkPeriod('less_1_year'), true)}
                       {getRadioFireld('In about 1 year', 'workPeriod', this.handleWorkPeriod('in_about_1_year'))}
                       {getRadioFireld('Before the end of next year', 'workPeriod', this.handleWorkPeriod('before_end_2_year'))}
                       {getRadioFireld('Maybe before 2 years time', 'workPeriod', this.handleWorkPeriod('before_2_year'))}
@@ -158,7 +158,7 @@ class AssessmentFormComponent extends Component {
                       moving to a new industry, starting a completely new career.
                     </p>
                     <ul className="list-radios">
-                      {getRadioFireld('About 1 to 2 weeks', 'coveragePeriod', this.handleCoveragePeriod('about_1_to_2_week'))}
+                      {getRadioFireld('About 1 to 2 weeks', 'coveragePeriod', this.handleCoveragePeriod('about_1_to_2_week'), true)}
                       {getRadioFireld('Maybe 3 weeks to 1 month', 'coveragePeriod', this.handleCoveragePeriod('about_3_to_1_month'))}
                       {getRadioFireld('Perhaps 1 to 2 months', 'coveragePeriod', this.handleCoveragePeriod('about_1_to_2_month'))}
                       {getRadioFireld('Possibly 2 to 3 months', 'coveragePeriod', this.handleCoveragePeriod('about_2_to_3_month'))}
