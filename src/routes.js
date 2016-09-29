@@ -2,6 +2,9 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import BaseComponent from './components/base/component';
+
+import NotFoundComponent from './components/base/notFound/component';
+
 import IndexComponent from './components/base/index/component';
 import AboutComponent from './components/base/about/component';
 import LoginComponent from './components/base/login/component';
@@ -75,5 +78,6 @@ export default (
       <Route path={urls.main.signForm.path} component={SignFormComponent} />
       <Route path={urls.main.policy.path} component={PolicyComponent} />
     </Route>
+    <Route path="*" component={NotFoundComponent} />
   </Route>
 );
