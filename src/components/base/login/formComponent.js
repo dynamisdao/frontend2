@@ -43,6 +43,8 @@ class LoginForm extends Component {
         <label htmlFor="field-email" className="form-label hidden">{label}</label>
         <div>
           <input {...input} className="field" placeholder={label} type={type} />
+        </div>
+        <div>
           {touched && error && <span className="error">{error}</span>}
         </div>
       </div>

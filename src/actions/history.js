@@ -42,7 +42,6 @@ export function updatePolicy(policyid, data) {
 
 export function createPolicy(data) {
   return dispatch => {
-    debugger
     let isError = false;
     fetch(`${config.baseUrl}api/v1/policies/`,
       { method: 'POST',
