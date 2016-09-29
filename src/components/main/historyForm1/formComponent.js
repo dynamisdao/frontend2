@@ -244,6 +244,8 @@ class HistoryForm extends Component {
                           <option key={date} value={date}>{date}</option>
                         )}
                       </select>
+                    </div>
+                    <div>
                       {!fromIsValid ? <span className="error">Required</span> : null}
                       {!dateIsValid ? <span className="error">From should begin before To</span> : null}
                     </div>
@@ -263,6 +265,8 @@ class HistoryForm extends Component {
                             <option key={date} value={date}>{date}</option>
                           )}
                         </select>
+                      </div>
+                      <div>
                         {!toIsValid ? <span className="error">Required</span> : null}
                       </div>
                     </div> : null
