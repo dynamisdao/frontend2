@@ -61,6 +61,8 @@ class AccountCreationForm extends Component {
             {...input}
             className="field" placeholder={label} type={type}
           />
+        </div>
+        <div>
           {touched && error && <span className="error">{error}</span>}
         </div>
       </div>
