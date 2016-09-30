@@ -47,7 +47,6 @@ export function login(data, successCallback, errorCallback) {
         credentials: 'same-origin'
       })
       .then(response => {
-        debugger
         if (response.status >= 400) {
           isError = true;
         }
