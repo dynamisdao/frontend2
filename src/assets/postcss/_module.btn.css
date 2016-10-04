@@ -28,6 +28,10 @@
 
 .btn-big-secondary { font: 500 16px/1.13 'Maven Pro', sans-serif; padding: 19px 31px; }
 
+/*  Btn-Big-Fetched*/
+
+.btn-big-fetched { font: 500 16px/1.13 'Maven Pro', sans-serif; padding: 19px 31px 19px 16px; }
+
 /*  Btn-Silver  */
 
 .btn-silver { border: 0; text-transform: uppercase; text-decoration: none; background: #d8d7d7; padding: 19px 31px; }

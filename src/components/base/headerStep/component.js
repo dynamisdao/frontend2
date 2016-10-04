@@ -6,12 +6,10 @@ const HeaderStepsComponent = (props) => {
   };
   const renderStep = (step, label, handler) => (
     <li className={step < props.currenStep ? 'prev' : step === props.currenStep ? 'active' : null}>
-      <a href="" onClick={handler}>
-        <span>
-          <i className="ico-check" />
-        </span>
-        {label}
-      </a>
+      <span>
+        <i className="ico-check" />
+      </span>
+      <p>{label}</p>
     </li>
   );
   return (
