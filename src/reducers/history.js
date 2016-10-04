@@ -4,7 +4,8 @@ import * as types from '../constants/history';
 
 const initialState = {
   positionList: [],
-  policyId: undefined
+  policyId: undefined,
+  isFetched: false
 };
 
 function profileReducer(state = initialState, action) {
@@ -21,9 +22,17 @@ function profileReducer(state = initialState, action) {
       return objectAssign({}, state, { positionList: editPositionList });
     }
     case types.CREATE_POLICY: {
-      debugger
-      return objectAssign({}, state, { policyId: json });
+      return objectAssign({}, state, { policyId: action.payload.id });
     }
+    case types.POLICY_UPDATE: {
+      return objectAssign({}, state);
+    }
+    case types.POLICY_SIGN_START:
+      return objectAssign({}, state, { isFetched: true });
+    case types.POLICY_SIGN_SUCCESS:
+      return objectAssign({}, state, { isFetched: false });
+    case types.POLICY_SIGN_ERROR:
+      return objectAssign({}, state, { isFetched: false });
     default:
       return state;
   }

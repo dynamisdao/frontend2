@@ -78,8 +78,8 @@ export function getMonthtStringByNumber(number) {
   }
 }
 
-export function getSignApplication(data, user) {
-  const obj = {
+export function getSignApplication(data, user, isJSON) {
+  let obj = {
     identity: {
       verification_method: 'keybase',
       verification_data: {
@@ -92,5 +92,6 @@ export function getSignApplication(data, user) {
       requestedPremiumAmount: '238'
     }
   };
-  return JSON.stringify(obj);
+  if (isJSON) obj = JSON.stringify(obj);
+  return obj;
 }

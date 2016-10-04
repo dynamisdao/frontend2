@@ -2,7 +2,7 @@
 	Base
 \* ------------------------------------------------------------ */
 
-body { min-width: 320px; background: $color-background; font-family: $font-family-sans-serif; font-size: $font-size-base; line-height: $line-height-base; color: #000; }
+body { min-width: 768px; background: $color-background; font-family: $font-family-sans-serif; font-size: $font-size-base; line-height: $line-height-base; color: #000; }
 
 a { color: #2A5FAB; text-decoration: none; }
 a:hover { text-decoration: underline; }

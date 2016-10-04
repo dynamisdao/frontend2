@@ -65,10 +65,10 @@ class LoginForm extends Component {
         <div className="form-actions">
           <button
             type="submit"
-            className="btn btn-blue btn-big btn-big-secondary"
+            className="btn btn-blue btn-big btn-big-fetched"
             disabled={isFetched}
           >
-            Login {isFetched ? <i className="fa fa-spin fa-spinner" /> : null}
+            {isFetched ? <i className="fa fa-spin fa-spinner" /> : <span>&nbsp;&nbsp;&nbsp;</span>} Login
           </button>
         </div>
       </form>
