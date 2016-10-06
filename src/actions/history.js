@@ -5,6 +5,13 @@ import { getHeaders } from '../utils';
 
 const toastr = window.toastr;
 
+export function initialPosition(values) {
+  return {
+    type: types.POSITION_INITIAL,
+    payload: { values }
+  };
+}
+
 export function addPosition(values) {
   return {
     type: types.ADD_POSITION,

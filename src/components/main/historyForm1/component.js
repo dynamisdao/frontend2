@@ -4,10 +4,14 @@ import { connect } from 'react-redux';
 
 import * as HistoryActions from '../../../actions/history';
 import HistoryForm from './formComponent';
-{/*import UnsavedModal from '../../base/unsavedModal/component'; */}
 import HeaderStep from '../../base/headerStep/component';
 
 class HistoryForm1Component extends Component {
+  componentWillMount() {
+    if (JSON.parse(window.localStorage.getItem('positionList'))) {
+      this.props.initialPosition();
+    }
+  }
   render() {
     return (
       <section className="section section-form">
@@ -22,7 +26,6 @@ class HistoryForm1Component extends Component {
                   deletePosition={this.props.deletePosition}
                   positionList={this.props.positionList}
                 />
-                {/* <UnsavedModal route={this.props.route} />  */}
               </div>
             </div>
           </div>
@@ -36,6 +39,7 @@ HistoryForm1Component.propTypes = {
   addPosition: PropTypes.func.isRequired,
   positionList: PropTypes.array.isRequired,
   deletePosition: PropTypes.func.isRequired,
+  initialPosition: PropTypes.func.isRequired,
   route: PropTypes.object
 };
 

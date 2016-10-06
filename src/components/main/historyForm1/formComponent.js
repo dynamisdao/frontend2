@@ -50,7 +50,7 @@ class HistoryForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCurrentWork: false,
+      currentJob: false,
       fromValue: 'from',
       toValue: 'to',
       fromIsValid: true,
@@ -76,15 +76,19 @@ class HistoryForm extends Component {
     if ((this.state.toValue !== 'to' || this.state.fromValue !== 'from') && this.state.dateIsValid) {
       const position = values;
       position.id = this.props.positionList.length + 1;
-      position.to = this.state.toValue;
+      if (this.state.currentJob) {
+        position.to = null;
+      } else {
+        position.to = this.state.toValue;
+      }
       position.from = this.state.fromValue;
-      position.isCurrentWork = this.state.isCurrentWork;
+      position.currentJob = this.state.currentJob;
       this.props.addPosition(position);
       this.props.initialize();
       this.setState({
         fromValue: 'from',
         toValue: 'to',
-        isCurrentWork: false
+        currentJob: false
       });
     } else if (this.state.dateIsValid) {
       this.setState({
@@ -101,7 +105,7 @@ class HistoryForm extends Component {
       this.setState({
         toValue: position.to,
         fromValue: position.from,
-        isCurrentWork: position.isCurrentWork,
+        currentJob: position.currentJob,
         fromIsValid: true,
         toIsValid: true,
         dateIsValid: true
@@ -157,7 +161,7 @@ class HistoryForm extends Component {
 
   handleCheckBoxField() {
     this.setState({
-      isCurrentWork: !this.state.isCurrentWork,
+      currentJob: !this.state.currentJob,
       dateIsValid: true,
       toValue: 'to'
     });
@@ -179,7 +183,7 @@ class HistoryForm extends Component {
 
   render() {
     const { handleSubmit, positionList } = this.props;
-    const { isCurrentWork, toIsValid, fromIsValid, dateIsValid } = this.state;
+    const { currentJob, toIsValid, fromIsValid, dateIsValid } = this.state;
     return (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
         <div className="form-head">
@@ -250,7 +254,7 @@ class HistoryForm extends Component {
                       {!dateIsValid ? <span className="error">From should begin before To</span> : null}
                     </div>
                   </div>
-                  {!isCurrentWork ?
+                  {!currentJob ?
                     <div className="form-col form-col-1of2">
                       <label htmlFor="field-to" className="form-label hidden">To</label>
                       <div className="form-controls">
@@ -275,9 +279,9 @@ class HistoryForm extends Component {
                 <div className="form-col form-col-1of3">
                   <div className="checkbox">
                     <input
-                      checked={this.state.isCurrentWork}
+                      checked={this.state.currentJob}
                       onChange={this.handleCheckBoxField}
-                      value={this.state.isCurrentWork}
+                      value={this.state.currentJob}
                       type="checkbox" name="field-currently-work-here"
                       id="field-currently-work-here"
                     />
