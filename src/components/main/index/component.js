@@ -45,6 +45,7 @@ class MainIndexComponent extends Component {
                     >
                       <span>
                         <img
+                          alt="avatar"
                           src={identityUser.avatarPath}
                           width="39" height="39"
                         />
