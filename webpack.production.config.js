@@ -1,5 +1,4 @@
 /* eslint strict: 0 */
-'use strict';
 const path = require('path');
 const webpack = require('webpack');
 const precss = require('precss');
@@ -18,12 +17,6 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
-    new webpack.DefinePlugin({
-      __DEV__: true,
-      'process.env.NODE_ENV': JSON.stringify('development'),
-      'process.env.BROWSER': true
-    }),
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: 'index.template.html',
       inject: 'body',
