@@ -13,7 +13,6 @@ class HeaderLogedComponent extends Component {
   }
 
   componentWillMount() {
-    debugger
     const accountId = window.localStorage.getItem('accountId');
     if (accountId) this.props.fetchProfile(accountId);
   }
