@@ -12,7 +12,7 @@ const PositionPanelComponent = (props) => {
         </p>
         <span>
           {getMonthtStringByNumber(props.position.from.split('.')[0])}, {props.position.from.split('.')[1]} -
-          {props.position.isCurrentWork ? ' Present' :
+          {props.position.currentJob ? ' Present' :
           ` ${getMonthtStringByNumber(props.position.to.split('.')[0])},
           ${props.position.to.split('.')[1]}`}
         </span>

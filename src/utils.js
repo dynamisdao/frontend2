@@ -79,14 +79,16 @@ export function getMonthtStringByNumber(number) {
 }
 
 export function getSignApplication(positionList, user, isJSON) {
-  let newPositionList = [];
+  const newPositionList = [];
   for (let item of positionList) {
     const newItem = {};
     newItem.currentJob = item.isCurrentWork;
-    newItem.startMonth = parseInt(item.to.split('.')[0]);
+    if (item.isCurrentWork) {
+      newItem.startMonth = parseInt(item.to.split('.')[0]);
+      newItem.endYear = parseInt(item.to.split('.')[1]);
+    }
     newItem.endMonth = parseInt(item.from.split('.')[0]);
     newItem.startYear = parseInt(item.from.split('.')[1]);
-    newItem.endYear = parseInt(item.from.split('.')[1]);
     newItem.notes = `${item.companyName}* ${item.jobTitile}:\n* Reason for leaving:\n\nIn order to verify my employment at
     ${item.companyName}you can contact ${item.confirmerName} who was my <SUPERVISOR/BOSS>. They can be reached 
     via ${item.confirmerEmail} You can verify their position with the company by <INSERT-HOW-TO-VERIFY-THEIR-POSITION>`;
