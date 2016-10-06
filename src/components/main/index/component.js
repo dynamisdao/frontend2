@@ -30,13 +30,13 @@ class MainIndexComponent extends Component {
           <div className="section-body">
             <div className="section-group section-group-secondary">
               <div className="user">
-                <header className="user-head">
+                <div className="user-head">
                   <h2>
                     <i className="ico-check-secondary" />
 
                     Online Identity
                   </h2>
-                </header>
+                </div>
                 {identityUser ?
                   <div className="user-body">
                     <a
@@ -57,13 +57,13 @@ class MainIndexComponent extends Component {
               </div>
               <div className="section-content">
                 <div className="account">
-                  <header className="account-head">
+                  <div className="account-head">
                     <h2>
                       <i className="ico-check-secondary" />
 
                       Account
                     </h2>
-                  </header>
+                  </div>
                   
                   <div className="account-body">
                     <table className="table-account">
