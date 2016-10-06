@@ -4,7 +4,7 @@
 
 .positions { list-style-type: none; display: inline-block; vertical-align: top; width: 66.66%; }
 
-.position { display: inline-block; background: #fff; border: 0.5px solid rgba(151,151,151,.5); box-shadow: 0 0 3px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.25); vertical-align: top; font: 400 14px/1.06 'Marven Pro', sans-serif; padding: 18px 24px 24px 24px; width: 357px; margin-right: 20px; min-height: 233px; }
+.position { display: inline-block; background: #fff; border: 0.5px solid rgba(151,151,151,.5); box-shadow: 0 0 3px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.25); vertical-align: top; font: 400 14px/1.06 'Marven Pro', sans-serif; padding: 18px 24px 24px 24px; width: 357px; margin: 0px 20px 20px 0px; min-height: 233px; }
 .position:last-child { margin-right: 0; }
 
 .position h4 { font-size: 18px; color: #2961ac; font-weight: 500; margin-bottom: 12px; }

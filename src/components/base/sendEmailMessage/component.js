@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 
-import HeaderStep from '../headerStep/component';
-
 class SendEmailMessageComponent extends Component {
 
   render() {
