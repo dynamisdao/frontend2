@@ -36,10 +36,7 @@ class MainIndexComponent extends Component {
 
                     Online Identity
                   </h2>
-
-                  {/*<a href="" className="link">change keybase user</a>*/}
                 </header>
-
                 {identityUser ?
                   <div className="user-body">
                     <a
@@ -57,7 +54,6 @@ class MainIndexComponent extends Component {
                   </div> : null
                 }
               </div>
-
               <div className="section-content">
                 <div className="account">
                   <header className="account-head">
