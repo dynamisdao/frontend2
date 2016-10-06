@@ -118,10 +118,10 @@ class AccountCreationForm extends Component {
               <div className="form-actions">
                 <button
                   type="submit"
-                  className="btn btn-blue btn-big btn-big-secondary"
+                  className="btn btn-blue btn-big btn-big-create-login"
                   disabled={isFetched}
                 >
-                  Create Login {isFetched ? <i className="fa fa-spin fa-spinner" /> : null}
+                  {isFetched ? <i className="fa fa-spin fa-spinner" /> : null} Create Login
                 </button>
                 <a
                   href="https://keybase.io"

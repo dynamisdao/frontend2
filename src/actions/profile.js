@@ -49,6 +49,7 @@ export function login(data, successCallback, errorCallback) {
       .then(response => {
         if (response.status >= 400) {
           isError = true;
+          dispatch({ type: types.LOGIN_ERROR, payload: {} });
         }
         return response.json();
       })
@@ -56,15 +57,19 @@ export function login(data, successCallback, errorCallback) {
         if (!isError) {
           dispatch(fetchProfile(json.accountid, successCallback, errorCallback));
         } else {
-          toastr.error(json.non_field_errors[0]);
+          if (json.non_field_errors[0]) {
+            toastr.error(json.non_field_errors[0]);
+          } else {
+            toastr.error('Server Error');
+          }
           if (errorCallback) errorCallback.apply();
-          dispatch({ type: types.LOGIN_ERROR, payload: {} });
         }
       });
   };
 }
 
 export function logout() {
+  window.localStorage.removeItem('positionList');
   return {
     type: types.LOGOUT,
     payload: { isAuth: false }

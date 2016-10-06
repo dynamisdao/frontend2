@@ -10,15 +10,21 @@ const initialState = {
 
 function profileReducer(state = initialState, action) {
   switch (action.type) {
+    case types.POSITION_INITIAL: {
+      const initialPositionList = JSON.parse(window.localStorage.getItem('positionList'));
+      return objectAssign({}, state, { positionList: initialPositionList });
+    }
     case types.ADD_POSITION: {
       const positionList = state.positionList;
       positionList.push(action.payload.values);
+      window.localStorage.setItem('positionList', JSON.stringify(positionList));
       return objectAssign({}, state, positionList);
     }
     case types.DELETE_POSITION: {
       const editPositionList = state.positionList;
       const index = editPositionList.indexOf(editPositionList.find(p => p.id === action.payload.id));
       editPositionList.splice(index, 1);
+      window.localStorage.setItem('positionList',  JSON.stringify(editPositionList));
       return objectAssign({}, state, { positionList: editPositionList });
     }
     case types.CREATE_POLICY: {

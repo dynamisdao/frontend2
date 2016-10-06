@@ -25,7 +25,7 @@ export function calculationDate(date, current) {
 export function getMonthsQuantity(positionList) {
   const workPeriods = positionList.map(p =>
     ({ fromValue: calculationDate(p.from),
-      toValue: calculationDate(p.to, p.isCurrentWork)
+      toValue: calculationDate(p.to, p.currentJob)
   }));
   const monthsList = [];
   let quantity = 0;
@@ -78,18 +78,33 @@ export function getMonthtStringByNumber(number) {
   }
 }
 
-export function getSignApplication(data, user, isJSON) {
+export function getSignApplication(positionList, user, isJSON) {
+  let newPositionList = [];
+  for (let item of positionList) {
+    const newItem = {};
+    newItem.currentJob = item.isCurrentWork;
+    newItem.startMonth = parseInt(item.to.split('.')[0]);
+    newItem.endMonth = parseInt(item.from.split('.')[0]);
+    newItem.startYear = parseInt(item.from.split('.')[1]);
+    newItem.endYear = parseInt(item.from.split('.')[1]);
+    newItem.notes = `${item.companyName}* ${item.jobTitile}:\n* Reason for leaving:\n\nIn order to verify my employment at
+    ${item.companyName}you can contact ${item.confirmerName} who was my <SUPERVISOR/BOSS>. They can be reached 
+    via ${item.confirmerEmail} You can verify their position with the company by <INSERT-HOW-TO-VERIFY-THEIR-POSITION>`;
+    newPositionList.push(newItem);
+  }
   let obj = {
-    identity: {
-      verification_method: 'keybase',
-      verification_data: {
-        username: user.username,
-        proofs: []
-      },
-      employmentHistory: {
-        jobs: data
-      },
-      requestedPremiumAmount: '238'
+    data: {
+      identity: {
+        verification_method: 'keybase',
+        verification_data: {
+          username: user.username,
+          proofs: []
+        },
+        employmentHistory: {
+          jobs: newPositionList
+        },
+        requestedPremiumAmount: '238'
+      }
     }
   };
   if (isJSON) obj = JSON.stringify(obj);
