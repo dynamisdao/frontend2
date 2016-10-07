@@ -16,6 +16,7 @@ export function fetchProfile(accountId, successCallback, errorCallback) {
       })
       .then(response => {
         if (response.status >= 400) {
+          toastr.error('Server Error');
           returnObj.payload.isAuth = false;
           isError = true;
           dispatch(returnObj);
@@ -44,7 +45,7 @@ export function login(data, successCallback, errorCallback) {
       { method: 'POST',
         headers: getHeaders(),
         body: JSON.stringify(data),
-        credentials: 'same-origin'
+        credentials: 'include'
       })
       .then(response => {
         if (response.status >= 400) {
