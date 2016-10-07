@@ -26,7 +26,7 @@ class HeaderLogedComponent extends Component {
   render() {
     const { user, isNavigation } = this.props;
     return (
-      <header className={!isNavigation ? 'header header-secondary header-loged' : 'header'}>
+      <div className={!isNavigation ? 'header header-secondary header-loged' : 'header'}>
         <a href="" className="logo">Dynamis</a>
         {isNavigation ?
           <div>
@@ -70,7 +70,7 @@ class HeaderLogedComponent extends Component {
             </nav>
           </div> : null
         }
-        <nav className="nav nav-user">
+        <div className="nav nav-user">
           <ul>
             <li>
               <a href="" className="dropdown-trigger">
@@ -87,8 +87,8 @@ class HeaderLogedComponent extends Component {
               </div>
             </li>
           </ul>
-        </nav>
-      </header>
+        </div>
+      </div>
     );
   }
 }
