@@ -23,7 +23,7 @@ function profileReducer(state = initialState, action) {
     case types.IDENTITY_START:
       return objectAssign({}, state, { isFetched: true });
     case types.IDENTITY_SUCCESS: {
-      const identityUser = { };
+      const identityUser = {};
       if (action.payload.them) {
         identityUser.username = action.payload.them.basics.username;
         if (action.payload.them.pictures) {

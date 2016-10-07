@@ -43,6 +43,8 @@ class LoginForm extends Component {
         <label htmlFor="field-email" className="form-label hidden">{label}</label>
         <div>
           <input {...input} className="field" placeholder={label} type={type} />
+        </div>
+        <div>
           {touched && error && <span className="error">{error}</span>}
         </div>
       </div>
@@ -63,10 +65,10 @@ class LoginForm extends Component {
         <div className="form-actions">
           <button
             type="submit"
-            className="btn btn-blue btn-big btn-big-secondary"
+            className="btn btn-blue btn-big btn-big-login"
             disabled={isFetched}
           >
-            Login {isFetched ? <i className="fa fa-spin fa-spinner" /> : null}
+            {isFetched ? <i className="fa fa-spin fa-spinner" /> : null} <span>Login</span>
           </button>
         </div>
       </form>

@@ -134,10 +134,10 @@ class IdentityForm extends Component {
                   </button> :
                   <button
                     type="submit"
-                    className="btn btn-blue btn-big"
+                    className="btn btn-blue btn-big btn-big-indentity"
                     disabled={isFetched}
                   >
-                    Get Data {isFetched ? <i className="fa fa-spin fa-spinner" /> : null}
+                    {isFetched ? <i className="fa fa-spin fa-spinner" /> : null} Get Data
                   </button>
                 }
                 <a

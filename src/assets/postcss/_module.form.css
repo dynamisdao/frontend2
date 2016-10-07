@@ -10,7 +10,7 @@
 .form .form-body { margin-bottom: 15px; }
 .form .link { float: right; margin-top: 16px; }
 .form .btn-blue { float: left; }
-.form .error { color: #cb3837; }
+.form .error { color: #cb3837; position: absolute;}
 
 .form .field::-webkit-input-placeholder { color: #4a4a4a;  }
 .form .field::-moz-placeholder { color: #4a4a4a;  }
@@ -22,7 +22,7 @@
 /*  Form-Identity */
 
 .form-identity .form-row { margin-bottom: 35px; }
-.form-identity .form-row:last-child { margin-bottom: 0; }
+.form-identity .form-row:last-child { margin-bottom: 25px; }
 
 /*  Form-Account  */
 
@@ -30,7 +30,7 @@
 .form-account .form-body { margin-bottom: 29px; }
 .form-account .field { font: 400 15px/1.27 'Maven Pro', sans-serif; padding-bottom: 11px; }
 .form-account .form-row { margin-bottom: 35px; }
-.form-account .form-row:last-child { margin-bottom: 0; }
+.form-account .form-row:last-child { margin-bottom: 25px; }
 
 .form-account .form-head h2 { margin-bottom: 0; }
 
