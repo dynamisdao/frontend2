@@ -23,6 +23,9 @@ class AssessmentFormComponent extends Component {
   }
 
   componentWillMount() {
+    if (this.props.positionList.length === 0) {
+      browserHistory.push(urls.main.historyForm1.path);
+    }
     if (window.localStorage.getItem('questions')) {
       const questions = JSON.parse(window.localStorage.getItem('questions'));
       this.setState({
@@ -56,9 +59,9 @@ class AssessmentFormComponent extends Component {
     return () => {
       this.setState({ howLongStay: value });
       const questions = JSON.stringify({
-      howLongStay: value,
-      unemploymentPeriod: this.state.unemploymentPeriod
-    });
+        howLongStay: value,
+        unemploymentPeriod: this.state.unemploymentPeriod
+      });
     window.localStorage.setItem('questions', questions);
     };
   }
@@ -67,9 +70,9 @@ class AssessmentFormComponent extends Component {
     return () => {
       this.setState({ unemploymentPeriod: value });
       const questions = JSON.stringify({
-      howLongStay: this.state.howLongStay,
-      unemploymentPeriod: value
-    });
+        howLongStay: this.state.howLongStay,
+        unemploymentPeriod: value
+      });
     window.localStorage.setItem('questions', questions);
     };
   }
@@ -218,7 +221,8 @@ class AssessmentFormComponent extends Component {
 }
 
 AssessmentFormComponent.propTypes = {
-  positionList: PropTypes.array.isRequired
+  positionList: PropTypes.array.isRequired,
+  initialPosition: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {

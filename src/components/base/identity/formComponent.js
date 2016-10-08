@@ -4,13 +4,10 @@ import { browserHistory } from 'react-router';
 
 import { urls } from '../../../routes';
 
-export const fields = ['eth', 'username'];
+export const fields = ['username'];
 
 const validate = values => {
   const errors = {};
-  if (!values.eth) {
-    errors.eth = 'Required';
-  }
   if (!values.username) {
     errors.username = 'Required';
   }
@@ -30,7 +27,6 @@ class IdentityForm extends Component {
     if (window.localStorage.getItem('username')) {
       this.props.initialize({
         username: window.localStorage.getItem('username'),
-        eth: window.localStorage.getItem('eth')
       });
       this.setState({ isNext: true });
     }
@@ -45,7 +41,6 @@ class IdentityForm extends Component {
   handleSubmit(values) {
     if (this.state.isNext) {
       browserHistory.push(urls.accountCreation.path);
-      window.localStorage.setItem('eth', values.eth);
       window.localStorage.setItem('username', this.props.identityUser.username);
       window.localStorage.setItem('avatarPath', this.props.identityUser.avatarPath);
     } else {
@@ -56,7 +51,7 @@ class IdentityForm extends Component {
   handleOnChangeUserName() {
     if (this.state.isNext) {
       this.setState({ isNext: false });
-      ['eth', 'username', 'avatarPath'].map(f => window.localStorage.removeItem(f));
+      ['username', 'avatarPath'].map(f => window.localStorage.removeItem(f));
     }
   }
 
@@ -117,7 +112,6 @@ class IdentityForm extends Component {
               </div> : null
             }
               <div className="form-body">
-                <Field name="eth" type="text" component={this.renderField} label="Your ETH Address" />
                 <Field
                   name="username" type="text"
                   component={this.renderField}
