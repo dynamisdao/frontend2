@@ -83,11 +83,16 @@ export function getSignApplication(positionList, user, isJSON) {
   for (let item of positionList) {
     const newItem = {};
     newItem.currentJob = item.isCurrentWork;
+    newItem.files = item.files;
+    newItem.state = 'READ_ONLY';
     if (item.isCurrentWork) {
-      newItem.startMonth = parseInt(item.to.split('.')[0]);
+      newItem.currentJob = true;
+      newItem.endMonth = parseInt(item.to.split('.')[0]);
       newItem.endYear = parseInt(item.to.split('.')[1]);
+    } else {
+      newItem.currentJob = false;
     }
-    newItem.endMonth = parseInt(item.from.split('.')[0]);
+    newItem.startMonth = parseInt(item.from.split('.')[0]);
     newItem.startYear = parseInt(item.from.split('.')[1]);
     newItem.notes = `${item.companyName}* ${item.jobTitile}:\n* Reason for leaving:\n\nIn order to verify my employment at
     ${item.companyName}you can contact ${item.confirmerName} who was my <SUPERVISOR/BOSS>. They can be reached 
@@ -101,12 +106,16 @@ export function getSignApplication(positionList, user, isJSON) {
         verification_data: {
           username: user.username,
           proofs: []
-        },
-        employmentHistory: {
-          jobs: newPositionList
-        },
-        requestedPremiumAmount: '238'
-      }
+        }
+      },
+      employmentHistory: {
+        jobs: newPositionList
+      },
+      questions: {
+        howLongStay: 1,
+        unemploymentPeriod: 0
+      },
+      requestedPremiumAmount: '238'
     }
   };
   if (isJSON) obj = JSON.stringify(obj);

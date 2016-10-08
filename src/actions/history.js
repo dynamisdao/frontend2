@@ -99,3 +99,29 @@ export function signPolicy(policyid, data, successCallback) {
       });
   };
 }
+
+export function uploadHistoryFile(policyid, data) {
+  return dispatch => {
+    let isError = false;
+    fetch(`${config.baseUrl}api/v1/policies/${policyid}/file`,
+      { method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify(data),
+        credentials: 'include'
+      })
+      .then(response => {
+        if (response.status >= 400) {
+          isError = true;
+        }
+        return response.json();
+      })
+      .then(json => {
+        if (!isError) {
+          toastr.success('File load success');
+          dispatch({ type: types.HISTORY_FILE_UPLOAD, payload: json });
+        } else {
+          toastr.error('File load error');
+        }
+      });
+  };
+}

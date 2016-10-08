@@ -30,6 +30,8 @@
 .position .position-body .link { margin-top: 12px; }
 .position .position-body .link i { color: #2961ac; }
 
+.position .position-body .file-list { padding-top: 16px; }
+
 $breakpoint-small-desktop {
 	.positions { width: 100%; }
 
