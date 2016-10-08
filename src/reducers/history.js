@@ -6,7 +6,11 @@ const initialState = {
   positionList: [],
   fileList: [],
   policyId: undefined,
-  isFetched: false
+  isFetched: false,
+  questions: {
+    howLongStay: 0,
+    unemploymentPeriod: 0
+  }
 };
 
 function profileReducer(state = initialState, action) {

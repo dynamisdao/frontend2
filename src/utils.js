@@ -86,11 +86,14 @@ export function getSignApplication(positionList, user, isJSON) {
     newItem.files = item.files;
     newItem.state = 'READ_ONLY';
     if (item.isCurrentWork) {
-      newItem.currentJob = true;
       newItem.endMonth = parseInt(item.to.split('.')[0]);
       newItem.endYear = parseInt(item.to.split('.')[1]);
+      newItem.currentJob = true;
     } else {
+      const d = new Date();
       newItem.currentJob = false;
+      newItem.endMonth = d.getMonth();
+      newItem.endYear = d.getFullYear();
     }
     newItem.startMonth = parseInt(item.from.split('.')[0]);
     newItem.startYear = parseInt(item.from.split('.')[1]);
