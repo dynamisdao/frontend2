@@ -85,6 +85,7 @@ export function getSignApplication(positionList, user, isJSON) {
     newItem.currentJob = item.isCurrentWork;
     newItem.files = item.files;
     newItem.state = 'READ_ONLY';
+    newItem.company = item.companyName;
     if (item.isCurrentWork) {
       newItem.endMonth = parseInt(item.to.split('.')[0]);
       newItem.endYear = parseInt(item.to.split('.')[1]);

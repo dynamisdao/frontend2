@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as HistoryActions from '../../../actions/history';
-
 import { urls } from '../../../routes';
-import { getSignApplication } from '../../../utils';
+
+import PolicyDetailsComponent from './details/component';
 
 class PolicyComponent extends Component {
 
@@ -53,60 +53,11 @@ class PolicyComponent extends Component {
                 </footer>
               </div>
             </div>
+
             <div className="col col-2of5">
-              <div className="panel panel-details">
-                <header className="panel-head">
-                  <div className="panel-head-aside">
-                    <p>$2/Mo.</p>
-                  </div>
-                  <h2 className="panel-title">Policy Details</h2>
-                </header>
-                <div className="panel-body">
-                  <div className="table table-policy-details">
-                    <table>
-                      <colgroup>
-                        <col className="col-title" />
-                        <col className="col-detail" />
-                      </colgroup>
-                      <tbody>
-                        <tr>
-                          <td>Policy #</td>
-                          <td>A28461677</td>
-                        </tr>
-                        <tr>
-                          <td>Coverage</td>
-                          <td>50% of monthly salary</td>
-                        </tr>
-                        <tr>
-                          <td>Effective Date</td>
-                          <td>1/21/2016</td>
-                        </tr>
-                        <tr>
-                          <td>Eligibility</td>
-                          <td>12 days to elegibility</td>
-                        </tr>
-                        <tr>
-                          <td>Payment Plan</td>
-                          <td>Monthly – Manual Pay</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <a href="" className="btn btn-block">
-                    <i className="material-icons">credit_card</i>
-
-                    Make Your September 31st Payment Now
-                  </a>
-                </div>
-
-                <footer className="panel-foot">
-                  <a href="" className="link-edit">Edit Policy</a>
-
-                  <a href="" className="link-more material-icons">more_vert</a>
-                </footer>
-              </div>
-
+              {this.props.user.id ?
+                <PolicyDetailsComponent /> : null
+              }
               <div className="panel panel-pool">
                 <header className="panel-head">
                   <i className="ico-umbrellas" />
@@ -218,14 +169,11 @@ class PolicyComponent extends Component {
 }
 
 PolicyComponent.propTypes = {
-  positionList: PropTypes.array.isRequired,
-  user: PropTypes.object.isRequired,
-  createPolicy: PropTypes.func.isRequired
+  user: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    positionList: state.history.positionList,
     user: state.profile.user
   };
 }
