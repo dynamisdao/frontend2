@@ -26,6 +26,18 @@ class AssessmentFormComponent extends Component {
     if (this.props.positionList.length === 0) {
       browserHistory.push(urls.main.historyForm1.path);
     }
+    if (window.localStorage.getItem('questions')) {
+      const questions = JSON.parse(window.localStorage.getItem('questions'));
+      this.setState({
+        howLongStay: questions.howLongStay,
+        unemploymentPeriod: questions.unemploymentPeriod
+      });
+    } else {
+      this.setState({
+        howLongStay: 0,
+        unemploymentPeriod: 0
+      });
+    }
   }
 
   handleEditPositions(event) {
@@ -45,22 +57,38 @@ class AssessmentFormComponent extends Component {
 
   handleWorkPeriod(value) {
     return () => {
-      this.setState({ workPeriod: value });
+      this.setState({ howLongStay: value });
+      const questions = JSON.stringify({
+        howLongStay: value,
+        unemploymentPeriod: this.state.unemploymentPeriod
+      });
+    window.localStorage.setItem('questions', questions);
     };
   }
 
   handleCoveragePeriod(value) {
     return () => {
-      this.setState({ coveragePeriod: value });
+      this.setState({ unemploymentPeriod: value });
+      const questions = JSON.stringify({
+        howLongStay: this.state.howLongStay,
+        unemploymentPeriod: value
+      });
+    window.localStorage.setItem('questions', questions);
     };
   }
 
   render() {
     const { positionList } = this.props;
-    const getRadioFireld = (label, name, handler, checked) => (
+    const getRadioFireld = (label, value, state, handler) => (
       <li>
         <div className="radio">
-          <input type="radio" name={name} id={label} onClick={handler} defaultChecked={checked} />
+          <input
+            type="radio"
+            name={state}
+            id={label}
+            onClick={handler}
+            defaultChecked={value == this.state[state]}
+          />
           <label className="form-label" htmlFor={label}>{label}</label>
         </div>
       </li>
@@ -137,15 +165,15 @@ class AssessmentFormComponent extends Component {
                       might be going back to school or starting a family.
                     </p>
                     <ul className="list-radios">
-                      {getRadioFireld('Less than 1 year', 'workPeriod', this.handleWorkPeriod('less_1_year'), true)}
-                      {getRadioFireld('In about 1 year', 'workPeriod', this.handleWorkPeriod('in_about_1_year'))}
-                      {getRadioFireld('Before the end of next year', 'workPeriod', this.handleWorkPeriod('before_end_2_year'))}
-                      {getRadioFireld('Maybe before 2 years time', 'workPeriod', this.handleWorkPeriod('before_2_year'))}
-                      {getRadioFireld('More than 2 years', 'workPeriod', this.handleWorkPeriod('more_than_2_year'))}
+                      {getRadioFireld('Less than 1 year', 0, 'howLongStay', this.handleWorkPeriod(0))}
+                      {getRadioFireld('In about 1 year', 1, 'howLongStay', this.handleWorkPeriod(1))}
+                      {getRadioFireld('Before the end of next year', 2, 'howLongStay', this.handleWorkPeriod(2))}
+                      {getRadioFireld('Maybe before 2 years time', 3, 'howLongStay', this.handleWorkPeriod(3))}
+                      {getRadioFireld('More than 2 years', 4, 'howLongStay', this.handleWorkPeriod(4))}
                       {getRadioFireld(
                         'I love my job. I will work for my present employer till the day I die. :)',
-                        'workPeriod',
-                        this.handleWorkPeriod('all_time')
+                        5, 'howLongStay',
+                        this.handleWorkPeriod(5)
                       )}
                     </ul>
                   </section>
@@ -158,15 +186,15 @@ class AssessmentFormComponent extends Component {
                       moving to a new industry, starting a completely new career.
                     </p>
                     <ul className="list-radios">
-                      {getRadioFireld('About 1 to 2 weeks', 'coveragePeriod', this.handleCoveragePeriod('about_1_to_2_week'), true)}
-                      {getRadioFireld('Maybe 3 weeks to 1 month', 'coveragePeriod', this.handleCoveragePeriod('about_3_to_1_month'))}
-                      {getRadioFireld('Perhaps 1 to 2 months', 'coveragePeriod', this.handleCoveragePeriod('about_1_to_2_month'))}
-                      {getRadioFireld('Possibly 2 to 3 months', 'coveragePeriod', this.handleCoveragePeriod('about_2_to_3_month'))}
-                      {getRadioFireld('Potentially 3 to 4 months', 'coveragePeriod', this.handleCoveragePeriod('about_4_to_4_month'))}
+                      {getRadioFireld('About 1 to 2 weeks', 0, 'unemploymentPeriod', this.handleCoveragePeriod(0))}
+                      {getRadioFireld('Maybe 3 weeks to 1 month', 1, 'unemploymentPeriod', this.handleCoveragePeriod(1))}
+                      {getRadioFireld('Perhaps 1 to 2 months', 2, 'unemploymentPeriod', this.handleCoveragePeriod(2))}
+                      {getRadioFireld('Possibly 2 to 3 months', 3, 'unemploymentPeriod', this.handleCoveragePeriod(3))}
+                      {getRadioFireld('Potentially 3 to 4 months', 4, 'unemploymentPeriod', this.handleCoveragePeriod(4))}
                       {getRadioFireld(
                         'I will need more than 4 months of coverage.',
-                        'coveragePeriod',
-                        this.handleCoveragePeriod('more_than_4_month')
+                        5, 'unemploymentPeriod',
+                        this.handleCoveragePeriod(5)
                         )}
                     </ul>
                   </section>
@@ -193,7 +221,8 @@ class AssessmentFormComponent extends Component {
 }
 
 AssessmentFormComponent.propTypes = {
-  positionList: PropTypes.array.isRequired
+  positionList: PropTypes.array.isRequired,
+  initialPosition: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {

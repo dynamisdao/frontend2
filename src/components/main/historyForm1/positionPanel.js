@@ -33,10 +33,14 @@ const PositionPanelComponent = (props) => {
         <p>
           <span>{props.position.ёconfirmerName}</span> <span>{props.position.confirmerEmail}</span>
         </p>
-        <a href="" className="link">
-          <i className="material-icons">attach_file</i>
-          paystub7-24-16.pdf
-        </a>
+        {props.position.files.map(file =>
+          <div key={file.ipfs_hash} className="file-list">
+            <span>
+              <i className="material-icons">attach_file</i>
+              {file.name}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -27,7 +27,6 @@ export function fetchProfile(accountId, successCallback, errorCallback) {
         if (!isError) {
           if (successCallback) successCallback.apply();
           returnObj.payload = json;
-          window.localStorage.setItem('accountId', accountId);
           returnObj.payload.isAuth = true;
           dispatch(returnObj);
         } else if (errorCallback) {
@@ -56,6 +55,7 @@ export function login(data, successCallback, errorCallback) {
       })
       .then(json => {
         if (!isError) {
+          window.localStorage.setItem('accountId', json.accountid);
           dispatch(fetchProfile(json.accountid, successCallback, errorCallback));
         } else {
           if (json.non_field_errors[0]) {
@@ -70,7 +70,7 @@ export function login(data, successCallback, errorCallback) {
 }
 
 export function logout() {
-  window.localStorage.removeItem('positionList');
+  window.localStorage.removeItem('accountId');
   return {
     type: types.LOGOUT,
     payload: { isAuth: false }

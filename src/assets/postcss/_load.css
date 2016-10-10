@@ -60,6 +60,8 @@
 
 @import '_module.form.css';
 
+@import '_module.file.css';
+
 @import '_module.intro.css';
 
 @import '_module.link.css';
@@ -87,6 +89,8 @@
 @import '_module.section.css';
 
 @import '_module.slider.css';
+
+@import '_module.spiner.css';
 
 @import '_module.table.css';
 

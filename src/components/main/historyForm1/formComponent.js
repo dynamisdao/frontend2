@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { browserHistory } from 'react-router';
+import FileReaderInput from 'react-file-reader-input';
 
 import PositionPanelComponent from './positionPanel';
 import CalendarPanelComponent from './calendarPanel';
@@ -65,6 +66,7 @@ class HistoryForm extends Component {
     this.handleFromSelectField = this.handleFromSelectField.bind(this);
     this.handleCheckBoxField = this.handleCheckBoxField.bind(this);
     this.handleComplete = this.handleComplete.bind(this);
+    this.handleFile = this.handleFile.bind(this);
   }
 
   handleComplete(event) {
@@ -167,6 +169,23 @@ class HistoryForm extends Component {
     });
   }
 
+  handleFile(event) {
+    event.preventDefault();
+    const mimetype = event.target.files[0].type;
+    const filename = event.target.files[0].name;
+    new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = result => {
+        resolve(result);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    })
+    .then(data_url => {
+      this.props.uploadHistoryFile(3, { filename, data_url, mimetype }
+      );
+    });
+  }
+
   renderInputField({ input, label, type, className, meta: { touched, error } }) {
     return (
       <div className={className}>
@@ -182,7 +201,7 @@ class HistoryForm extends Component {
   }
 
   render() {
-    const { handleSubmit, positionList } = this.props;
+    const { handleSubmit, positionList, user, fileList } = this.props;
     const { currentJob, toIsValid, fromIsValid, dateIsValid } = this.state;
     return (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
@@ -307,21 +326,33 @@ class HistoryForm extends Component {
                 />
               </div>
             </div>
-            <div className="form-section">
+            <div className="form-section file">
               <h5>Upload Supporting Documents</h5>
               <div className="form-row">
                 <label htmlFor="field-upload" className="form-label-upload">
-                  <input type="file" className="field-upload" name="field-upload" id="field-upload" value="" placeholder="upload" />
+                  <input
+                    type="file"
+                    className="field-upload"
+                    id="field-upload"
+                    value="" placeholder="upload"
+                    onChange={this.handleFile}
+                  />
                   <i className="material-icons">attach_file</i>
                 </label>
-                <a href="" className="link">e.g. pay stub, acceptance letter, 401k</a>
+                <span>e.g. pay stub, acceptance letter, 401k</span>
+                <div className="list">
+                  {fileList.map(file =>
+                    <p key={file.ipfs_hash}>
+                      <i className="material-icons">attach_file</i>
+                      {file.name}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-          
           <div className="form-actions">
             <button type="submit" className="btn btn-blue btn-big btn-big-secondary">Add Position</button>
-          
             <button
               className={positionList.length === 0 ?
                 'btn btn-silver btn-big btn-big-secondary' :
@@ -346,7 +377,10 @@ HistoryForm.propTypes = {
   reset: PropTypes.func.isRequired,
   positionList: PropTypes.array.isRequired,
   initialize: PropTypes.func.isRequired,
-  deletePosition: PropTypes.func.isRequired
+  deletePosition: PropTypes.func.isRequired,
+  uploadHistoryFile: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  fileList: PropTypes.array.isRequired
 };
 
 export default reduxForm({
