@@ -15,7 +15,7 @@ function policyReducer(state = initialState, action) {
     case types.POLICY_SMARTDEPOSIT_INFO_GET:
       return objectAssign({}, state, { depositInfo: action.payload });
     case types.POOL_STATE_CHANGE:
-      return objectAssign({}, state, { poolState: action.payload });
+      return objectAssign({}, state, { poolState: action.payload.values });
     default:
       return state;
   }

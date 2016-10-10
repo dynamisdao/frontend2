@@ -6,10 +6,15 @@ import { connect } from 'react-redux';
 import * as PolicyActions from '../../../actions/policy';
 import { urls } from '../../../routes';
 
+const DEPOSIT_STATE = [
+  { label: 'INITIAL', state: 1 },
+  { label: 'POLICY_STATUS_SUBMITTED', state: 2 },
+  { label: 'POLICY_STATUS_ON_RISK_ASSESSMENT_REVIEW', state: 3 }
+];
 
-class DepositInfoPoolComponent extends Component {
+class DepositInfoComponent extends Component {
 
-  componentWillmount() {
+  componentWillMount() {
     this.props.getDepositInfo(this.props.policy.id);
   }
   render() {
@@ -21,33 +26,15 @@ class DepositInfoPoolComponent extends Component {
           <div className="panel-body">
             <ul className="list-options">
               <li>
-                <a href="">
-                  <i className="ico-verify" />
-                  Verify My Policy
-                </a>
+                Smart Deposit: $summ
               </li>
               <li>
-                <a href="">
-                  <i className="ico-history" />
-                  Payment &amp; Claim History
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  <i className="ico-claim" />
-                  Open A Claim
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  <i className="ico-close-policy" />
-                  Close Policy
-                </a>
+                Status: initial
               </li>
             </ul>
           </div>
           <footer className="panel-foot">
-            <a href="" className="btn btn-large">More Policy Details</a>
+            <a href="" className="btn btn-large">Send</a>
           </footer>
         </div> : null
       }
@@ -56,9 +43,9 @@ class DepositInfoPoolComponent extends Component {
   }
 }
 
-DepositInfoPoolComponent.propTypes = {
+DepositInfoComponent.propTypes = {
   policy: PropTypes.object.isRequired,
-  getDepositInfo: PropTypes.object.isRequired,
+  getDepositInfo: PropTypes.func.isRequired,
   depositInfo: PropTypes.object.isRequired
 };
 
@@ -73,4 +60,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(PolicyActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DepositInfoPoolComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(DepositInfoComponent);

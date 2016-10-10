@@ -18,7 +18,7 @@ import HistoryForm1Component from './components/main/historyForm1/component';
 import CoverageFormComponent from './components/main/coverageForm/component';
 import AssessmentFormComponent from './components/main/assessmentForm/component';
 import SignFormComponent from './components/main/signForm/component';
-import PolicyComponent from './components/main/policy/component';
+import PolicyComponent from './components/policy/component';
 
 export const urls = {
   index: {

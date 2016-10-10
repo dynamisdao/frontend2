@@ -7,7 +7,7 @@ import * as HistoryActions from '../../../actions/history';
 import { urls } from '../../../routes';
 
 
-class PoolInitComponent extends Component {
+class InitInfoComponent extends Component {
 
   render() {
     return (
@@ -48,7 +48,7 @@ class PoolInitComponent extends Component {
   }
 }
 
-PoolInitComponent.propTypes = {
+InitInfoComponent.propTypes = {
   user: PropTypes.object.isRequired
 };
 
@@ -62,4 +62,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(HistoryActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PoolInitComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(InitInfoComponent);

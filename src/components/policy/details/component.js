@@ -2,10 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Spinner from 'react-spinkit';
 
-import * as PolicyActions from '../../../../actions/policy';
+import * as PolicyActions from '../../../actions/policy';
 
-import { urls } from '../../../../routes';
+import { urls } from '../../../routes';
 
 const POLICY_STATE = [
   { label: 'POLICY_STATUS_INIT', state: 1 },
@@ -28,6 +29,7 @@ class PolicyDetailsComponent extends Component {
     this.renderPolicyStatusOnRiskAssessmentReview =
       this.renderPolicyStatusOnRiskAssessmentReview.bind(this);
     this.handleEditPolicy = this.handleEditPolicy.bind(this);
+    this.handlePayDeposit = this.handlePayDeposit.bind(this);
   }
 
   componentWillMount() {
@@ -39,6 +41,11 @@ class PolicyDetailsComponent extends Component {
     browserHistory.push(urls.main.historyForm1.path);
   }
 
+  handlePayDeposit(event) {
+    event.preventDefault();
+    this.props.changePoolState('depositInfo');
+  }
+
   renderPolicyDetails() {
     switch (this.props.policy.state) {
       case POLICY_STATE.find(s => s.label === 'POLICY_STATUS_INIT').state:
@@ -46,7 +53,7 @@ class PolicyDetailsComponent extends Component {
       case POLICY_STATE.find(s => s.label === 'POLICY_STATUS_SUBMITTED').state:
         return this.renderPolicyStatusSubmitted();
       default:
-        return 'loading...';
+        return <Spinner spinnerName="three-bounce" />;
     }
   }
 
@@ -104,7 +111,7 @@ class PolicyDetailsComponent extends Component {
               </tbody>
             </table>
           </div>
-          <a href="" className="btn btn-block">
+          <a href="" onClick={this.handlePayDeposit} className="btn btn-block">
             <i className="material-icons">credit_card</i>
             Pay Smart Deposit
           </a>
@@ -161,7 +168,7 @@ class PolicyDetailsComponent extends Component {
 
   render() {
     return (
-      <div className="panel panel-details">
+      <div>
         <header className="panel-head">
           <div className="panel-head-aside">
             <p>$2/Mo.</p>
@@ -177,6 +184,7 @@ class PolicyDetailsComponent extends Component {
 PolicyDetailsComponent.propTypes = {
   policy: PropTypes.object.isRequired,
   getPolicy: PropTypes.func.isRequired,
+  changePoolState: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 };
 
