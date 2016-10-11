@@ -77,6 +77,13 @@ export function logout() {
   };
 }
 
+export function relogin() {
+  return {
+    type: types.RELOGIN,
+    payload: { isRelogin: true }
+  };
+}
+
 export function identity(username, successCallback) {
   return dispatch => {
     let isError = false;

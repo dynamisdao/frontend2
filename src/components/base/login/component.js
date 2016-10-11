@@ -7,7 +7,6 @@ import LoginForm from './formComponent';
 import StepsAsideComponent from '../fiveStepsAside/component';
 
 class LoginComponent extends Component {
-
   render() {
     return (
       <div className="main">
@@ -19,7 +18,11 @@ class LoginComponent extends Component {
                 <div className="section-group section-group-primary">
                   <div className="section-content">
                     <div className="form form-account">
-                      <LoginForm login={this.props.login} isFetched={this.props.isFetched} />
+                      <LoginForm
+                        login={this.props.login}
+                        isFetched={this.props.isFetched}
+                        isRelogin={this.props.isRelogin}
+                      />
                     </div>
                   </div>
                   <StepsAsideComponent
@@ -41,7 +44,8 @@ class LoginComponent extends Component {
 
 LoginComponent.propTypes = {
   login: PropTypes.func.isRequired,
-  isFetched: PropTypes.bool.isRequired
+  isFetched: PropTypes.bool.isRequired,
+  isRelogin: PropTypes.bool.isRequired
 };
 
 function mapDispatchToProps(dispatch) {
@@ -49,6 +53,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
   return {
+    isRelogin: state.profile.isRelogin,
     isFetched: state.profile.isFetched
   };
 }

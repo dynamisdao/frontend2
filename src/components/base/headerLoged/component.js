@@ -14,7 +14,12 @@ class HeaderLogedComponent extends Component {
 
   componentWillMount() {
     const accountId = window.localStorage.getItem('accountId');
-    if (accountId) this.props.fetchProfile(accountId);
+    if (accountId) {
+      this.props.fetchProfile(accountId);
+    } else {
+      this.props.relogin();
+      browserHistory.push(urls.login.path);
+    }
   }
 
   handleLogout(event) {
@@ -96,6 +101,7 @@ class HeaderLogedComponent extends Component {
 HeaderLogedComponent.propTypes = {
   user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
+  relogin: PropTypes.func.isRequired,
   fetchProfile: PropTypes.func.isRequired,
   isNavigation: PropTypes.bool
 };

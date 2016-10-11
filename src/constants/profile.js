@@ -3,6 +3,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const GET_ACCOUNT = 'GET_ACCOUNT';
 export const LOGOUT = 'LOGOUT';
+export const RELOGIN = 'RELOGIN';
 export const IDENTITY_START = 'IDENTITY_START';
 export const IDENTITY_SUCCESS = 'IDENTITY_SUCCESS';
 export const IDENTITY_ERROR = 'IDENTITY_ERROR';

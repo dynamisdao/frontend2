@@ -29,9 +29,15 @@ class LoginForm extends Component {
   }
 
   handleSubmit(values) {
+    let routing = null;
+    if (this.props.isRelogin) {
+      routing = () => browserHistory.goBack();
+    } else {
+      routing = () => browserHistory.push(urls.main.path);
+    }
     this.props.login(
       values,
-      () => (browserHistory.push(urls.main.path)),
+      routing,
       () => (this.props.array.removeAll('password'))
     );
     this.props.untouch('password');
@@ -76,9 +82,14 @@ class LoginForm extends Component {
   }
 }
 
+LoginForm.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
 LoginForm.propTypes = {
   login: PropTypes.func.isRequired,
   isFetched: PropTypes.bool.isRequired,
+  isRelogin: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   array: PropTypes.object.isRequired,
   untouch: PropTypes.func.isRequired

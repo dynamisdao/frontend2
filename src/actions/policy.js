@@ -29,7 +29,10 @@ export function getDepositInfo(policyid) {
   return dispatch => {
     let isError = false;
     fetch(`${config.baseUrl}api/v1/policies/${policyid}/smart_deposit`,
-      { method: 'GET' })
+      { method: 'GET',
+        headers: getHeaders(),
+        credentials: 'include'
+      })
       .then(response => {
         if (response.status >= 400) {
           isError = true;
