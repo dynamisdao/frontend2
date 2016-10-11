@@ -6,7 +6,8 @@ const initialState = {
   isAuth: false,
   user: {},
   identityUser: {},
-  isFetched: false
+  isFetched: false,
+  isRelogin: false
 };
 
 function profileReducer(state = initialState, action) {
@@ -40,6 +41,9 @@ function profileReducer(state = initialState, action) {
       return objectAssign({}, state, { isFetched: false });
     case types.LOGOUT: {
       window.localStorage.removeItem('accountId');
+      return objectAssign({}, state, action.payload);
+    }
+    case types.RELOGIN: {
       return objectAssign({}, state, action.payload);
     }
     case types.ACCOUNT_CREATE_START:

@@ -31,7 +31,7 @@ const PositionPanelComponent = (props) => {
       <div className="position-body">
         <p>Reference</p>
         <p>
-          <span>{props.position.ёconfirmerName}</span> <span>{props.position.confirmerEmail}</span>
+          <span>{props.position.confirmerName}</span> <span>{props.position.confirmerEmail}</span>
         </p>
         {props.position.files.map(file =>
           <div key={file.ipfs_hash} className="file-list">

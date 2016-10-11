@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Spinner from 'react-spinkit';
+
+import CustomSpiner from '../../base/spiner/component';
 
 import * as PolicyActions from '../../../actions/policy';
 
@@ -53,7 +54,7 @@ class PolicyDetailsComponent extends Component {
       case POLICY_STATE.find(s => s.label === 'POLICY_STATUS_SUBMITTED').state:
         return this.renderPolicyStatusSubmitted();
       default:
-        return <Spinner spinnerName="three-bounce" />;
+        return <CustomSpiner />;
     }
   }
 
