@@ -10,7 +10,7 @@ const validate = values => {
   const errors = {};
   if (!values.email) {
     errors.email = 'Required';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i.test(values.email)) {
     errors.email = 'Invalid email address';
   }
   if (!values.password) {
@@ -43,12 +43,12 @@ class LoginForm extends Component {
     this.props.untouch('password');
   }
 
-  renderField({ input, label, type, meta: { touched, error } }) {
+  renderField({ input, label, type, autoFocus, meta: { touched, error } }) {
     return (
       <div className="form-row">
         <label htmlFor="field-email" className="form-label hidden">{label}</label>
         <div>
-          <input {...input} className="field" placeholder={label} type={type} />
+          <input {...input} autoFocus={autoFocus} className="field" placeholder={label} type={type} />
         </div>
         <div>
           {touched && error && <span className="error">{error}</span>}
@@ -65,7 +65,7 @@ class LoginForm extends Component {
           <h2>Login</h2>
         </div>
         <div className="form-body">
-          <Field name="email" type="text" component={this.renderField} label="Your Email" />
+          <Field name="email" type="text" autoFocus component={this.renderField} label="Your Email" />
           <Field name="password" type="password" component={this.renderField} label="Password" />
         </div>
         <div className="form-actions">

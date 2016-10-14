@@ -86,6 +86,7 @@ export function getSignApplication(positionList, user, isJSON) {
     newItem.files = item.files;
     newItem.state = 'READ_ONLY';
     newItem.company = item.companyName;
+    newItem.keybase_username = user.keybase_username;
     if (item.isCurrentWork) {
       newItem.endMonth = parseInt(item.to.split('.')[0]);
       newItem.endYear = parseInt(item.to.split('.')[1]);
@@ -108,7 +109,7 @@ export function getSignApplication(positionList, user, isJSON) {
       identity: {
         verification_method: 'keybase',
         verification_data: {
-          username: user.username,
+          username: user.keybase_username,
           proofs: []
         }
       },
@@ -122,6 +123,27 @@ export function getSignApplication(positionList, user, isJSON) {
       requestedPremiumAmount: '238'
     }
   };
-  if (isJSON) obj = JSON.stringify(obj);
+  const objJSON = {
+    identity: {
+      verification_method: 'keybase',
+      verification_data: {
+        username: user.username,
+        proofs: []
+      }
+    },
+    employmentHistory: {
+      jobs: newPositionList
+    },
+    questions: {
+      howLongStay: 1,
+      unemploymentPeriod: 0
+    },
+    requestedPremiumAmount: '238'
+  };
+  if (isJSON) obj = JSON.stringify(objJSON);
   return obj;
+}
+
+export function getPolicy(user) {
+  return user.policies[user.policies.length - 1].id;
 }
