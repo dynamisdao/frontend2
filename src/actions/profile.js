@@ -56,6 +56,7 @@ export function login(data, successCallback, errorCallback) {
       .then(json => {
         if (!isError) {
           window.localStorage.setItem('accountId', json.accountid);
+          window.localStorage.setItem('isLogin', 'true');
           dispatch(fetchProfile(json.accountid, successCallback, errorCallback));
         } else {
           if (json.non_field_errors[0]) {
@@ -71,6 +72,7 @@ export function login(data, successCallback, errorCallback) {
 
 export function logout() {
   window.localStorage.removeItem('accountId');
+  window.localStorage.removeItem('isLogin');
   return {
     type: types.LOGOUT,
     payload: { isAuth: false }

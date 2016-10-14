@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as HistoryActions from '../../../actions/history';
 import HistoryForm from './formComponent';
 import HeaderStep from '../../base/headerStep/component';
+import { getPolicy } from '../../../utils';
 
 class HistoryForm1Component extends Component {
   componentWillMount() {
@@ -12,6 +13,13 @@ class HistoryForm1Component extends Component {
       this.props.initialPosition();
     }
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user !== this.props.user && !getPolicy(nextProps.user)) {
+      this.props.createPolicy();
+    }
+  }
+
   render() {
     return (
       <section className="section section-form">
@@ -44,6 +52,7 @@ HistoryForm1Component.propTypes = {
   fileList: PropTypes.array.isRequired,
   deletePosition: PropTypes.func.isRequired,
   initialPosition: PropTypes.func.isRequired,
+  createPolicy: PropTypes.func.isRequired,
   uploadHistoryFile: PropTypes.func.isRequired,
   route: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired

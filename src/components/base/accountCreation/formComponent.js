@@ -35,8 +35,11 @@ class AccountCreationForm extends Component {
   }
 
   handleSubmit(values) {
+    const data = values;
+    data.keybase_username = this.props.identityUser.username ||
+      window.localStorage.getItem('username');
     this.props.accountCreate(
-      values,
+      data,
       () => (browserHistory.push(urls.sendEmail.path)),
       () => {
         this.props.array.removeAll('password1');

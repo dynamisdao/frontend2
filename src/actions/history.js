@@ -49,7 +49,7 @@ export function updatePolicy(policyid, data) {
   };
 }
 
-export function createPolicy(data) {
+export function createPolicy() {
   return dispatch => {
     let isError = false;
     fetch(`${config.baseUrl}api/v1/policies/`,
@@ -66,7 +66,6 @@ export function createPolicy(data) {
       .then(json => {
         if (!isError) {
           dispatch({ type: types.CREATE_POLICY, payload: json });
-          dispatch(updatePolicy(json.id, data));
         }
       });
   };
@@ -89,6 +88,7 @@ export function signPolicy(policyid, data, successCallback) {
         return response.json();
       })
       .then(json => {
+        debugger
         if (!isError) {
           if (successCallback) successCallback.apply();
           dispatch({ type: types.POLICY_SIGN_SUCCESS, payload: json });
@@ -100,7 +100,7 @@ export function signPolicy(policyid, data, successCallback) {
   };
 }
 
-export function uploadHistoryFile(policyid, data) {
+export function uploadHistoryFile(policyid, data, successCallback) {
   return dispatch => {
     let isError = false;
     fetch(`${config.baseUrl}api/v1/policies/${policyid}/file`,
@@ -111,16 +111,18 @@ export function uploadHistoryFile(policyid, data) {
       })
       .then(response => {
         if (response.status >= 400) {
+          toastr.error('File load error');
           isError = true;
         }
         return response.json();
       })
       .then(json => {
         if (!isError) {
+          if (successCallback) successCallback.apply();
           toastr.success('File load success');
           dispatch({ type: types.HISTORY_FILE_UPLOAD, payload: json });
         } else {
-          toastr.error('File load error');
+          toastr.error(json.mimetype[0]);
         }
       });
   };

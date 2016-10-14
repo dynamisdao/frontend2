@@ -50,11 +50,12 @@ class PolicyDetailsComponent extends Component {
   renderPolicyDetails() {
     switch (this.props.policy.state) {
       case POLICY_STATE.find(s => s.label === 'POLICY_STATUS_INIT').state:
-        return this.renderPolicyStatusSubmitted();
+        return this.renderPolicyStatusInit();
       case POLICY_STATE.find(s => s.label === 'POLICY_STATUS_SUBMITTED').state:
         return this.renderPolicyStatusSubmitted();
       default:
-        return <CustomSpiner />;
+        return this.renderPolicyStatusSubmitted();
+        {/*return <CustomSpiner />;*/}
     }
   }
 

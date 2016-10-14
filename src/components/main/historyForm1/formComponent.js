@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { browserHistory } from 'react-router';
-import FileReaderInput from 'react-file-reader-input';
+import Progress from 'react-progress-2';
 
 import PositionPanelComponent from './positionPanel';
 import CalendarPanelComponent from './calendarPanel';
@@ -175,13 +175,17 @@ class HistoryForm extends Component {
     const filename = event.target.files[0].name;
     new Promise((resolve) => {
       const reader = new FileReader();
+      Progress.show();
       reader.onload = result => {
         resolve(result);
       };
       reader.readAsDataURL(event.target.files[0]);
     })
     .then(data_url => {
-      this.props.uploadHistoryFile(3, { filename, data_url, mimetype }
+      this.props.uploadHistoryFile(
+        3,
+        { filename, data_url, mimetype },
+        () => Progress.hide()
       );
     });
   }
@@ -365,6 +369,7 @@ class HistoryForm extends Component {
             </button>
           </div>
         </div>
+        <Progress.Component />
       </form>
     );
   }

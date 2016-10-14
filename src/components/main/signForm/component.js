@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as HistoryActions from '../../../actions/history';
 
 import { urls } from '../../../routes';
-import { getSignApplication } from '../../../utils';
+import { getSignApplication, getPolicy } from '../../../utils';
 
 class SignFormComponent extends Component {
   constructor(props) {
@@ -21,7 +21,9 @@ class SignFormComponent extends Component {
     if (this.props.positionList.length === 0) {
       browserHistory.push(urls.main.historyForm1.path);
     } else {
-      this.props.createPolicy(getSignApplication(this.props.positionList, this.props.user));
+      this.props.updatePolicy(
+        !getPolicy(this.props.user),
+        getSignApplication(this.props.positionList, this.props.user));
     }
   }
 
@@ -158,7 +160,7 @@ SignFormComponent.propTypes = {
   positionList: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
   policyId: PropTypes.number,
-  createPolicy: PropTypes.func.isRequired,
+  updatePolicy: PropTypes.func.isRequired,
   signPolicy: PropTypes.func.isRequired,
   isFetched: PropTypes.bool.isRequired
 };

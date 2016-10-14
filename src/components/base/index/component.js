@@ -5,6 +5,11 @@ import { urls } from '../../../routes';
 
 class IndexComponent extends Component {
 
+  componentWillMount() {
+    if (window.localStorage.getItem('isLogin')) {
+      browserHistory.push(urls.main.path);
+    }
+  }
   render() {
     const handleLink = (event) => {
       event.preventDefault();
