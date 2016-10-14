@@ -12,7 +12,10 @@ class HistoryForm1Component extends Component {
     if (JSON.parse(window.localStorage.getItem('positionList'))) {
       this.props.initialPosition();
     }
-    if (!getPolicy(this.props.user)) {
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user !== this.props.user && !getPolicy(nextProps.user)) {
       this.props.createPolicy();
     }
   }
