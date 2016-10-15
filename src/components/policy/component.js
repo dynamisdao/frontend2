@@ -14,7 +14,7 @@ import PolicyPoolComponent from './pool/component';
 class PolicyComponent extends Component {
 
   render() {
-    const { user } = this.props;
+    const { isAuth } = this.props;
     return (
       <section className="section section-policy">
         <h1 className="title title-primary">My Policy</h1>
@@ -25,7 +25,7 @@ class PolicyComponent extends Component {
             </div>
             <div className="col col-2of5">
               <div className="panel panel-details">
-                {!user.id ?
+                {!isAuth ?
                   <CustomSpiner /> :
                   <PolicyDetailsComponent />
                 }
@@ -40,12 +40,12 @@ class PolicyComponent extends Component {
 }
 
 PolicyComponent.propTypes = {
-  user: PropTypes.object.isRequired
+  isAuth: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    user: state.profile.user
+    isAuth: state.profile.isAuth
   };
 }
 

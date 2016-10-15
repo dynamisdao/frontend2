@@ -8,7 +8,8 @@ const PositionPanelComponent = (props) => {
       <div className="position-head">
         <h4>{props.position.jobTitile}</h4>
         <p>
-          <span>{props.position.companyName}</span> <span>{props.position.city}, {props.position.state}</span>
+          <span>{props.position.companyName}</span>
+          <span>{props.position.city} {props.position.state ? `, ${props.position.state}` : null }</span>
         </p>
         <span>
           {getMonthtStringByNumber(props.position.from.split('.')[0])}, {props.position.from.split('.')[1]} -

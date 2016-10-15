@@ -32,7 +32,7 @@ class HeaderLogedComponent extends Component {
     const { user, isNavigation } = this.props;
     return (
       <div className={!isNavigation ? 'header header-secondary header-loged' : 'header'}>
-        <a href="" className="logo">Dynamis</a>
+        <span className="logo">Dynamis</span>
         {isNavigation ?
           <div>
             <nav className="nav nav-primary">

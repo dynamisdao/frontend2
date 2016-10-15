@@ -5,7 +5,6 @@ import * as types from '../constants/history';
 const initialState = {
   positionList: [],
   fileList: [],
-  policyId: undefined,
   isFetched: false,
   questions: {
     howLongStay: 0,
@@ -43,9 +42,6 @@ function profileReducer(state = initialState, action) {
       };
       fileList.push(file);
       return objectAssign({}, state, fileList);
-    }
-    case types.CREATE_POLICY: {
-      return objectAssign({}, state, { policyId: action.payload.id });
     }
     case types.POLICY_UPDATE: {
       return objectAssign({}, state);

@@ -145,5 +145,9 @@ export function getSignApplication(positionList, user, isJSON) {
 }
 
 export function getPolicy(user) {
-  return user.policies[user.policies.length - 1].id;
+  let policy = null;
+  if (user.policies.length > 0) {
+    policy = user.policies[0].id;
+  }
+  return policy;
 }
