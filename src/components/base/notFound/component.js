@@ -1,10 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 
 import FooterComponent from '../footer/component';
 import HeaderLogedComponent from '../headerLoged/component';
 
 class NotFoundComponent extends Component {
   render() {
+    const handleGoBack = () => {
+      browserHistory.goBack();
+    };
     return (
       <div className="wrapper">
         <HeaderLogedComponent />
@@ -14,7 +18,8 @@ class NotFoundComponent extends Component {
               <div className="section-inner">
                 <div className="section-body">
                   <div className="section-group section-group-secondary">
-                    Page not found...
+                    <p>Page not found...</p>
+                    <a href="" onClick={handleGoBack}>Go back</a>
                   </div>
                 </div>
               </div>
