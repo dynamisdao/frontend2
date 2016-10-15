@@ -45,7 +45,7 @@ class MainIndexComponent extends Component {
                     >
                       <span>
                         <img
-                          alt="avatar"
+                          alt=""
                           src={identityUser.avatarPath}
                           width="39" height="39"
                         />
@@ -64,25 +64,23 @@ class MainIndexComponent extends Component {
                       Account
                     </h2>
                   </div>
-                  
                   <div className="account-body">
                     <table className="table-account">
                       <tbody>
-                      <tr>
-                        <td>Username:</td>
+                        <tr>
+                          <td>Username:</td>
 
-                        <td>
-                          <span>{user.email}</span>
-                        </td>
-                      </tr>
-                      
-                      <tr>
-                        <td>Password:</td>
+                          <td>
+                            <span>{user.email}</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Password:</td>
 
-                        <td>
-                          <span>•••••••••••••</span>
-                        </td>
-                      </tr>
+                          <td>
+                            <span>•••••••••••••</span>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
