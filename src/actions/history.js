@@ -84,15 +84,14 @@ export function signPolicy(policyid, data, successCallback) {
       .then(response => {
         if (response.status >= 400) {
           isError = true;
+        } else {
+          if (successCallback) successCallback.apply();
+          dispatch({ type: types.POLICY_SIGN_SUCCESS });
         }
         return response.json();
       })
       .then(json => {
-        debugger
-        if (!isError) {
-          if (successCallback) successCallback.apply();
-          dispatch({ type: types.POLICY_SIGN_SUCCESS, payload: json });
-        } else {
+        if (isError) {
           toastr.error(json.non_field_errors[0]);
           dispatch({ type: types.POLICY_SIGN_ERROR, payload: json });
         }
@@ -111,7 +110,7 @@ export function uploadHistoryFile(policyid, data, successCallback) {
       })
       .then(response => {
         if (response.status >= 400) {
-          toastr.error('File load error');
+          toastr.error('File loaded error');
           isError = true;
         }
         return response.json();
@@ -119,7 +118,7 @@ export function uploadHistoryFile(policyid, data, successCallback) {
       .then(json => {
         if (!isError) {
           if (successCallback) successCallback.apply();
-          toastr.success('File load success');
+          toastr.success('File loaded');
           dispatch({ type: types.HISTORY_FILE_UPLOAD, payload: json });
         } else {
           toastr.error(json.mimetype[0]);

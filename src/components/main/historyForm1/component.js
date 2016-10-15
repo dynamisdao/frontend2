@@ -15,7 +15,7 @@ class HistoryForm1Component extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user !== this.props.user && !getPolicy(nextProps.user)) {
+    if (nextProps.user.isAuth && !getPolicy(nextProps.user)) {
       this.props.createPolicy();
     }
   }

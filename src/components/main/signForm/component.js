@@ -22,7 +22,7 @@ class SignFormComponent extends Component {
       browserHistory.push(urls.main.historyForm1.path);
     } else {
       this.props.updatePolicy(
-        !getPolicy(this.props.user),
+        getPolicy(this.props.user),
         getSignApplication(this.props.positionList, this.props.user));
     }
   }
@@ -39,7 +39,7 @@ class SignFormComponent extends Component {
       signed_message: this.state.sign
     };
     this.props.signPolicy(
-      this.props.policyId,
+      getPolicy(this.props.user),
       data,
       () => browserHistory.push(urls.main.policy.path)
     );
@@ -56,7 +56,7 @@ class SignFormComponent extends Component {
         <p>{value}</p>
       </li>
     );
-    const { positionList, user, policyId, isFetched } = this.props;
+    const { positionList, user, isFetched } = this.props;
     const { sign } = this.state;
     return (
       <section className="section section-form section-form-quaternary section-finalize">
@@ -134,7 +134,7 @@ class SignFormComponent extends Component {
                         <button
                           onClick={this.handleSignForm}
                           className="btn btn-blue btn-big btn-big-fetched"
-                          disabled={!policyId || !sign || isFetched}
+                          disabled={!sign || isFetched}
                         >
                           {isFetched ? <i className="fa fa-spin fa-spinner" /> :
                             <span>&nbsp;&nbsp;&nbsp;</span>} Submit For Review
@@ -159,7 +159,6 @@ class SignFormComponent extends Component {
 SignFormComponent.propTypes = {
   positionList: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
-  policyId: PropTypes.number,
   updatePolicy: PropTypes.func.isRequired,
   signPolicy: PropTypes.func.isRequired,
   isFetched: PropTypes.bool.isRequired
@@ -169,7 +168,6 @@ function mapStateToProps(state) {
   return {
     positionList: state.history.positionList,
     user: state.profile.user,
-    policyId: state.history.policyId,
     isFetched: state.history.isFetched
   };
 }

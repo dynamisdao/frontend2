@@ -6,6 +6,7 @@ const initialState = {
   isAuth: false,
   user: {},
   identityUser: {},
+  policyId: undefined,
   isFetched: false,
   isRelogin: false
 };
@@ -52,6 +53,11 @@ function profileReducer(state = initialState, action) {
       return objectAssign({}, state, { isFetched: false });
     case types.ACCOUNT_CREATE_ERROR:
       return objectAssign({}, state, { isFetched: false });
+    case types.CREATE_POLICY: {
+      const user = state.user;
+      user.policies.push({ id: action.payload.id });
+      return objectAssign({}, state, { policyId: action.payload.id }, user);
+    }
     default:
       return state;
   }
