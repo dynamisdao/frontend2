@@ -6,7 +6,9 @@ const initialState = {
   isAuth: false,
   user: {},
   identityUser: {},
-  isFetched: false
+  policyId: undefined,
+  isFetched: false,
+  isRelogin: false
 };
 
 function profileReducer(state = initialState, action) {
@@ -23,7 +25,7 @@ function profileReducer(state = initialState, action) {
     case types.IDENTITY_START:
       return objectAssign({}, state, { isFetched: true });
     case types.IDENTITY_SUCCESS: {
-      const identityUser = { };
+      const identityUser = {};
       if (action.payload.them) {
         identityUser.username = action.payload.them.basics.username;
         if (action.payload.them.pictures) {
@@ -42,12 +44,20 @@ function profileReducer(state = initialState, action) {
       window.localStorage.removeItem('accountId');
       return objectAssign({}, state, action.payload);
     }
+    case types.RELOGIN: {
+      return objectAssign({}, state, action.payload);
+    }
     case types.ACCOUNT_CREATE_START:
       return objectAssign({}, state, { isFetched: true });
     case types.ACCOUNT_CREATE_SUCCESS:
       return objectAssign({}, state, { isFetched: false });
     case types.ACCOUNT_CREATE_ERROR:
       return objectAssign({}, state, { isFetched: false });
+    case types.CREATE_POLICY: {
+      const user = state.user;
+      user.policies.push({ id: action.payload.id });
+      return objectAssign({}, state, { policyId: action.payload.id }, user);
+    }
     default:
       return state;
   }

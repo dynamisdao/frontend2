@@ -8,11 +8,12 @@ const PositionPanelComponent = (props) => {
       <div className="position-head">
         <h4>{props.position.jobTitile}</h4>
         <p>
-          <span>{props.position.companyName}</span> <span>{props.position.city}, {props.position.state}</span>
+          <span>{props.position.companyName}</span>
+          <span>{props.position.city} {props.position.state ? `, ${props.position.state}` : null }</span>
         </p>
         <span>
           {getMonthtStringByNumber(props.position.from.split('.')[0])}, {props.position.from.split('.')[1]} -
-          {props.position.isCurrentWork ? ' Present' :
+          {props.position.currentJob ? ' Present' :
           ` ${getMonthtStringByNumber(props.position.to.split('.')[0])},
           ${props.position.to.split('.')[1]}`}
         </span>
@@ -31,12 +32,16 @@ const PositionPanelComponent = (props) => {
       <div className="position-body">
         <p>Reference</p>
         <p>
-          <span>{props.position.ёconfirmerName}</span> <span>{props.position.confirmerEmail}</span>
+          <span>{props.position.confirmerName}</span> <span>{props.position.confirmerEmail}</span>
         </p>
-        <a href="" className="link">
-          <i className="material-icons">attach_file</i>
-          paystub7-24-16.pdf
-        </a>
+        {props.position.files.map(file =>
+          <div key={file.ipfs_hash} className="file-list">
+            <span>
+              <i className="material-icons">attach_file</i>
+              {file.name}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ export function calculationDate(date, current) {
 export function getMonthsQuantity(positionList) {
   const workPeriods = positionList.map(p =>
     ({ fromValue: calculationDate(p.from),
-      toValue: calculationDate(p.to, p.isCurrentWork)
+      toValue: calculationDate(p.to, p.currentJob)
   }));
   const monthsList = [];
   let quantity = 0;
@@ -78,19 +78,76 @@ export function getMonthtStringByNumber(number) {
   }
 }
 
-export function getSignApplication(data, user) {
-  const obj = {
+export function getSignApplication(positionList, user, isJSON) {
+  const newPositionList = [];
+  for (let item of positionList) {
+    const newItem = {};
+    newItem.currentJob = item.isCurrentWork;
+    newItem.files = item.files;
+    newItem.state = 'READ_ONLY';
+    newItem.company = item.companyName;
+    newItem.keybase_username = user.keybase_username;
+    if (item.isCurrentWork) {
+      newItem.endMonth = parseInt(item.to.split('.')[0]);
+      newItem.endYear = parseInt(item.to.split('.')[1]);
+      newItem.currentJob = true;
+    } else {
+      const d = new Date();
+      newItem.currentJob = false;
+      newItem.endMonth = d.getMonth();
+      newItem.endYear = d.getFullYear();
+    }
+    newItem.startMonth = parseInt(item.from.split('.')[0]);
+    newItem.startYear = parseInt(item.from.split('.')[1]);
+    newItem.notes = `${item.companyName}* ${item.jobTitile}:\n* Reason for leaving:\n\nIn order to verify my employment at
+    ${item.companyName}you can contact ${item.confirmerName} who was my <SUPERVISOR/BOSS>. They can be reached 
+    via ${item.confirmerEmail} You can verify their position with the company by <INSERT-HOW-TO-VERIFY-THEIR-POSITION>`;
+    newPositionList.push(newItem);
+  }
+  let obj = {
+    data: {
+      identity: {
+        verification_method: 'keybase',
+        verification_data: {
+          username: user.keybase_username,
+          proofs: []
+        }
+      },
+      employmentHistory: {
+        jobs: newPositionList
+      },
+      questions: {
+        howLongStay: 1,
+        unemploymentPeriod: 0
+      },
+      requestedPremiumAmount: '238'
+    }
+  };
+  const objJSON = {
     identity: {
       verification_method: 'keybase',
       verification_data: {
         username: user.username,
         proofs: []
-      },
-      employmentHistory: {
-        jobs: data
-      },
-      requestedPremiumAmount: '238'
-    }
+      }
+    },
+    employmentHistory: {
+      jobs: newPositionList
+    },
+    questions: {
+      howLongStay: 1,
+      unemploymentPeriod: 0
+    },
+    requestedPremiumAmount: '238'
   };
-  return JSON.stringify(obj);
+  if (isJSON) obj = JSON.stringify(objJSON);
+  return obj;
+}
+
+export function getPolicy(user) {
+  let policy = null;
+  if (user.policies.length > 0) {
+    policy = user.policies[0].id;
+  }
+  return policy;
 }

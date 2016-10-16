@@ -16,6 +16,7 @@ export function fetchProfile(accountId, successCallback, errorCallback) {
       })
       .then(response => {
         if (response.status >= 400) {
+          toastr.error('Server Error');
           returnObj.payload.isAuth = false;
           isError = true;
           dispatch(returnObj);
@@ -26,7 +27,6 @@ export function fetchProfile(accountId, successCallback, errorCallback) {
         if (!isError) {
           if (successCallback) successCallback.apply();
           returnObj.payload = json;
-          window.localStorage.setItem('accountId', accountId);
           returnObj.payload.isAuth = true;
           dispatch(returnObj);
         } else if (errorCallback) {
@@ -43,30 +43,46 @@ export function login(data, successCallback, errorCallback) {
     fetch(`${config.baseUrl}api/v1/login/`,
       { method: 'POST',
         headers: getHeaders(),
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
+        credentials: 'include'
       })
       .then(response => {
         if (response.status >= 400) {
           isError = true;
+          dispatch({ type: types.LOGIN_ERROR, payload: {} });
         }
         return response.json();
       })
       .then(json => {
         if (!isError) {
+          window.localStorage.setItem('accountId', json.accountid);
+          window.localStorage.setItem('isLogin', 'true');
           dispatch(fetchProfile(json.accountid, successCallback, errorCallback));
         } else {
-          toastr.error(json.non_field_errors[0]);
+          if (json.non_field_errors[0]) {
+            toastr.error(json.non_field_errors[0]);
+          } else {
+            toastr.error('Server Error');
+          }
           if (errorCallback) errorCallback.apply();
-          dispatch({ type: types.LOGIN_ERROR, payload: {} });
         }
       });
   };
 }
 
 export function logout() {
+  window.localStorage.removeItem('accountId');
+  window.localStorage.removeItem('isLogin');
   return {
     type: types.LOGOUT,
     payload: { isAuth: false }
+  };
+}
+
+export function relogin() {
+  return {
+    type: types.RELOGIN,
+    payload: { isRelogin: true }
   };
 }
 

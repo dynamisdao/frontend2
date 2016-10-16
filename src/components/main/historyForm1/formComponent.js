@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { browserHistory } from 'react-router';
+import Progress from 'react-progress-2';
 
 import PositionPanelComponent from './positionPanel';
 import CalendarPanelComponent from './calendarPanel';
@@ -50,7 +51,7 @@ class HistoryForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCurrentWork: false,
+      currentJob: false,
       fromValue: 'from',
       toValue: 'to',
       fromIsValid: true,
@@ -65,6 +66,7 @@ class HistoryForm extends Component {
     this.handleFromSelectField = this.handleFromSelectField.bind(this);
     this.handleCheckBoxField = this.handleCheckBoxField.bind(this);
     this.handleComplete = this.handleComplete.bind(this);
+    this.handleFile = this.handleFile.bind(this);
   }
 
   handleComplete(event) {
@@ -76,15 +78,19 @@ class HistoryForm extends Component {
     if ((this.state.toValue !== 'to' || this.state.fromValue !== 'from') && this.state.dateIsValid) {
       const position = values;
       position.id = this.props.positionList.length + 1;
-      position.to = this.state.toValue;
+      if (this.state.currentJob) {
+        position.to = null;
+      } else {
+        position.to = this.state.toValue;
+      }
       position.from = this.state.fromValue;
-      position.isCurrentWork = this.state.isCurrentWork;
+      position.currentJob = this.state.currentJob;
       this.props.addPosition(position);
       this.props.initialize();
       this.setState({
         fromValue: 'from',
         toValue: 'to',
-        isCurrentWork: false
+        currentJob: false
       });
     } else if (this.state.dateIsValid) {
       this.setState({
@@ -101,7 +107,7 @@ class HistoryForm extends Component {
       this.setState({
         toValue: position.to,
         fromValue: position.from,
-        isCurrentWork: position.isCurrentWork,
+        currentJob: position.currentJob,
         fromIsValid: true,
         toIsValid: true,
         dateIsValid: true
@@ -157,9 +163,30 @@ class HistoryForm extends Component {
 
   handleCheckBoxField() {
     this.setState({
-      isCurrentWork: !this.state.isCurrentWork,
+      currentJob: !this.state.currentJob,
       dateIsValid: true,
       toValue: 'to'
+    });
+  }
+
+  handleFile(event) {
+    event.preventDefault();
+    const mimetype = event.target.files[0].type;
+    const filename = event.target.files[0].name;
+    new Promise((resolve) => {
+      const reader = new FileReader();
+      Progress.show();
+      reader.onload = result => {
+        resolve(result);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    })
+    .then(data_url => {
+      this.props.uploadHistoryFile(
+        3,
+        { filename, data_url, mimetype },
+        () => Progress.hide()
+      );
     });
   }
 
@@ -169,6 +196,8 @@ class HistoryForm extends Component {
         <label htmlFor="field-compant-name" className="form-label hidden">{label}</label>
         <div className="form-controls">
           <input {...input} className="field" placeholder={label} type={type} />
+        </div>
+        <div>
           {touched && error && <span className="error">{error}</span>}
         </div>
       </div>
@@ -176,8 +205,8 @@ class HistoryForm extends Component {
   }
 
   render() {
-    const { handleSubmit, positionList } = this.props;
-    const { isCurrentWork, toIsValid, fromIsValid, dateIsValid } = this.state;
+    const { handleSubmit, positionList, user, fileList } = this.props;
+    const { currentJob, toIsValid, fromIsValid, dateIsValid } = this.state;
     return (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
         <div className="form-head">
@@ -242,11 +271,13 @@ class HistoryForm extends Component {
                           <option key={date} value={date}>{date}</option>
                         )}
                       </select>
+                    </div>
+                    <div>
                       {!fromIsValid ? <span className="error">Required</span> : null}
                       {!dateIsValid ? <span className="error">From should begin before To</span> : null}
                     </div>
                   </div>
-                  {!isCurrentWork ?
+                  {!currentJob ?
                     <div className="form-col form-col-1of2">
                       <label htmlFor="field-to" className="form-label hidden">To</label>
                       <div className="form-controls">
@@ -261,6 +292,8 @@ class HistoryForm extends Component {
                             <option key={date} value={date}>{date}</option>
                           )}
                         </select>
+                      </div>
+                      <div>
                         {!toIsValid ? <span className="error">Required</span> : null}
                       </div>
                     </div> : null
@@ -269,9 +302,9 @@ class HistoryForm extends Component {
                 <div className="form-col form-col-1of3">
                   <div className="checkbox">
                     <input
-                      checked={this.state.isCurrentWork}
+                      checked={this.state.currentJob}
                       onChange={this.handleCheckBoxField}
-                      value={this.state.isCurrentWork}
+                      value={this.state.currentJob}
                       type="checkbox" name="field-currently-work-here"
                       id="field-currently-work-here"
                     />
@@ -297,21 +330,33 @@ class HistoryForm extends Component {
                 />
               </div>
             </div>
-            <div className="form-section">
+            <div className="form-section file">
               <h5>Upload Supporting Documents</h5>
               <div className="form-row">
                 <label htmlFor="field-upload" className="form-label-upload">
-                  <input type="file" className="field-upload" name="field-upload" id="field-upload" value="" placeholder="upload" />
+                  <input
+                    type="file"
+                    className="field-upload"
+                    id="field-upload"
+                    value="" placeholder="upload"
+                    onChange={this.handleFile}
+                  />
                   <i className="material-icons">attach_file</i>
                 </label>
-                <a href="" className="link">e.g. pay stub, acceptance letter, 401k</a>
+                <span>e.g. pay stub, acceptance letter, 401k</span>
+                <div className="list">
+                  {fileList.map(file =>
+                    <p key={file.ipfs_hash}>
+                      <i className="material-icons">attach_file</i>
+                      {file.name}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-          
           <div className="form-actions">
             <button type="submit" className="btn btn-blue btn-big btn-big-secondary">Add Position</button>
-          
             <button
               className={positionList.length === 0 ?
                 'btn btn-silver btn-big btn-big-secondary' :
@@ -324,6 +369,7 @@ class HistoryForm extends Component {
             </button>
           </div>
         </div>
+        <Progress.Component />
       </form>
     );
   }
@@ -336,7 +382,10 @@ HistoryForm.propTypes = {
   reset: PropTypes.func.isRequired,
   positionList: PropTypes.array.isRequired,
   initialize: PropTypes.func.isRequired,
-  deletePosition: PropTypes.func.isRequired
+  deletePosition: PropTypes.func.isRequired,
+  uploadHistoryFile: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  fileList: PropTypes.array.isRequired
 };
 
 export default reduxForm({

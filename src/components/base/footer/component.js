@@ -9,7 +9,7 @@ class FooterComponent extends Component {
     return (
       <footer className="footer">
         <div className="shell">
-          <a href="" className="logo-footer">Dynamis</a>
+          <span className="logo-footer">Dynamis</span>
 
           <nav className="nav nav-footer">
             <ul>

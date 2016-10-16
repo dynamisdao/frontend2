@@ -14,7 +14,12 @@ class HeaderLogedComponent extends Component {
 
   componentWillMount() {
     const accountId = window.localStorage.getItem('accountId');
-    if (accountId) this.props.fetchProfile(accountId);
+    if (accountId) {
+      this.props.fetchProfile(accountId);
+    } else {
+      this.props.relogin();
+      browserHistory.push(urls.login.path);
+    }
   }
 
   handleLogout(event) {
@@ -26,8 +31,8 @@ class HeaderLogedComponent extends Component {
   render() {
     const { user, isNavigation } = this.props;
     return (
-      <header className={!isNavigation ? 'header header-secondary header-loged' : 'header'}>
-        <a href="" className="logo">Dynamis</a>
+      <div className={!isNavigation ? 'header header-secondary header-loged' : 'header'}>
+        <span className="logo">Dynamis</span>
         {isNavigation ?
           <div>
             <nav className="nav nav-primary">
@@ -70,7 +75,7 @@ class HeaderLogedComponent extends Component {
             </nav>
           </div> : null
         }
-        <nav className="nav nav-user">
+        <div className="nav nav-user">
           <ul>
             <li>
               <a href="" className="dropdown-trigger">
@@ -87,8 +92,8 @@ class HeaderLogedComponent extends Component {
               </div>
             </li>
           </ul>
-        </nav>
-      </header>
+        </div>
+      </div>
     );
   }
 }
@@ -96,6 +101,7 @@ class HeaderLogedComponent extends Component {
 HeaderLogedComponent.propTypes = {
   user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
+  relogin: PropTypes.func.isRequired,
   fetchProfile: PropTypes.func.isRequired,
   isNavigation: PropTypes.bool
 };

@@ -35,8 +35,11 @@ class AccountCreationForm extends Component {
   }
 
   handleSubmit(values) {
+    const data = values;
+    data.keybase_username = this.props.identityUser.username ||
+      window.localStorage.getItem('username');
     this.props.accountCreate(
-      values,
+      data,
       () => (browserHistory.push(urls.sendEmail.path)),
       () => {
         this.props.array.removeAll('password1');
@@ -61,6 +64,8 @@ class AccountCreationForm extends Component {
             {...input}
             className="field" placeholder={label} type={type}
           />
+        </div>
+        <div>
           {touched && error && <span className="error">{error}</span>}
         </div>
       </div>
@@ -116,10 +121,10 @@ class AccountCreationForm extends Component {
               <div className="form-actions">
                 <button
                   type="submit"
-                  className="btn btn-blue btn-big btn-big-secondary"
+                  className="btn btn-blue btn-big btn-big-create-login"
                   disabled={isFetched}
                 >
-                  Create Login {isFetched ? <i className="fa fa-spin fa-spinner" /> : null}
+                  {isFetched ? <i className="fa fa-spin fa-spinner" /> : null} Create Login
                 </button>
                 <a
                   href="https://keybase.io"

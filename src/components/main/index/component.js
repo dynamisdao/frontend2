@@ -21,25 +21,22 @@ class MainIndexComponent extends Component {
     const handleNextButton = () => {
       browserHistory.push(urls.main.historyForm1.path);
     };
-    const { identityUser } = this.props;
+    const { identityUser, user } = this.props;
     return (
       <section className="section section-form">
-      <h5 className="section-title">Create a Policy</h5>
+        <h5 className="section-title">Create a Policy</h5>
         <div className="section-inner">
           <HeaderStep currenStep={2} />
           <div className="section-body">
             <div className="section-group section-group-secondary">
               <div className="user">
-                <header className="user-head">
+                <div className="user-head">
                   <h2>
                     <i className="ico-check-secondary" />
 
                     Online Identity
                   </h2>
-
-                  {/*<a href="" className="link">change keybase user</a>*/}
-                </header>
-
+                </div>
                 {identityUser ?
                   <div className="user-body">
                     <a
@@ -48,6 +45,7 @@ class MainIndexComponent extends Component {
                     >
                       <span>
                         <img
+                          alt="avatar"
                           src={identityUser.avatarPath}
                           width="39" height="39"
                         />
@@ -57,16 +55,15 @@ class MainIndexComponent extends Component {
                   </div> : null
                 }
               </div>
-
               <div className="section-content">
                 <div className="account">
-                  <header className="account-head">
+                  <div className="account-head">
                     <h2>
                       <i className="ico-check-secondary" />
 
                       Account
                     </h2>
-                  </header>
+                  </div>
                   
                   <div className="account-body">
                     <table className="table-account">
@@ -75,7 +72,7 @@ class MainIndexComponent extends Component {
                         <td>Username:</td>
 
                         <td>
-                          <span>ratcatcow@gmail.com</span>
+                          <span>{user.email}</span>
                         </td>
                       </tr>
                       

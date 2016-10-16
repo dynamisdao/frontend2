@@ -6,24 +6,47 @@ import { connect } from 'react-redux';
 import * as HistoryActions from '../../../actions/history';
 
 import { urls } from '../../../routes';
-import { getSignApplication } from '../../../utils';
+import { getSignApplication, getPolicy } from '../../../utils';
 
 class SignFormComponent extends Component {
   constructor(props) {
     super(props);
+    this.state = { sign: undefined };
     this.handleEditPositions = this.handleEditPositions.bind(this);
+    this.handleSignForm = this.handleSignForm.bind(this);
+    this.handleTextArea = this.handleTextArea.bind(this);
   }
 
   componentWillMount() {
     if (this.props.positionList.length === 0) {
-      this.props.createPolicy(this.props.positionList);
       browserHistory.push(urls.main.historyForm1.path);
+    } else {
+      this.props.updatePolicy(
+        getPolicy(this.props.user),
+        getSignApplication(this.props.positionList, this.props.user));
     }
   }
 
   handleEditPositions(event) {
     event.preventDefault();
     browserHistory.push(urls.main.historyForm1.path);
+  }
+
+  handleSignForm(event) {
+    event.preventDefault();
+    const data = {
+      keybase_username: this.props.user.keybase_username,
+      signed_message: this.state.sign
+    };
+    this.props.signPolicy(
+      getPolicy(this.props.user),
+      data,
+      () => browserHistory.push(urls.main.policy.path)
+    );
+  }
+
+  handleTextArea(event) {
+    this.setState({ sign: event.target.value });
   }
 
   render() {
@@ -33,7 +56,8 @@ class SignFormComponent extends Component {
         <p>{value}</p>
       </li>
     );
-    const { positionList, user } = this.props;
+    const { positionList, user, isFetched } = this.props;
+    const { sign } = this.state;
     return (
       <section className="section section-form section-form-quaternary section-finalize">
         <h5 className="section-title">Create a Policy</h5>
@@ -56,26 +80,25 @@ class SignFormComponent extends Component {
                   </div>
                   <footer className="package-foot">
                     <div className="form form-signature">
-                      <form action="?" method="post">
-                        <div className="form-head">
-                          <h5>Sign Application</h5>
-                        </div>
-                        <div className="form-content">
-                          <div className="form-body">
-                            <div className="form-row">
-                              <label htmlFor="field-singature" className="form-label hidden">Your Keybase Signature</label>
-                              <div className="form-controls">
-                                <textarea
-                                  defaultValue={getSignApplication(positionList, user)}
-                                  type="text" rows="10" className="field"
-                                  name="field-singature" id="field-singature"
-                                  placeholder="Your Keybase Signature"
-                                />
-                              </div>
+                      <div className="form-head">
+                        <h5>Sign Application</h5>
+                      </div>
+                      <div className="form-content">
+                        <div className="form-body">
+                          <div className="form-row">
+                            <label htmlFor="field-singature" className="form-label hidden">
+                              Your Keybase Signature
+                            </label>
+                            <div className="form-controls">
+                              <textarea
+                                defaultValue={getSignApplication(positionList, user, true)}
+                                type="text" rows="10" className="field"
+                                placeholder="Your Keybase Signature"
+                              />
                             </div>
                           </div>
                         </div>
-                      </form>
+                      </div>
                     </div>
                     <div className="form-hint">
                       To complete your application, you must sign all your information here with keybase:
@@ -85,29 +108,42 @@ class SignFormComponent extends Component {
                   </footer>
                   <footer className="package-foot">
                     <div className="form form-signature">
-                      <form action="?" method="post">
-                        <div className="form-head">
-                          <h5>Accept Policy</h5>
-                        </div>
-                        <div className="form-content">
-                          <div className="form-body">
-                            <div className="form-row">
-                              <label htmlFor="field-singature" className="form-label hidden">Your Keybase Signature</label>
-                              <div className="form-controls">
-                                <textarea type="text" rows="10" className="field" name="field-singature" id="field-singature" placeholder="Your Keybase Signature" />
-                              </div>
+                      <div className="form-head">
+                        <h5>Accept Policy</h5>
+                      </div>
+                      <div className="form-content">
+                        <div className="form-body">
+                          <div className="form-row">
+                            <label htmlFor="field-singature" className="form-label hidden">
+                              Your Keybase Signature
+                            </label>
+                            <div className="form-controls">
+                              <textarea
+                                type="text" rows="10" className="field"
+                                placeholder="Your Keybase Signature"
+                                onChange={this.handleTextArea}
+                              />
                             </div>
                           </div>
                         </div>
-                        
-                      </form>
+                      </div>
                     </div>
                     <div className="form-hint">
                       <div className="form-actions">
-                        <button type="submit" className="btn btn-blue btn-big btn-big-secondary">Submit For Review</button>
+
+                        <button
+                          onClick={this.handleSignForm}
+                          className="btn btn-blue btn-big btn-big-fetched"
+                          disabled={!sign || isFetched}
+                        >
+                          {isFetched ? <i className="fa fa-spin fa-spinner" /> :
+                            <span>&nbsp;&nbsp;&nbsp;</span>} Submit For Review
+                        </button>
                       </div>
                       <br />
-                      <a href="" onClick={this.handleEditPositions} className="link">No, I need to edit my perameters</a>
+                      <a href="" onClick={this.handleEditPositions} className="link">
+                        No, I need to edit my perameters
+                      </a>
                     </div>
                   </footer>
                 </div>
@@ -123,13 +159,16 @@ class SignFormComponent extends Component {
 SignFormComponent.propTypes = {
   positionList: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
-  createPolicy: PropTypes.func.isRequired
+  updatePolicy: PropTypes.func.isRequired,
+  signPolicy: PropTypes.func.isRequired,
+  isFetched: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {
   return {
     positionList: state.history.positionList,
-    user: state.profile.user
+    user: state.profile.user,
+    isFetched: state.history.isFetched
   };
 }
 

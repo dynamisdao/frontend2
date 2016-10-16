@@ -60,6 +60,8 @@
 
 @import '_module.form.css';
 
+@import '_module.file.css';
+
 @import '_module.intro.css';
 
 @import '_module.link.css';
@@ -82,11 +84,15 @@
 
 @import '_module.price.css';
 
+@import '_module.progress-loader.css';
+
 @import '_module.score.css';
 
 @import '_module.section.css';
 
 @import '_module.slider.css';
+
+@import '_module.spiner.css';
 
 @import '_module.table.css';
 
