@@ -6,7 +6,6 @@ import HeaderLogedComponent from '../base/headerLoged/component';
 const pathsWithNavigationMenu = ['/policy'];
 
 class MainComponent extends Component {
-
   render() {
     const { route } = this.props;
     return (
