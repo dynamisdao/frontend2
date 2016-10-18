@@ -21,7 +21,7 @@ class DepositInfoComponent extends Component {
     const { depositInfo } = this.props;
     return (
       <div className="panel panel-options">
-      {depositInfo.status ?
+      {depositInfo.address_to_send ?
         <div>
           <div className="panel-body">
             <ul className="list-options">

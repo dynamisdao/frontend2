@@ -8,7 +8,7 @@ class HeaderSecondaryComponent extends Component {
   render() {
     return (
       <header className="header header-secondary">
-        <Link to={urls.index.path} className="logo">Dynamis</Link>
+        <p className="logo">Dynamis</p>
         <Link to={urls.login.path} className="btn btn-blue">Login</Link>
       </header>
     );

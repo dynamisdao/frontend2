@@ -101,7 +101,7 @@ class SignFormComponent extends Component {
                       </div>
                     </div>
                     <div className="form-hint">
-                      To complete your application, you must sign all your information here with keybase:
+                      To complete your application, you must sign all your information here with keybase:&nbsp;
                       <a href="https://keybase.io/sign" target="_blank" className="link"> https://keybase.io/sign.</a>
                       This will verify that all your information is accurate and we didn't change it.
                     </div>

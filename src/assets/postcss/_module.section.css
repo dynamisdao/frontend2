@@ -9,7 +9,7 @@
 .section-form h2 { font: 400 25px/1.16 'Work Sans', sans-serif; color: #4a4a4a; margin-bottom: 0; display: inline-block; vertical-align: middle; }
 .section-form h5 { font: 400 15px/1.27 'Maven Pro', sans-serif; color: #048a16; }
 
-.section-form .link { display: inline-block; vertical-align: middle; }
+.section-form .link { display: inline-block; vertical-align: baseline; }
 
 .section-form .section-title { color: #fff; font: 500 15px/1.13 'Maven Pro', sans-serif; margin-bottom: 3px; } 
 .section-form .section-inner { background: #fff;  border: 0.5px solid #979797; min-height: 496px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24), 0 0 2px rgba(0, 0, 0, 0.12); }
