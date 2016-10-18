@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import * as types from '../constants/history';
+import { CREATE_POLICY } from '../constants/profile';
 import config from '../config';
 import { getHeaders } from '../utils';
 
@@ -65,7 +66,7 @@ export function createPolicy() {
       })
       .then(json => {
         if (!isError) {
-          dispatch({ type: types.CREATE_POLICY, payload: json });
+          dispatch({ type: CREATE_POLICY, payload: json });
         }
       });
   };
