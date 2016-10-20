@@ -32,8 +32,6 @@ class LoginForm extends Component {
     let routing = null;
     if (this.props.isRelogin) {
       routing = () => browserHistory.goBack();
-    } else {
-      routing = () => browserHistory.push(urls.main.path);
     }
     this.props.login(
       values,

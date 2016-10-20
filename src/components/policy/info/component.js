@@ -5,6 +5,7 @@ import { urls } from '../../../routes';
 
 import InitInfoComponent from './initInfoComponent';
 import DepositInfoComponent from './depositInfoComponent';
+import WalletInfoComponent from './walletInfoComponent';
 
 class PolicyInfoComponent extends Component {
 
@@ -15,6 +16,8 @@ class PolicyInfoComponent extends Component {
           return <InitInfoComponent />;
         case ('depositInfo'):
           return <DepositInfoComponent />;
+        case ('wallet'):
+          return <WalletInfoComponent />;
         default:
           return <InitInfoComponent />;
       }

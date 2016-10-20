@@ -28,13 +28,15 @@ class PolicyDetailsComponent extends Component {
     this.renderPolicyStatusInit = this.renderPolicyStatusInit.bind(this);
     this.renderPolicyStatusSubmitted = this.renderPolicyStatusSubmitted.bind(this);
     this.renderPolicyStatusOnRiskAssessmentReview =
-      this.renderPolicyStatusOnRiskAssessmentReview.bind(this);
+    this.renderPolicyStatusOnRiskAssessmentReview.bind(this);
     this.handleEditPolicy = this.handleEditPolicy.bind(this);
     this.handlePayDeposit = this.handlePayDeposit.bind(this);
   }
 
   componentWillMount() {
-    this.props.getPolicy(this.props.user.policies[this.props.user.policies.length - 1].id);
+    if (!this.props.policy.id) {
+      this.props.getPolicy(this.props.user.policies[this.props.user.policies.length - 1].id);
+    }
   }
 
   handleEditPolicy(event) {

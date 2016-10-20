@@ -5,7 +5,8 @@ import * as types from '../constants/policy';
 const initialState = {
   policy: {},
   depositInfo: {},
-  poolState: 'init'
+  poolState: 'init',
+  walletIsOpen: false
 };
 
 function policyReducer(state = initialState, action) {
@@ -16,6 +17,11 @@ function policyReducer(state = initialState, action) {
       return objectAssign({}, state, { depositInfo: action.payload });
     case types.POOL_STATE_CHANGE:
       return objectAssign({}, state, { poolState: action.payload.values });
+    case types.WALLET_OPEN: {
+      let poolState = null;
+      if (!state.walletIsOpen) poolState = 'wallet';
+      return objectAssign({}, state, { walletIsOpen: !state.walletIsOpen }, { poolState });
+    }
     default:
       return state;
   }

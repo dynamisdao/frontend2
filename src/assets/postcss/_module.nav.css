@@ -13,6 +13,13 @@
 .nav li.current > a:after { content: ''; background: #fff; position: absolute; top: 100%; left: 0; right: 0; height: 3px; }
 .nav li .badge { position: absolute; top: 13px; right: 13px; }
 
+/*  Nav Primary  */
+
+.nav-primary {
+    float: left;
+    padding-right: 20px;
+}
+
 /*  Nav Secondary  */
 
 .nav-secondary { float: right; padding-right: 20px; }
