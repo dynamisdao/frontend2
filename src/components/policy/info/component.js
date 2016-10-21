@@ -5,7 +5,7 @@ import { urls } from '../../../routes';
 
 import InitInfoComponent from './initInfoComponent';
 import DepositInfoComponent from './depositInfoComponent';
-import WalletInfoComponent from './walletInfoComponent';
+import WalletInfoComponent from './wallet/component';
 
 class PolicyInfoComponent extends Component {
 

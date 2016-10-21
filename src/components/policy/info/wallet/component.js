@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 
-import { urls } from '../../../routes';
-
+import { urls } from '../../../../routes';
+import NewWalletInfoComponent from './newWallet/component';
+import ExistWalletInfoComponent from './existWallet/component';
 
 class WalletInfoComponent extends Component {
   render() {
@@ -12,13 +13,7 @@ class WalletInfoComponent extends Component {
         <div className="panel-head">
           <h2 className="panel-title">Wallet</h2>
         </div>
-        <div className="panel-body">
-          ororor
-          <div>
-            <a href="" className="btn btn-half-block">Generate New Wallet</a>
-            <a href="" className="btn btn-half-block">Upload Wallet</a>
-          </div>
-        </div>
+        <ExistWalletInfoComponent />
       </div>
     );
   }

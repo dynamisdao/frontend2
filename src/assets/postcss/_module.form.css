@@ -107,6 +107,10 @@ $breakpoint-mobile-portrait {
 
 .form-assessment .form-actions .btn-blue { float: none; vertical-align: middle; margin-right: 28px; }
 
+/*  Form-Wallet  */
+
+.form-wallet .form-row { margin-bottom: 24px; width: 48% }
+
 $breakpoint-tablet-portrait {
 	.form-assessment { max-width: 100%; }	
 

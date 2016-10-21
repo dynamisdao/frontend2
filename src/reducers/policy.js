@@ -18,7 +18,7 @@ function policyReducer(state = initialState, action) {
     case types.POOL_STATE_CHANGE:
       return objectAssign({}, state, { poolState: action.payload.values });
     case types.WALLET_OPEN: {
-      let poolState = null;
+      let poolState = 'init';
       if (!state.walletIsOpen) poolState = 'wallet';
       return objectAssign({}, state, { walletIsOpen: !state.walletIsOpen }, { poolState });
     }
