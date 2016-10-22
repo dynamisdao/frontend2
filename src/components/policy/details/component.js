@@ -3,8 +3,6 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import CustomSpiner from '../../base/spiner/component';
-
 import * as PolicyActions from '../../../actions/policy';
 
 import { urls } from '../../../routes';

@@ -58,6 +58,28 @@ export function getDepositInfo(policyid) {
   };
 }
 
+export function getReviesTasks() {
+  return dispatch => {
+    let isError = false;
+    fetch(`${config.baseUrl}api/v1/review-tasks/`,
+      { method: 'GET',
+        headers: getHeaders(),
+        credentials: 'include'
+      })
+      .then(response => {
+        if (response.status >= 400) {
+          isError = true;
+        }
+        return response.json();
+      })
+      .then(json => {
+        if (!isError) {
+          dispatch({ type: types.REVIEW_TASKS_GET, payload: json });
+        }
+      });
+  };
+}
+
 export function changePoolState(values) {
   return {
     type: types.POOL_STATE_CHANGE,

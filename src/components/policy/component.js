@@ -1,11 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as HistoryActions from '../../actions/history';
-import { urls } from '../../routes';
-
 import CustomSpiner from '../base/spiner/component';
 import PolicyDetailsComponent from './details/component';
 import PolicyInfoComponent from './info/component';

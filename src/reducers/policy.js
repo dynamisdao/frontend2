@@ -15,6 +15,8 @@ function policyReducer(state = initialState, action) {
       return objectAssign({}, state, { policy: action.payload });
     case types.POLICY_SMARTDEPOSIT_INFO_GET:
       return objectAssign({}, state, { depositInfo: action.payload });
+    case types.REVIEW_TASKS_GET:
+      return objectAssign({}, state, { reviewTasks: action.payload.results });
     case types.POOL_STATE_CHANGE:
       return objectAssign({}, state, { poolState: action.payload.values });
     case types.WALLET_OPEN: {

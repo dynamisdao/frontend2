@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as HistoryActions from '../../../actions/history';
 import { urls } from '../../../routes';
 
 
@@ -58,8 +56,4 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(HistoryActions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(InitInfoComponent);
+export default connect(mapStateToProps)(InitInfoComponent);
