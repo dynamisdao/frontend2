@@ -22,6 +22,8 @@ function policyReducer(state = initialState, action) {
       if (!state.walletIsOpen) poolState = 'wallet';
       return objectAssign({}, state, { walletIsOpen: !state.walletIsOpen }, { poolState });
     }
+    case types.WALLET_NEW_GENERATE:
+      return objectAssign({}, state);
     default:
       return state;
   }

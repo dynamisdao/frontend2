@@ -7,6 +7,7 @@ import { getHeaders } from '../utils';
 import { urls } from '../routes';
 
 const toastr = window.toastr;
+const lightwallet = window.lightwallet;
 
 export function getPolicy(policyid, successCallback) {
   return dispatch => {
@@ -67,5 +68,32 @@ export function changePoolState(values) {
 export function openWallet() {
   return {
     type: types.WALLET_OPEN
+  };
+}
+
+export function saveKeystore(keystore) {
+  window.localStorage.keystore = keystore.serialize();
+}
+
+export function readKeystoreFromLocalstorage() {
+  return lightwallet.keystore.deserialize(window.localStorage.keystore);
+}
+
+export function generateNewWallet(password) {
+  const secretSeed = lightwallet.keystore.generateRandomSeed();
+  return dispatch => {
+    lightwallet.keystore.deriveKeyFromPassword(password, (err, pwDerivedKey) => {
+      if (err) throw err;
+      const keystore = new lightwallet.keystore(secretSeed, pwDerivedKey);
+      keystore.generateNewAddress(pwDerivedKey);
+
+      saveKeystore(keystore);
+      const address = keystore.getAddresses()[0];
+      dispatch({
+        type: types.WALLET_NEW_GENERATE,
+        payload: address
+      });
+      toastr.success('New wallet generated');
+    });
   };
 }

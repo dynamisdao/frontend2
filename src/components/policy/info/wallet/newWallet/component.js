@@ -16,12 +16,19 @@ const validate = values => {
 class NewWalletInfoComponent extends Component {
   constructor(props) {
     super(props);
+    this.state = { showPasswordField: false };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleShowPasswordField = this.handleShowPasswordField.bind(this);
     this.renderField = this.renderField.bind(this);
   }
 
   handleSubmit(values) {
-    const data = values;
+    this.props.generateNewWallet(values.password);
+  }
+
+  handleShowPasswordField(event) {
+    event.preventDefault();
+    this.setState({ showPasswordField: true });
   }
 
   renderField({ input, label, type, autoFocus, meta: { touched, error } }) {
@@ -40,12 +47,15 @@ class NewWalletInfoComponent extends Component {
 
   render() {
     const { handleSubmit } = this.props;
+    const { showPasswordField } = this.state;
     return (
-      <form onSubmit={handleSubmit(this.handleSubmit)}>
+      <form onSubmit={showPasswordField ? handleSubmit(this.handleSubmit) : this.handleShowPasswordField}>
         <div className="panel-body form-wallet">
-          <div className="form form-body">
-            <Field name="password" type="password" component={this.renderField} label="Please enter your Password" />
-          </div>
+          {showPasswordField ?
+            <div className="form form-body">
+              <Field name="password" type="password" component={this.renderField} label="Please enter your Password" />
+            </div> : null
+          }
           <div>
             <button type="submit" className="btn btn-half-block">Generate New Wallet</button>
             <button className="btn btn-half-block">Upload Wallet</button>
@@ -56,12 +66,9 @@ class NewWalletInfoComponent extends Component {
   }
 }
 
-NewWalletInfoComponent.contextTypes = {
-  router: PropTypes.object.isRequired
-};
-
 NewWalletInfoComponent.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  generateNewWallet: PropTypes.func.isRequired,
   array: PropTypes.object.isRequired
 };
 

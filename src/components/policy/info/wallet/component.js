@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import { urls } from '../../../../routes';
+import * as PolicyActions from '../../../../actions/policy';
 import NewWalletInfoComponent from './newWallet/component';
 import ExistWalletInfoComponent from './existWallet/component';
 
@@ -13,14 +13,18 @@ class WalletInfoComponent extends Component {
         <div className="panel-head">
           <h2 className="panel-title">Wallet</h2>
         </div>
-        <ExistWalletInfoComponent />
+        {window.localStorage.keystore ?
+          <ExistWalletInfoComponent /> :
+          <NewWalletInfoComponent generateNewWallet={this.props.generateNewWallet} />
+        }
       </div>
     );
   }
 }
 
 WalletInfoComponent.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  generateNewWallet: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -29,4 +33,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(WalletInfoComponent);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(PolicyActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletInfoComponent);
