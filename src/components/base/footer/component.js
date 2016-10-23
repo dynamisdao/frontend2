@@ -23,27 +23,6 @@ class FooterComponent extends Component {
                 <a href="">FAQs</a>
               </li>
             </ul>
-
-            <ul>
-              <li>
-                <a href="">My Policy</a>
-              </li>
-              <li>
-                <a href="">Open A Claim</a>
-              </li>
-              <li>
-                <a href="">Make a Payment</a>
-              </li>
-            </ul>
-
-            <ul>
-              <li>
-                <a href="">Assessor Dashboard</a>
-              </li>
-              <li>
-                <a href="">Verify My Policy</a>
-              </li>
-            </ul>
           </nav>
         </div>
 
