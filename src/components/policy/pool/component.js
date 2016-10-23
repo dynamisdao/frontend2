@@ -6,8 +6,20 @@ import * as PolicyActions from '../../../actions/policy';
 import CustomSpiner from '../../base/spiner/component';
 
 class PolicyPoolComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.getReviesTask = this.getReviesTask.bind(this);
+  }
+
   componentWillMount() {
     this.props.getReviesTasks();
+  }
+
+  getReviesTask(id) {
+    return (event) => {
+      event.preventDefault();
+      this.props.getReviesTask(id);
+    };
   }
 
   render() {
@@ -23,7 +35,7 @@ class PolicyPoolComponent extends Component {
             <CustomSpiner /> :
             <div className="panel-peers">
               {reviewTasks.map(task =>
-                <a href="" key={task.id} >
+                <a href="" key={task.id} onClick={this.getReviesTask(task.id)}>
                   <div className="panel-task">
                     <i className="material-icons">&#xE7FD;</i>
                     <span>{task.id}</span>
@@ -65,7 +77,8 @@ class PolicyPoolComponent extends Component {
 
 PolicyPoolComponent.propTypes = {
   reviewTasks: PropTypes.array,
-  getReviesTasks: PropTypes.func.isRequired
+  getReviesTasks: PropTypes.func.isRequired,
+  getReviesTask: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
