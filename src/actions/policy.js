@@ -102,6 +102,34 @@ export function getReviesTask(id) {
   };
 }
 
+export function signReviesTask(id, data) {
+  return dispatch => {
+    let isError = false;
+    dispatch({ type: types.REVIEW_TASK_SIGN_START });
+    fetch(`${config.baseUrl}api/v1/review-tasks/${id}/verify/`,
+      { method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify(data),
+        credentials: 'include'
+      })
+      .then(response => {
+        if (response.status >= 400) {
+          isError = true;
+          dispatch({ type: types.REVIEW_TASK_SIGN_ERROR });
+        } else {
+          toastr.success('Task signed');
+          dispatch({ type: types.REVIEW_TASK_SIGN_SUCCESS });
+        }
+        return response.json();
+      })
+      .then(json => {
+        if (isError) {
+          toastr.error(json.non_field_errors[0]);
+        }
+      });
+  };
+}
+
 export function changePoolState(values) {
   return {
     type: types.POOL_STATE_CHANGE,

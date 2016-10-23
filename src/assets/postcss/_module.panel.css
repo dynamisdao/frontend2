@@ -65,6 +65,10 @@
 .panel-verefication .form-controls {
     padding-top: 12px;
 }
+.panel-verefication .form-action {
+    padding-top: 24px;
+}
+
 /* ------------------------------------------------------------ *\
 	Responsive
 \* ------------------------------------------------------------ */

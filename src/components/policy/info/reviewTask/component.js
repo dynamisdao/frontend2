@@ -10,10 +10,13 @@ class ReviewTaskInfoComponent extends Component {
     super(props);
     this.state = {
       resultValue: 'null',
-      reasonValue: ''
+      reasonValue: '',
+      isValid: true
     };
     this.handleResultValue = this.handleResultValue.bind(this);
     this.handleReasonValue = this.handleReasonValue.bind(this);
+    this.handleSignValue = this.handleSignValue.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleResultValue(value) {
@@ -24,6 +27,19 @@ class ReviewTaskInfoComponent extends Component {
 
   handleReasonValue(event) {
     this.setState({ reasonValue: event.target.value });
+  }
+
+  handleSignValue(event) {
+    this.setState({ signValue: event.target.value, isValid: true });
+  }
+
+  handleSubmit(event) {
+    if (!this.state.signValue) {
+      this.setState({ isValid: false });
+    } else {
+      event.preventDefault();
+      this.props.signReviesTask(this.props.reviewTask.id, { signed_message: this.state.signValue });
+    }
   }
 
   render() {
@@ -41,7 +57,8 @@ class ReviewTaskInfoComponent extends Component {
         </div>
       </li>
     );
-    const { reviewTask } = this.props;
+    const { reviewTask, isFetched } = this.props;
+    const { resultValue, reasonValue, isValid } = this.state;
     return (
       <div className="panel">
         <div className="panel-head">
@@ -54,7 +71,7 @@ class ReviewTaskInfoComponent extends Component {
           <div className="panel-head-radio">
             {getRadioFireld('Can\'t tell', 'null', 'radio', this.handleResultValue('null'), true)}
           </div>
-          <h2 className="panel-title">Varefication Task</h2>
+          <h2 className="panel-title">Verification Task</h2>
         </div>
         {reviewTask.data ?
           <div className="panel-body panel-verefication">
@@ -71,7 +88,7 @@ class ReviewTaskInfoComponent extends Component {
                 <textarea
                   type="text" rows="5" className="field"
                   placeholder="Reason"
-                  onKeyPress={this.handleReasonValue}
+                  onChange={this.handleReasonValue}
                 />
               </div>
               <div className="form-controls">
@@ -82,8 +99,8 @@ class ReviewTaskInfoComponent extends Component {
                   value={
                     JSON.stringify({
                       task_hash: 'things',
-                      result: this.state.resultValue,
-                      reason: this.state.reasonValue
+                      result: resultValue,
+                      reason: reasonValue
                     })
                   }
                 />
@@ -92,10 +109,18 @@ class ReviewTaskInfoComponent extends Component {
                 <textarea
                   type="text" rows="5" className="field"
                   placeholder="Signature"
+                  onChange={this.handleSignValue}
                 />
+                {!isValid ? <p className="error">'Required'</p> : null}
               </div>
-              <div className="form-controls">
-                <button className="btn btn-block">Submit</button>
+              <div className="form-action">
+                <button
+                  className="btn btn-block"
+                  onClick={this.handleSubmit}
+                  disabled={isFetched}
+                >
+                  {isFetched ? <i className="fa fa-spin fa-spinner" /> : null} <span>Submit</span>
+                </button>
               </div>
             </div>
           </div> : <CustomSpiner />
@@ -106,11 +131,19 @@ class ReviewTaskInfoComponent extends Component {
 }
 
 ReviewTaskInfoComponent.propTypes = {
-  reviewTask: PropTypes.object.isRequired
+  reviewTask: PropTypes.object.isRequired,
+  signReviesTask: PropTypes.func.isRequired,
+  isFetched: PropTypes.bool.isRequired
 };
+
+function mapStateToProps(state) {
+  return {
+    isFetched: state.policy.isFetched
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(PolicyActions, dispatch);
 }
 
-export default connect(undefined, mapDispatchToProps)(ReviewTaskInfoComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewTaskInfoComponent);

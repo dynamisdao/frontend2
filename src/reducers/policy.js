@@ -3,6 +3,7 @@ import objectAssign from 'object-assign';
 import * as types from '../constants/policy';
 
 const initialState = {
+  isFetched: false,
   policy: {},
   depositInfo: {},
   poolState: { state: 'init' },
@@ -26,6 +27,16 @@ function policyReducer(state = initialState, action) {
       };
       return objectAssign({}, state, { poolState });
     }
+    case types.REVIEW_TASK_SIGN_START:
+      return objectAssign({}, state, { isFetched: true });
+    case types.REVIEW_TASK_SIGN_SUCCESS: {
+      const poolState = {
+        state: 'init'
+      };
+      return objectAssign({}, state, { isFetched: false }, { poolState });
+    }
+    case types.REVIEW_TASK_SIGN_ERROR:
+      return objectAssign({}, state, { isFetched: false });
     case types.WALLET_OPEN: {
       const poolState = { state: 'init' };
       if (!state.walletIsOpen) poolState.state = 'wallet';
