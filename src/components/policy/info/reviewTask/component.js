@@ -8,14 +8,22 @@ import CustomSpiner from '../../../base/spiner/component';
 class ReviewTaskInfoComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = { radioValue: 0 };
-    this.handleRadio = this.handleRadio.bind(this);
+    this.state = {
+      resultValue: 'null',
+      reasonValue: ''
+    };
+    this.handleResultValue = this.handleResultValue.bind(this);
+    this.handleReasonValue = this.handleReasonValue.bind(this);
   }
 
-  handleRadio(value) {
+  handleResultValue(value) {
     return () => {
-      this.setState({ radioValue: value });
+      this.setState({ resultValue: value });
     };
+  }
+
+  handleReasonValue(event) {
+    this.setState({ reasonValue: event.target.value });
   }
 
   render() {
@@ -38,13 +46,13 @@ class ReviewTaskInfoComponent extends Component {
       <div className="panel">
         <div className="panel-head">
           <div className="panel-head-radio">
-            {getRadioFireld('Verify', 0, 'radio', this.handleRadio(0))}
+            {getRadioFireld('Verify', 'yes', 'radio', this.handleResultValue('yes'))}
           </div>
           <div className="panel-head-radio">
-            {getRadioFireld('Falsify', 1, 'radio', this.handleRadio(1))}
+            {getRadioFireld('Falsify', 'no', 'radio', this.handleResultValue('no'))}
           </div>
           <div className="panel-head-radio">
-            {getRadioFireld('Can\'t tell', 2, 'radio', this.handleRadio(2), true)}
+            {getRadioFireld('Can\'t tell', 'null', 'radio', this.handleResultValue('null'), true)}
           </div>
           <h2 className="panel-title">Varefication Task</h2>
         </div>
@@ -63,6 +71,7 @@ class ReviewTaskInfoComponent extends Component {
                 <textarea
                   type="text" rows="5" className="field"
                   placeholder="Reason"
+                  onKeyPress={this.handleReasonValue}
                 />
               </div>
               <div className="form-controls">
@@ -70,7 +79,13 @@ class ReviewTaskInfoComponent extends Component {
                 <textarea
                   disabled
                   type="text" rows="5" className="field"
-                  defaultValue="Sign this"
+                  value={
+                    JSON.stringify({
+                      task_hash: 'things',
+                      result: this.state.resultValue,
+                      reason: this.state.reasonValue
+                    })
+                  }
                 />
               </div>
               <div className="form-controls">
