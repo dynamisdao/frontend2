@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
 import * as ProfileActions from '../../../actions/profile';
+import * as PolicyActions from '../../../actions/policy';
 import { urls } from '../../../routes';
 
 class HeaderLogedComponent extends Component {
   constructor(props) {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleOpenWallet = this.handleOpenWallet.bind(this);
   }
 
   componentWillMount() {
@@ -28,8 +30,13 @@ class HeaderLogedComponent extends Component {
     browserHistory.push(urls.index.path);
   }
 
+  handleOpenWallet(event) {
+    event.preventDefault();
+    this.props.openWallet();
+  }
+
   render() {
-    const { user, isNavigation } = this.props;
+    const { user, isNavigation, walletIsOpen } = this.props;
     return (
       <div className={!isNavigation ? 'header header-secondary header-loged' : 'header'}>
         <span className="logo">Dynamis</span>
@@ -65,8 +72,8 @@ class HeaderLogedComponent extends Component {
             </nav>
             <nav className="nav nav-secondary">
               <ul>
-                <li>
-                  <a href="">
+                <li className={walletIsOpen ? 'current' : null}>
+                  <a href="" onClick={this.handleOpenWallet}>
                     <i className="ico-wallet" />
                     Wallet
                   </a>
@@ -100,7 +107,9 @@ class HeaderLogedComponent extends Component {
 
 HeaderLogedComponent.propTypes = {
   user: PropTypes.object.isRequired,
+  walletIsOpen: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
+  openWallet: PropTypes.func.isRequired,
   relogin: PropTypes.func.isRequired,
   fetchProfile: PropTypes.func.isRequired,
   isNavigation: PropTypes.bool
@@ -108,12 +117,13 @@ HeaderLogedComponent.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    user: state.profile.user
+    user: state.profile.user,
+    walletIsOpen: state.policy.walletIsOpen
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(ProfileActions, dispatch);
+  return bindActionCreators(Object.assign({}, PolicyActions, ProfileActions), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderLogedComponent);

@@ -7,11 +7,11 @@ const pathsWithNavigationMenu = ['/policy'];
 
 class MainComponent extends Component {
   render() {
-    const { route } = this.props;
+    const { location } = this.props;
     return (
       <div className="wrapper">
         <HeaderLogedComponent
-          isNavigation={pathsWithNavigationMenu.indexOf(route.path) !== -1}
+          isNavigation={pathsWithNavigationMenu.indexOf(location.pathname) !== -1}
         />
         <div className="main">
           <div className="shell">
@@ -26,7 +26,7 @@ class MainComponent extends Component {
 
 MainComponent.propTypes = {
   children: PropTypes.element.isRequired,
-  route: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired
 };
 
 export default MainComponent;

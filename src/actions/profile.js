@@ -3,6 +3,8 @@ import * as types from '../constants/profile';
 import config from '../config';
 import { getHeaders } from '../utils';
 
+import { getPolicy } from './policy';
+
 const toastr = window.toastr;
 
 export function fetchProfile(accountId, successCallback, errorCallback) {
@@ -25,10 +27,20 @@ export function fetchProfile(accountId, successCallback, errorCallback) {
       })
       .then(json => {
         if (!isError) {
-          if (successCallback) successCallback.apply();
-          returnObj.payload = json;
-          returnObj.payload.isAuth = true;
-          dispatch(returnObj);
+          const actionSuccessCallback = () => {
+            if (successCallback) successCallback.apply();
+            returnObj.payload = json;
+            returnObj.payload.isAuth = true;
+            dispatch(returnObj);
+          };
+          const policyId = json.policies[json.policies.length - 1].id;
+          if (policyId) {
+            dispatch(getPolicy(policyId, actionSuccessCallback));
+          } else {
+            returnObj.payload = json;
+            returnObj.payload.isAuth = true;
+            dispatch(returnObj);
+          }
         } else if (errorCallback) {
           errorCallback.apply();
         }

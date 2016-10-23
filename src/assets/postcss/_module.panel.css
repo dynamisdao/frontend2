@@ -8,6 +8,8 @@
 
 .panel-head { padding: 24px 24px 0; position: relative; }
 .panel-head-aside { font-family: 'Maven Pro', 'Arial', 'Helvetica', sans-serif; font-size: 18px; line-height: 28px; padding: 5px 10px; float: right; background: #F9F9F9; box-shadow: inset 0 1px 6px rgba(0,0,0,.14); }
+.panel-head-radio { font-family: 'Maven Pro', 'Arial', 'Helvetica', sans-serif; font-size: 18px; float: right; margin-right: 20px;}
+.panel-head-radio label { padding-left: 0;}
 .panel-head .ico-umbrellas { position: absolute; top: 11px; right: 26px; }
 
 .panel-body { padding: 24px; }
@@ -20,6 +22,52 @@
 .panel-options { text-align: center; overflow: hidden; }
 .panel-options .panel-body { padding: 46px 106px 46px 136px; }
 .panel-options .panel-foot { border-top: 1px solid #E0E0E0; margin: 0 136px 24px; padding: 38px 0; }
+
+/*  Panel Peers  */
+
+.panel-peers { margin-right: 24px; }
+
+/*  Panel Task  */
+
+.panel-task {
+	text-decoration: none;
+	background: #F9F9F9;
+    border-width: 11px 0;
+    border-style: solid;
+    border-color: #fff;
+    font-size: 16px;
+    padding: 7px 10px;
+    span {
+    	padding-right: 20px;
+    }
+    span:last-child {
+    	padding-right: 5px;
+    	float: right;
+    }
+    i {
+    	font-size: 16px;
+    	padding-right: 5px;
+    }
+}
+.panel-task:hover { background: #dcdcdc; }
+
+/*  Panel Task  */
+
+.panel-verefication .form-notes {
+    float: left;
+    margin-right: 12px;
+    width: 57%;
+}
+.panel-verefication .form-reason {
+    float: right;
+    width: 40%;
+}
+.panel-verefication .form-controls {
+    padding-top: 12px;
+}
+.panel-verefication .form-action {
+    padding-top: 24px;
+}
 
 /* ------------------------------------------------------------ *\
 	Responsive

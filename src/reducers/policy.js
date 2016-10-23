@@ -3,9 +3,11 @@ import objectAssign from 'object-assign';
 import * as types from '../constants/policy';
 
 const initialState = {
+  isFetched: false,
   policy: {},
   depositInfo: {},
-  poolState: 'init'
+  poolState: { state: 'init' },
+  walletIsOpen: false
 };
 
 function policyReducer(state = initialState, action) {
@@ -14,8 +16,34 @@ function policyReducer(state = initialState, action) {
       return objectAssign({}, state, { policy: action.payload });
     case types.POLICY_SMARTDEPOSIT_INFO_GET:
       return objectAssign({}, state, { depositInfo: action.payload });
+    case types.REVIEW_TASKS_GET:
+      return objectAssign({}, state, { reviewTasks: action.payload.results });
     case types.POOL_STATE_CHANGE:
-      return objectAssign({}, state, { poolState: action.payload.values });
+      return objectAssign({}, state, { poolState: action.payload });
+    case types.REVIEW_TASK_GET: {
+      const poolState = {
+        state: 'reviewTask',
+        reviewTask: action.payload
+      };
+      return objectAssign({}, state, { poolState });
+    }
+    case types.REVIEW_TASK_SIGN_START:
+      return objectAssign({}, state, { isFetched: true });
+    case types.REVIEW_TASK_SIGN_SUCCESS: {
+      const poolState = {
+        state: 'init'
+      };
+      return objectAssign({}, state, { isFetched: false }, { poolState });
+    }
+    case types.REVIEW_TASK_SIGN_ERROR:
+      return objectAssign({}, state, { isFetched: false });
+    case types.WALLET_OPEN: {
+      const poolState = { state: 'init' };
+      if (!state.walletIsOpen) poolState.state = 'wallet';
+      return objectAssign({}, state, { walletIsOpen: !state.walletIsOpen }, { poolState });
+    }
+    case types.WALLET_NEW_GENERATE:
+      return objectAssign({}, state);
     default:
       return state;
   }

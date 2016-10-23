@@ -4,7 +4,6 @@ import FooterComponent from './footer/component';
 import HeaderSecondaryComponent from './headerSecondary/component';
 
 class BaseComponent extends Component {
-
   render() {
     return (
       <div className="wrapper">
