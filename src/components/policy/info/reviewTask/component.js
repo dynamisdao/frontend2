@@ -63,27 +63,25 @@ class ReviewTaskInfoComponent extends Component {
       <div className="panel">
         <div className="panel-head">
           <div className="panel-head-radio">
-            {getRadioFireld('Verify', 'yes', 'radio', this.handleResultValue('yes'))}
+            {getRadioFireld('Verify', 'yes', 'radio', this.handleResultValue('yes'), true)}
           </div>
           <div className="panel-head-radio">
             {getRadioFireld('Falsify', 'no', 'radio', this.handleResultValue('no'))}
           </div>
           <div className="panel-head-radio">
-            {getRadioFireld('Can\'t tell', 'null', 'radio', this.handleResultValue('null'), true)}
+            {getRadioFireld('Can\'t tell', 'null', 'radio', this.handleResultValue('null'))}
           </div>
           <h2 className="panel-title">Verification Task</h2>
         </div>
         {reviewTask.data ?
           <div className="panel-body panel-verefication">
-            <div className="form form-notes">
+            <div className="form">
               <div className="form-head">
                 <h5>Here is copy on how to verify this person's employment history records.</h5>
               </div>
               <div className="form-controls">
                 <span>{reviewTask.data.notes}</span>
               </div>
-            </div>
-            <div className="form form-reason">
               <div className="form-controls">
                 <textarea
                   type="text" rows="5" className="field"
@@ -93,8 +91,9 @@ class ReviewTaskInfoComponent extends Component {
               </div>
               <div className="form-controls">
                 <h5>Please sign this:</h5>
+              </div>
+              <div className="form-controls">
                 <textarea
-                  disabled
                   type="text" rows="5" className="field"
                   value={
                     JSON.stringify({
@@ -113,13 +112,14 @@ class ReviewTaskInfoComponent extends Component {
                 />
                 {!isValid ? <p className="error">'Required'</p> : null}
               </div>
-              <div className="form-action">
+              <div className="form-action text-center">
                 <button
-                  className="btn btn-block"
+                  className="btn btn-center"
                   onClick={this.handleSubmit}
                   disabled={isFetched}
                 >
-                  {isFetched ? <i className="fa fa-spin fa-spinner" /> : null} <span>Submit</span>
+                  {isFetched ? <i className="fa fa-spin fa-spinner" /> : <i className="fa fa-pencil" />}
+                  <span>&nbsp;Submit</span>
                 </button>
               </div>
             </div>

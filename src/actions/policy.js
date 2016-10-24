@@ -118,7 +118,7 @@ export function signReviesTask(id, data) {
           dispatch({ type: types.REVIEW_TASK_SIGN_ERROR });
         } else {
           toastr.success('Task signed');
-          dispatch({ type: types.REVIEW_TASK_SIGN_SUCCESS });
+          dispatch({ type: types.REVIEW_TASK_SIGN_SUCCESS, payload: id });
         }
         return response.json();
       })

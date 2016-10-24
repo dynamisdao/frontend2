@@ -20,7 +20,12 @@
 
 
 /*  Button Block  */
+
 .btn-block { display: block; padding-left: 0; padding-right: 0; width: 100%; }
+
+/*  Button Center  */
+
+.btn-center { width: 65%;}
 
 /*  Button Half Block  */
 .btn-half-block:first-child { padding-left: 0; padding-right: 0; width: 48%; float: left; margin-bottom: 12px;}
