@@ -33,7 +33,10 @@ function policyReducer(state = initialState, action) {
       const poolState = {
         state: 'init'
       };
-      return objectAssign({}, state, { isFetched: false }, { poolState });
+      const reviewTasks = state.reviewTasks;
+      const index = reviewTasks.indexOf(reviewTasks.find(task => task.id === action.payload));
+      reviewTasks.splice(index, 1);
+      return objectAssign({}, state, { isFetched: false }, { poolState }, { reviewTasks });
     }
     case types.REVIEW_TASK_SIGN_ERROR:
       return objectAssign({}, state, { isFetched: false });
