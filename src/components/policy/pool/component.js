@@ -91,4 +91,9 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(PolicyActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PolicyPoolComponent);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  null,
+  { pure: false }
+)(PolicyPoolComponent);

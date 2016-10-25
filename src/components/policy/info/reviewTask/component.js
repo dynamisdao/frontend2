@@ -9,7 +9,7 @@ class ReviewTaskInfoComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      resultValue: 'null',
+      resultValue: 'yes',
       reasonValue: '',
       isValid: true
     };
