@@ -151,7 +151,7 @@ export function readKeystoreFromLocalstorage() {
   return lightwallet.keystore.deserialize(window.localStorage.keystore);
 }
 
-export function generateNewWallet(password) {
+export function generateNewWallet(password, successCallback) {
   const secretSeed = lightwallet.keystore.generateRandomSeed();
   return dispatch => {
     lightwallet.keystore.deriveKeyFromPassword(password, (err, pwDerivedKey) => {
@@ -165,6 +165,7 @@ export function generateNewWallet(password) {
         type: types.WALLET_NEW_GENERATE,
         payload: address
       });
+      if (successCallback) successCallback.apply();
       toastr.success('New wallet generated');
     });
   };
