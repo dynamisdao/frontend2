@@ -13,7 +13,7 @@ class WalletInfoComponent extends Component {
         <div className="panel-head">
           <h2 className="panel-title">Wallet</h2>
         </div>
-        {window.localStorage.keystore ?
+        {window.localStorage.keystore || this.props.newGenerateWallet ?
           <ExistWalletInfoComponent /> :
           <NewWalletInfoComponent generateNewWallet={this.props.generateNewWallet} />
         }
@@ -24,12 +24,14 @@ class WalletInfoComponent extends Component {
 
 WalletInfoComponent.propTypes = {
   user: PropTypes.object.isRequired,
-  generateNewWallet: PropTypes.func.isRequired
+  generateNewWallet: PropTypes.func.isRequired,
+  newGenerateWallet: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    user: state.profile.user
+    user: state.profile.user,
+    newGenerateWallet: state.policy.newGenerateWallet
   };
 }
 

@@ -7,7 +7,8 @@ const initialState = {
   policy: {},
   depositInfo: {},
   poolState: { state: 'init' },
-  walletIsOpen: false
+  walletIsOpen: false,
+  newGenerateWallet: false
 };
 
 function policyReducer(state = initialState, action) {
@@ -46,7 +47,7 @@ function policyReducer(state = initialState, action) {
       return objectAssign({}, state, { walletIsOpen: !state.walletIsOpen }, { poolState });
     }
     case types.WALLET_NEW_GENERATE:
-      return objectAssign({}, state);
+      return objectAssign({}, state, { newGenerateWallet: true });
     default:
       return state;
   }
