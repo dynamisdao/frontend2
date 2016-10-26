@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as HistoryActions from '../../../actions/history';
 
 import { urls } from '../../../routes';
-import { getSignApplication, getPolicy } from '../../../utils';
+import { getSignApplication, getPolicy, getCoverage } from '../../../utils';
 
 class SignFormComponent extends Component {
   constructor(props) {
@@ -72,8 +72,12 @@ class SignFormComponent extends Component {
                 <div className="package-content">
                   <div className="package-body">
                     <ul className="features">
-                      {getFeatureField('Your Premium', '$6/month')}
-                      {getFeatureField('Your Coverage', '$1100/month')}
+                      {getFeatureField('Your Premium',
+                        `$${window.localStorage.premiumValue}/month`
+                      )}
+                      {getFeatureField('Your Coverage',
+                        `$${getCoverage(positionList, window.localStorage.premiumValue)}/month`
+                      )}
                       {getFeatureField('Duration', '4 month max.')}
                       {getFeatureField('Deposit', '$100')}
                     </ul>

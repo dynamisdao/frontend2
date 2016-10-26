@@ -151,3 +151,14 @@ export function getPolicy(user) {
   }
   return policy;
 }
+
+export function getCoverage(positionList, premiumValue) {
+  let multiplier = 0;
+  const score = (4 / positionList.length) + (getMonthsQuantity(positionList).quantity / 12);
+  if (score > 7.5) multiplier = 12;
+  if (score > 6.75 && score <= 7.5) multiplier = 11;
+  if (score > 6 && score <= 6.75) multiplier = 10;
+  if (score > 5 && score <= 6) multiplier = 9;
+  if (score > 4 && score <= 5) multiplier = 7;
+  return premiumValue * multiplier;
+}
