@@ -4,9 +4,6 @@
   "description": "Task runner",
   "author": null,
   "main": "js/app.js",
-  "engines": {
-    "node": "6.2.2"
-  },
   "scripts": {
     "clean": "rimraf dist/",
     "build": "cross-env NODE_ENV=production webpack --config webpack.production.config.js --progress --profile --colors",
