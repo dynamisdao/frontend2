@@ -72,13 +72,9 @@
 /*  Panel Modal  */
 
 .panel-modal {
-    input, p { 
-        text-align: center; 
-    }
-    .panel-control {
-        margin-bottom: 24px;
-        background: #fff;
-    }
+    input, p { text-align: center; }
+    .panel-control { margin-bottom: 24px; background: #fff; }
+    h5 { margin-top: 0; margin-bottom: 12px;}
 }
 
 /* ------------------------------------------------------------ *\
