@@ -74,7 +74,6 @@
     "redux-form": "^6.0.2",
     "redux-thunk": "^2.1.0",
     "run-sequence": "^1.1.5",
-    "sleep": "^4.0.0",
     "style-loader": "^0.13.1",
     "stylelint": "^4.1.0",
     "webpack": "^1.13.2",
