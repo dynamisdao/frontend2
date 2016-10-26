@@ -9,6 +9,7 @@ import CalendarPanelComponent from '../historyForm1/calendarPanel';
 import HeaderStep from '../../base/headerStep/component';
 
 import { urls } from '../../../routes';
+import { getCoverage } from '../../../utils';
 
 require('rc-slider/assets/index.css');
 
@@ -73,7 +74,7 @@ class AssessmentFormComponent extends Component {
         howLongStay: this.state.howLongStay,
         unemploymentPeriod: value
       });
-    window.localStorage.setItem('questions', questions);
+    window.localStorage.questions = questions;
     };
   }
 
@@ -139,11 +140,11 @@ class AssessmentFormComponent extends Component {
                   <ul className="prices prices-secondary">
                     <li className="price">
                       <h5>Your Estimated Premium:</h5>
-                      <p>$8/month</p>
+                      <p>${window.localStorage.premiumValue}/month</p>
                     </li>
                     <li className="price price-secondary">
                       <h5>While Your Coverage Could Be:</h5>
-                      <p>$1100/month</p>
+                      <p>${getCoverage(positionList, window.localStorage.premiumValue)}/month</p>
                     </li>
                   </ul>
                 </div>

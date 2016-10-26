@@ -31,7 +31,7 @@ class NewWalletInfoComponent extends Component {
           show={showModal}
           handleSubmit={generateNewWallet}
           handleClose={this.handleCloseModal}
-          labelSubmit="Generate New Wallet"
+          labelSubmit="Ok"
         />
       </div>
     );

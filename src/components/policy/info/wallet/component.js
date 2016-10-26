@@ -14,7 +14,7 @@ class WalletInfoComponent extends Component {
           <h2 className="panel-title">Wallet</h2>
         </div>
         {window.localStorage.keystore || this.props.newGenerateWallet ?
-          <ExistWalletInfoComponent /> :
+          <ExistWalletInfoComponent generateNewWallet={this.props.generateNewWallet} /> :
           <NewWalletInfoComponent generateNewWallet={this.props.generateNewWallet} />
         }
       </div>

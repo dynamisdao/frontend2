@@ -1,20 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-export const fields = ['toAddress', 'amount', 'password'];
+import PasswordModalComponent from '../../../../base/modals/passwordModal';
+
+export const fields = ['toAddress', 'amount'];
 
 const validate = values => {
   const errors = {};
-  if (!values.password) {
-    errors.password = 'Required';
-  } else if (values.password.length < 6) {
-    errors.password = 'Must be 6 characters or more';
+  if (!values.amount) {
+    errors.amount = 'Required';
   }
   if (!values.toAddress) {
     errors.toAddress = 'Required';
-  }
-  if (!values.amount) {
-    errors.amount = 'Required';
   }
   return errors;
 };
@@ -22,12 +19,32 @@ const validate = values => {
 class ExistWalletInfoComponent extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = { showGenerateWalletModal: false, showSendTranactionModal: false, values: { } };
     this.renderField = this.renderField.bind(this);
+    this.handleShowGenerateWalletModal = this.handleShowGenerateWalletModal.bind(this);
+    this.handleGenerateWallet = this.handleGenerateWallet.bind(this);
+    this.handleShowSendTranactionModal = this.handleShowSendTranactionModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
-  handleSubmit(values) {
-    const data = values;
+  handleShowGenerateWalletModal() {
+    this.setState({ showGenerateWalletModal: true });
+  }
+
+  handleGenerateWallet(password) {
+    this.props.generateNewWallet(password, this.handleCloseModal);
+  }
+
+  handleShowSendTranactionModal() {
+    this.setState({ showSendTranactionModal: true });
+  }
+
+  handleCloseModal(values) {
+    this.setState({
+      showGenerateWalletModal: false,
+      showSendTranactionModal: false,
+      values
+    });
   }
 
   renderField({ input, label, type, autoFocus, meta: { touched, error } }) {
@@ -45,33 +62,44 @@ class ExistWalletInfoComponent extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, generateNewWallet } = this.props;
+    const { showGenerateWalletModal, showSendTranactionModal } = this.state;
     return (
-      <form onSubmit={handleSubmit(this.handleSubmit)}>
-        <div className="panel-body form-wallet">
-          <div className="form form-body">
+      <form onSubmit={handleSubmit(this.handleShowSendTranactionModal)}>
+        <div className="panel-body form form-wallet">
+          <div className="form-body">
             <Field name="toAddress" type="text" component={this.renderField} label="To Address" />
             <Field name="amount" type="text" component={this.renderField} label="Amount" />
-            <Field name="password" type="password" component={this.renderField} label="Please enter your Password" />
           </div>
-          <div className="btn-third-block">
-            <button type="submit" className="btn btn-third">Send Transaction</button>
-            <button className="btn btn-third">Download Your Wallet</button>
-            <button className="btn btn-third">Generate New Wallet</button>
+          <div className="form-btn">
+            <button type="submit" className="btn btn-block">Send Transaction</button>
+            <button className="btn btn-block">Download Your Wallet</button>
+            <button onClick={this.handleShowGenerateWalletModal} className="btn btn-block">Generate New Wallet</button>
           </div>
         </div>
+        <PasswordModalComponent
+          show={showGenerateWalletModal}
+          handleSubmit={this.handleGenerateWallet}
+          handleClose={this.handleCloseModal}
+          labelSubmit="Ok"
+          title=" Old will be removed. Аrе you sure, that you want to generate a new purse?."
+        />
+        <PasswordModalComponent
+          show={showSendTranactionModal}
+          handleSubmit={generateNewWallet}
+          handleClose={this.handleCloseModal}
+          labelSubmit="Ok"
+          title="You want to make a transaction"
+        />
       </form>
     );
   }
 }
 
-ExistWalletInfoComponent.contextTypes = {
-  router: PropTypes.object.isRequired
-};
-
 ExistWalletInfoComponent.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  array: PropTypes.object.isRequired
+  array: PropTypes.object.isRequired,
+  generateNewWallet: PropTypes.func.isRequired
 };
 
 export default reduxForm({

@@ -22,7 +22,7 @@ class PasswordModalComponent extends Component {
   }
 
   render() {
-    const { show, handleClose, labelSubmit } = this.props;
+    const { show, handleClose, labelSubmit, title } = this.props;
     const { isValid } = this.state;
     return (
       <Modal
@@ -32,6 +32,7 @@ class PasswordModalComponent extends Component {
       >
         <div className="panel-modal">
           <div className="panel-body form text-center">
+            <h5>{title}</h5>
             <input
               autoFocus
               className="field"
@@ -54,7 +55,8 @@ PasswordModalComponent.propTypes = {
   handleClose: PropTypes.func.isRequired,
   show: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  labelSubmit: PropTypes.string.isRequired
+  labelSubmit: PropTypes.string.isRequired,
+  title: PropTypes.string
 };
 
 export default PasswordModalComponent;
