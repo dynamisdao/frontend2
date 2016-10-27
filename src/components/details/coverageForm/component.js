@@ -25,7 +25,7 @@ class CoverageFormComponent extends Component {
 
   componentWillMount() {
     if (this.props.positionList.length === 0) {
-      browserHistory.push(urls.main.historyForm1.path);
+      browserHistory.push(urls.details.historyForm1.path);
     }
     if (window.localStorage.premiumValue) {
       this.setState({ premiumValue: parseInt(window.localStorage.premiumValue) });
@@ -36,12 +36,12 @@ class CoverageFormComponent extends Component {
 
   handleEditPositions(event) {
     event.preventDefault();
-    browserHistory.push(urls.main.historyForm1.path);
+    browserHistory.push(urls.details.historyForm1.path);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    browserHistory.push(urls.main.assessmentForm.path);
+    browserHistory.push(urls.details.assessmentForm.path);
   }
 
   handleSlider(premiumValue) {

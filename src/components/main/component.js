@@ -18,7 +18,7 @@ class MainComponent extends Component {
       const accountId = window.localStorage.getItem('accountId');
       if (accountId) {
         Progress.show();
-        this.props.fetchProfile(accountId, () => Progress.hide());
+        setTimeout(() => this.props.fetchProfile(accountId, () => Progress.hide()), 1500);
       } else {
         this.props.relogin();
         browserHistory.push(urls.login.path);

@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as PolicyActions from '../../../actions/policy';
-import CustomSpiner from '../../base/spiner/component';
+import * as PolicyActions from '../../../../actions/policy';
+import CustomSpiner from '../../../base/spiner/component';
 
 class PolicyPoolComponent extends Component {
   constructor(props) {

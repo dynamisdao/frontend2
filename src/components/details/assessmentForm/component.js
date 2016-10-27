@@ -25,10 +25,10 @@ class AssessmentFormComponent extends Component {
 
   componentWillMount() {
     if (this.props.positionList.length === 0) {
-      browserHistory.push(urls.main.historyForm1.path);
+      browserHistory.push(urls.details.historyForm1.path);
     }
-    if (window.localStorage.getItem('questions')) {
-      const questions = JSON.parse(window.localStorage.getItem('questions'));
+    if (window.localStorage.questions) {
+      const questions = JSON.parse(window.localStorage.questions);
       this.setState({
         howLongStay: questions.howLongStay,
         unemploymentPeriod: questions.unemploymentPeriod
@@ -43,17 +43,17 @@ class AssessmentFormComponent extends Component {
 
   handleEditPositions(event) {
     event.preventDefault();
-    browserHistory.push(urls.main.historyForm1.path);
+    browserHistory.push(urls.details.historyForm1.path);
   }
 
   handleAdjustCoverage(event) {
     event.preventDefault();
-    browserHistory.push(urls.main.coverageForm.path);
+    browserHistory.push(urls.details.coverageForm.path);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    browserHistory.push(urls.main.signForm.path);
+    browserHistory.push(urls.details.signForm.path);
   }
 
   handleWorkPeriod(value) {
@@ -63,7 +63,7 @@ class AssessmentFormComponent extends Component {
         howLongStay: value,
         unemploymentPeriod: this.state.unemploymentPeriod
       });
-    window.localStorage.setItem('questions', questions);
+    window.localStorage.questions = questions;
     };
   }
 

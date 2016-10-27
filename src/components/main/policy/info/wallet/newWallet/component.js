@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import PasswordModalComponent from '../../../../base/modals/passwordModal';
+import PasswordModalComponent from '../../../../../base/modals/passwordModal';
 
 class NewWalletInfoComponent extends Component {
   constructor(props) {

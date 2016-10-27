@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as PolicyActions from '../../../../actions/policy';
-import CustomSpiner from '../../../base/spiner/component';
+import * as PolicyActions from '../../../../../actions/policy';
+import CustomSpiner from '../../../../base/spiner/component';
 
 class ReviewTaskInfoComponent extends Component {
   constructor(props) {

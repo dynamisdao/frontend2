@@ -43,6 +43,7 @@ export function fetchProfile(accountId, successCallback, errorCallback) {
             returnObj.payload = json;
             returnObj.payload.isAuth = true;
             dispatch(returnObj);
+            browserHistory.push(urls.details.path);
           }
         } else if (errorCallback) {
           errorCallback.apply();

@@ -29,7 +29,7 @@ export function getPolicy(policyid, successCallback) {
           if (json.is_signed) {
             browserHistory.push(urls.main.policy.path);
           } else {
-            browserHistory.push(urls.main.path);
+            browserHistory.push(urls.details.path);
           }
         }
       });

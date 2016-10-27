@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-import PasswordModalComponent from '../../../../base/modals/passwordModal';
+import PasswordModalComponent from '../../../../../base/modals/passwordModal';
 
 export const fields = ['toAddress', 'amount'];
 

@@ -9,7 +9,7 @@ import HeaderStep from '../../base/headerStep/component';
 
 import { urls } from '../../../routes';
 
-class MainIndexComponent extends Component {
+class DetailsIndexComponent extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.user.keybase_username && !this.props.user.keybase_username) {
@@ -19,7 +19,7 @@ class MainIndexComponent extends Component {
 
   render() {
     const handleNextButton = () => {
-      browserHistory.push(urls.main.historyForm1.path);
+      browserHistory.push(urls.details.historyForm1.path);
     };
     const { identityUser, user } = this.props;
     return (
@@ -109,7 +109,7 @@ class MainIndexComponent extends Component {
   }
 }
 
-MainIndexComponent.propTypes = {
+DetailsIndexComponent.propTypes = {
   identity: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   identityUser: PropTypes.object.isRequired
@@ -126,4 +126,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(ProfileActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainIndexComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsIndexComponent);
