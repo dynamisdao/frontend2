@@ -67,7 +67,7 @@ class SignFormComponent extends Component {
               <div className="package">
                 <header className="package-head">
                   <h2>Your Coverage</h2>
-                  <h5>Based on your perameters and level of peer-to-peer verification</h5>
+                  <h5>Based on your parameters and level of peer-to-peer verification</h5>
                 </header>
                 <div className="package-content">
                   <div className="package-body">
@@ -79,7 +79,7 @@ class SignFormComponent extends Component {
                         `$${getCoverage(positionList, window.localStorage.premiumValue)}/month`
                       )}
                       {getFeatureField('Duration', '4 month max.')}
-                      {getFeatureField('Deposit', '$100')}
+                      {getFeatureField('Smart Deposit', '$100')}
                     </ul>
                   </div>
                   <footer className="package-foot">
@@ -146,7 +146,7 @@ class SignFormComponent extends Component {
                       </div>
                       <br />
                       <a href="" onClick={this.handleEditPositions} className="link">
-                        No, I need to edit my perameters
+                        No, I need to edit my parameters
                       </a>
                     </div>
                   </footer>

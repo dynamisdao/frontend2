@@ -21,7 +21,7 @@ class InitInfoComponent extends Component {
             <li>
               <a href="">
                 <i className="ico-history" />
-                Payment &amp; Claim History
+                History
               </a>
             </li>
             <li>
@@ -39,7 +39,6 @@ class InitInfoComponent extends Component {
           </ul>
         </div>
         <footer className="panel-foot">
-          <a href="" className="btn btn-large">More Policy Details</a>
         </footer>
       </div>
     );

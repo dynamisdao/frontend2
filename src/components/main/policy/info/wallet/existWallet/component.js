@@ -69,11 +69,13 @@ class ExistWalletInfoComponent extends Component {
         <div className="panel-body form form-wallet">
           <div className="form-body">
             <Field name="toAddress" type="text" component={this.renderField} label="To Address" />
-            <Field name="amount" type="text" component={this.renderField} label="Amount" />
+            <Field name="amount" type="text" component={this.renderField} label="Amount (Wei)" />
           </div>
           <div className="form-btn">
             <button type="submit" className="btn btn-block">Send Transaction</button>
+            <br/>
             <button className="btn btn-block">Download Your Wallet</button>
+            <button className="btn btn-block">Upload Your Wallet</button>
             <button onClick={this.handleShowGenerateWalletModal} className="btn btn-block">Generate New Wallet</button>
           </div>
         </div>
@@ -82,7 +84,7 @@ class ExistWalletInfoComponent extends Component {
           handleSubmit={this.handleGenerateWallet}
           handleClose={this.handleCloseModal}
           labelSubmit="Ok"
-          title=" Old will be removed. Аrе you sure, that you want to generate a new purse?."
+          title="Are you sure, that you want to generate a new wallet?"
         />
         <PasswordModalComponent
           show={showSendTranactionModal}

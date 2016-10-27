@@ -9,7 +9,7 @@ class PolicyComponent extends Component {
   render() {
     return (
       <section className="section section-policy">
-        <h1 className="title title-primary">My Policy</h1>
+        <h1 className="title title-primary"></h1>
         <section className="section section-policy">
           <div className="cols">
             <div className="col col-3of5">
