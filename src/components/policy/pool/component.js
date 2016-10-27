@@ -67,7 +67,6 @@ class PolicyPoolComponent extends Component {
           }
         </div>
         <footer className="panel-foot">
-          <a href="" className="link-more material-icons">more_vert</a>
         </footer>
       </div>
     );
