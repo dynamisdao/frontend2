@@ -14,16 +14,6 @@ class HeaderLogedComponent extends Component {
     this.handleOpenWallet = this.handleOpenWallet.bind(this);
   }
 
-  componentWillMount() {
-    const accountId = window.localStorage.getItem('accountId');
-    if (accountId) {
-      this.props.fetchProfile(accountId);
-    } else {
-      this.props.relogin();
-      browserHistory.push(urls.login.path);
-    }
-  }
-
   handleLogout(event) {
     event.preventDefault();
     this.props.logout();
@@ -108,11 +98,9 @@ class HeaderLogedComponent extends Component {
 HeaderLogedComponent.propTypes = {
   user: PropTypes.object.isRequired,
   walletIsOpen: PropTypes.bool.isRequired,
-  logout: PropTypes.func.isRequired,
   openWallet: PropTypes.func.isRequired,
-  relogin: PropTypes.func.isRequired,
-  fetchProfile: PropTypes.func.isRequired,
-  isNavigation: PropTypes.bool
+  isNavigation: PropTypes.bool,
+  logout: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -123,7 +111,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(Object.assign({}, PolicyActions, ProfileActions), dispatch);
+  return bindActionCreators(Object.assign(PolicyActions, ProfileActions), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderLogedComponent);

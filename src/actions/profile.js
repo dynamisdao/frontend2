@@ -33,7 +33,8 @@ export function fetchProfile(accountId, successCallback, errorCallback) {
             returnObj.payload.isAuth = true;
             dispatch(returnObj);
           };
-          const policyId = json.policies[json.policies.length - 1].id;
+          let policyId = null;
+          if (json.policies.length) policyId = json.policies[json.policies.length - 1].id;
           if (policyId) {
             dispatch(getPolicy(policyId, actionSuccessCallback));
           } else {

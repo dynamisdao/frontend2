@@ -4,6 +4,8 @@
 
 .panel { background: #fff; box-shadow: 0 0 2px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.24); margin-bottom: 26px; }
 
+.panel-initial { min-height: 520px; display: table; margin: 200px auto; }
+
 .panel-title { font-size: 25px; line-height: 29px; font-weight: 400; color: #4A4A4A; padding: 5px 0; }
 
 .panel-head { padding: 24px 24px 0; position: relative; }
