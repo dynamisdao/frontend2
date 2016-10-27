@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as HistoryActions from '../../../actions/history';
 
 import { urls } from '../../../routes';
-import { getSignApplication, getPolicy, getCoverage } from '../../../utils';
+import { getSignApplication, getPolicy, getCoverage, getSmartDeposit } from '../../../utils';
 
 class SignFormComponent extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class SignFormComponent extends Component {
 
   componentWillMount() {
     if (this.props.positionList.length === 0) {
-      browserHistory.push(urls.main.historyForm1.path);
+      browserHistory.push(urls.details.historyForm1.path);
     } else {
       this.props.updatePolicy(
         getPolicy(this.props.user),
@@ -29,7 +29,7 @@ class SignFormComponent extends Component {
 
   handleEditPositions(event) {
     event.preventDefault();
-    browserHistory.push(urls.main.historyForm1.path);
+    browserHistory.push(urls.details.historyForm1.path);
   }
 
   handleSignForm(event) {
@@ -41,7 +41,7 @@ class SignFormComponent extends Component {
     this.props.signPolicy(
       getPolicy(this.props.user),
       data,
-      () => browserHistory.push(urls.main.policy.path)
+      () => browserHistory.push(urls.details.policy.path)
     );
   }
 
@@ -79,7 +79,8 @@ class SignFormComponent extends Component {
                         `$${getCoverage(positionList, window.localStorage.premiumValue)}/month`
                       )}
                       {getFeatureField('Duration', '4 month max.')}
-                      {getFeatureField('Smart Deposit', '$100')}
+                      {getFeatureField('Smart Deposit',
+                        `$${getSmartDeposit(window.localStorage.questions)}`)}
                     </ul>
                   </div>
                   <footer className="package-foot">
