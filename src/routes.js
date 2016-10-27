@@ -12,13 +12,15 @@ import IdentityComponent from './components/base/identity/component';
 import AccountCreationComponent from './components/base/accountCreation/component';
 import SendEmailMessageComponent from './components/base/sendEmailMessage/component';
 
+import DetailsComponent from './components/details/component';
+import DetailsIndexComponent from './components/details/index/component';
+import HistoryForm1Component from './components/details/historyForm1/component';
+import CoverageFormComponent from './components/details/coverageForm/component';
+import AssessmentFormComponent from './components/details/assessmentForm/component';
+import SignFormComponent from './components/details/signForm/component';
+
 import MainComponent from './components/main/component';
-import MainIndexComponent from './components/main/index/component';
-import HistoryForm1Component from './components/main/historyForm1/component';
-import CoverageFormComponent from './components/main/coverageForm/component';
-import AssessmentFormComponent from './components/main/assessmentForm/component';
-import SignFormComponent from './components/main/signForm/component';
-import PolicyComponent from './components/policy/component';
+import PolicyComponent from './components/main/policy/component';
 
 export const urls = {
   index: {
@@ -39,8 +41,8 @@ export const urls = {
   sendEmail: {
     path: 'send-email'
   },
-  main: {
-    path: '/main',
+  details: {
+    path: '/details',
     historyForm1: {
       path: '/history-form-1'
     },
@@ -52,7 +54,10 @@ export const urls = {
     },
     signForm: {
       path: '/sign-form'
-    },
+    }
+  },
+  main: {
+    path: '/main',
     policy: {
       path: '/policy'
     }
@@ -69,13 +74,15 @@ export default (
       <Route path={urls.accountCreation.path} component={AccountCreationComponent} />
       <Route path={urls.sendEmail.path} component={SendEmailMessageComponent} />
     </Route>
-    <Route path={urls.main.path} component={MainComponent}>
-      <IndexRoute component={MainIndexComponent} />
-      <Route path={urls.main.historyForm1.path} component={HistoryForm1Component} />
-      <Route path={urls.main.coverageForm.path} component={CoverageFormComponent} />
-      <Route path={urls.main.assessmentForm.path} component={AssessmentFormComponent} />
-      <Route path={urls.main.signForm.path} component={SignFormComponent} />
-      <Route path={urls.main.policy.path} component={PolicyComponent} />
+    <Route path={urls.details.path} component={DetailsComponent}>
+      <IndexRoute component={DetailsIndexComponent} />
+      <Route path={urls.details.historyForm1.path} component={HistoryForm1Component} />
+      <Route path={urls.details.coverageForm.path} component={CoverageFormComponent} />
+      <Route path={urls.details.assessmentForm.path} component={AssessmentFormComponent} />
+      <Route path={urls.details.signForm.path} component={SignFormComponent} />
+    </Route>
+    <Route path={urls.main.policy.path} component={MainComponent}>
+      <IndexRoute component={PolicyComponent} />
     </Route>
     <Route path="*" component={NotFoundComponent} />
   </Route>

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as PolicyActions from '../../../../actions/policy';
+import * as PolicyActions from '../../../../../actions/policy';
 import NewWalletInfoComponent from './newWallet/component';
 import ExistWalletInfoComponent from './existWallet/component';
 

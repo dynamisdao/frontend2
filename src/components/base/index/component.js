@@ -6,19 +6,18 @@ import { connect } from 'react-redux';
 import * as ProfileActions from '../../../actions/profile';
 import { urls } from '../../../routes';
 
-const accountId = window.localStorage.getItem('accountId');
-
 class IndexComponent extends Component {
 
   componentWillMount() {
-    if (accountId) {
-      this.props.fetchProfile(accountId);
+    if (window.localStorage.accountId) {
+      this.props.fetchProfile(window.localStorage.accountId);
     }
   }
+
   render() {
     const handleLink = (event) => {
       event.preventDefault();
-      if (window.localStorage.getItem('username')) {
+      if (window.localStorage.username) {
         browserHistory.push(urls.accountCreation.path);
       } else {
         browserHistory.push(urls.identity.path);

@@ -1,9 +1,11 @@
 import fetch from 'isomorphic-fetch';
+import { browserHistory } from 'react-router';
+
 import * as types from '../constants/profile';
 import config from '../config';
 import { getHeaders } from '../utils';
-
 import { getPolicy } from './policy';
+import { urls } from '../routes';
 
 const toastr = window.toastr;
 
@@ -33,13 +35,15 @@ export function fetchProfile(accountId, successCallback, errorCallback) {
             returnObj.payload.isAuth = true;
             dispatch(returnObj);
           };
-          const policyId = json.policies[json.policies.length - 1].id;
+          let policyId = null;
+          if (json.policies.length) policyId = json.policies[json.policies.length - 1].id;
           if (policyId) {
             dispatch(getPolicy(policyId, actionSuccessCallback));
           } else {
             returnObj.payload = json;
             returnObj.payload.isAuth = true;
             dispatch(returnObj);
+            browserHistory.push(urls.details.path);
           }
         } else if (errorCallback) {
           errorCallback.apply();
@@ -85,6 +89,7 @@ export function login(data, successCallback, errorCallback) {
 export function logout() {
   window.localStorage.removeItem('accountId');
   window.localStorage.removeItem('isLogin');
+  browserHistory.push(urls.login.path);
   return {
     type: types.LOGOUT,
     payload: { isAuth: false }

@@ -9,6 +9,9 @@
   opacity: 1;
   transition: opacity 250ms 250ms;
 }
+.page-main .loader-60devs .loader-60devs-progress {
+  background-color: #fff;
+}
 
 .loader-60devs .loader-60devs-progress {
   height: 2px;

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { urls } from '../../../routes';
+import { urls } from '../../../../routes';
 
 import InitInfoComponent from './initInfoComponent';
 import DepositInfoComponent from './depositInfoComponent';

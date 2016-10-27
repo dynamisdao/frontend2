@@ -71,7 +71,7 @@ class HistoryForm extends Component {
 
   handleComplete(event) {
     event.preventDefault();
-    browserHistory.push(urls.main.coverageForm.path);
+    browserHistory.push(urls.details.coverageForm.path);
   }
 
   handleSubmit(values) {

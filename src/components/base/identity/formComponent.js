@@ -26,7 +26,7 @@ class IdentityForm extends Component {
   componentWillMount() {
     if (window.localStorage.getItem('username')) {
       this.props.initialize({
-        username: window.localStorage.getItem('username'),
+        username: window.localStorage.username
       });
       this.setState({ isNext: true });
     }
@@ -41,8 +41,8 @@ class IdentityForm extends Component {
   handleSubmit(values) {
     if (this.state.isNext) {
       browserHistory.push(urls.accountCreation.path);
-      window.localStorage.setItem('username', this.props.identityUser.username);
-      window.localStorage.setItem('avatarPath', this.props.identityUser.avatarPath);
+      window.localStorage.username = this.props.identityUser.username;
+      window.localStorage.avatarPath = this.props.identityUser.avatarPath;
     } else {
       this.props.identity(values.username);
     }

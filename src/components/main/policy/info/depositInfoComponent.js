@@ -3,8 +3,8 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as PolicyActions from '../../../actions/policy';
-import { urls } from '../../../routes';
+import * as PolicyActions from '../../../../actions/policy';
+import { urls } from '../../../../routes';
 
 const DEPOSIT_STATE = [
   { label: 'INITIAL', state: 1 },

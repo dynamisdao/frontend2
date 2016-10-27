@@ -3,9 +3,9 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as PolicyActions from '../../../actions/policy';
+import * as PolicyActions from '../../../../actions/policy';
 
-import { urls } from '../../../routes';
+import { urls } from '../../../../routes';
 
 const POLICY_STATE = [
   { label: 'POLICY_STATUS_INIT', state: 1 },
