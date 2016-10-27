@@ -79,7 +79,7 @@ class SignFormComponent extends Component {
                         `$${getCoverage(positionList, window.localStorage.premiumValue)}/month`
                       )}
                       {getFeatureField('Duration', '4 month max.')}
-                      {getFeatureField('Deposit', '$100')}
+                      {getFeatureField('Smart Deposit', '$100')}
                     </ul>
                   </div>
                   <footer className="package-foot">
