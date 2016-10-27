@@ -162,3 +162,35 @@ export function getCoverage(positionList, premiumValue) {
   if (score > 4 && score <= 5) multiplier = 7;
   return premiumValue * multiplier;
 }
+
+export function getSmartDeposit(questions) {
+  const obj = JSON.parse(questions);
+  let smartDeposit = 0;
+  switch(obj.howLongStay) {
+    case 0: smartDeposit += 0;
+      break;
+    case 1: smartDeposit += 10;
+      break;
+    case 2: smartDeposit += 20;
+      break;
+    case 3: smartDeposit += 30;
+      break;
+    case 4: smartDeposit += 40;
+      break;
+    case 5: smartDeposit += 50;
+  }
+  switch(obj.unemploymentPeriod) {
+    case 0: smartDeposit += 50;
+      break;
+    case 1: smartDeposit += 40;
+      break;
+    case 2: smartDeposit += 30;
+      break;
+    case 3: smartDeposit += 20;
+      break;
+    case 4: smartDeposit += 10;
+      break;
+    case 5: smartDeposit += 0;
+  }
+  return smartDeposit;
+}
