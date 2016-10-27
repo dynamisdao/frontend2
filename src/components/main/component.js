@@ -14,16 +14,17 @@ const pathsWithNavigationMenu = ['/policy'];
 class MainComponent extends Component {
 
   componentDidMount() {
-    const accountId = window.localStorage.getItem('accountId');
-    if (accountId) {
-      Progress.show();
-      this.props.fetchProfile(accountId, () => Progress.hide());
-    } else {
-      this.props.relogin();
-      browserHistory.push(urls.login.path);
+    if (!this.props.user.keybase_username && !this.props.policy.data) {
+      const accountId = window.localStorage.getItem('accountId');
+      if (accountId) {
+        Progress.show();
+        this.props.fetchProfile(accountId, () => Progress.hide());
+      } else {
+        this.props.relogin();
+        browserHistory.push(urls.login.path);
+      }
     }
   }
-
 
   render() {
     const { user, policy } = this.props;

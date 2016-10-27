@@ -23,13 +23,13 @@ export function getPolicy(policyid, successCallback) {
       .then(json => {
         if (!isError) {
           dispatch({ type: types.POLICY_GET, payload: json });
+          if (successCallback) {
+            successCallback.apply();
+          }
           if (json.is_signed) {
             browserHistory.push(urls.main.policy.path);
           } else {
             browserHistory.push(urls.main.path);
-          }
-          if (successCallback) {
-            successCallback.apply();
           }
         }
       });

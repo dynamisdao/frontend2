@@ -1,9 +1,11 @@
 import fetch from 'isomorphic-fetch';
+import { browserHistory } from 'react-router';
+
 import * as types from '../constants/profile';
 import config from '../config';
 import { getHeaders } from '../utils';
-
 import { getPolicy } from './policy';
+import { urls } from '../routes';
 
 const toastr = window.toastr;
 
@@ -86,6 +88,7 @@ export function login(data, successCallback, errorCallback) {
 export function logout() {
   window.localStorage.removeItem('accountId');
   window.localStorage.removeItem('isLogin');
+  browserHistory.push(urls.login.path);
   return {
     type: types.LOGOUT,
     payload: { isAuth: false }

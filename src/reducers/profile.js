@@ -41,8 +41,7 @@ function profileReducer(state = initialState, action) {
     case types.IDENTITY_ERROR:
       return objectAssign({}, state, { isFetched: false });
     case types.LOGOUT: {
-      window.localStorage.removeItem('accountId');
-      return objectAssign({}, state, action.payload);
+      return objectAssign({}, state, action.payload, { isAuth: false });
     }
     case types.RELOGIN: {
       return objectAssign({}, state, action.payload);
