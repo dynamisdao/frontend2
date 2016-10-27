@@ -39,7 +39,6 @@ class InitInfoComponent extends Component {
           </ul>
         </div>
         <footer className="panel-foot">
-          /*<a href="" className="btn btn-large">More Policy Details</a>*/
         </footer>
       </div>
     );
