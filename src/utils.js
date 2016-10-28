@@ -78,6 +78,18 @@ export function getMonthtStringByNumber(number) {
   }
 }
 
+export function getCoverage(positionList, premiumValue) {
+  let multiplier = 0;
+  const score = (4 / positionList.length) + (getMonthsQuantity(positionList).quantity / 12);
+  if (score > 7.5) multiplier = 12;
+  if (score > 6.75 && score <= 7.5) multiplier = 11;
+  if (score > 6 && score <= 6.75) multiplier = 10;
+  if (score > 5 && score <= 6) multiplier = 9;
+  if (score > 4 && score <= 5) multiplier = 7;
+  return premiumValue * multiplier;
+}
+
+
 export function getSignApplication(positionList, user, isJSON) {
   const newPositionList = [];
   for (let item of positionList) {
@@ -117,10 +129,12 @@ export function getSignApplication(positionList, user, isJSON) {
         jobs: newPositionList
       },
       questions: {
-        howLongStay: 1,
-        unemploymentPeriod: 0
+        howLongStay: window.localStorage.questions.howLongStay,
+        unemploymentPeriod: window.localStorage.questions.unemploymentPeriod
       },
-      requestedPremiumAmount: '238'
+      requestedPremiumAmount: window.localStorage.premiumValue,
+      requestedCoverageAmount: getCoverage(positionList, window.localStorage.premiumValue),
+      requestedDuration: '4'
     }
   };
   const objJSON = {
@@ -135,10 +149,12 @@ export function getSignApplication(positionList, user, isJSON) {
       jobs: newPositionList
     },
     questions: {
-      howLongStay: 1,
-      unemploymentPeriod: 0
+      howLongStay: window.localStorage.questions.howLongStay,
+      unemploymentPeriod: window.localStorage.questions.unemploymentPeriod
     },
-    requestedPremiumAmount: '238'
+    requestedPremiumAmount: window.localStorage.premiumValue,
+    requestedCoverageAmount: getCoverage(positionList, window.localStorage.premiumValue),
+    requestedDuration: '4'
   };
   if (isJSON) obj = JSON.stringify(objJSON);
   return obj;
@@ -150,17 +166,6 @@ export function getPolicy(user) {
     policy = user.policies[0].id;
   }
   return policy;
-}
-
-export function getCoverage(positionList, premiumValue) {
-  let multiplier = 0;
-  const score = (4 / positionList.length) + (getMonthsQuantity(positionList).quantity / 12);
-  if (score > 7.5) multiplier = 12;
-  if (score > 6.75 && score <= 7.5) multiplier = 11;
-  if (score > 6 && score <= 6.75) multiplier = 10;
-  if (score > 5 && score <= 6) multiplier = 9;
-  if (score > 4 && score <= 5) multiplier = 7;
-  return premiumValue * multiplier;
 }
 
 export function getSmartDeposit(questions) {
