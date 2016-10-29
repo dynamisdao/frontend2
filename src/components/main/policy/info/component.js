@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { urls } from '../../../../routes';
 
 import InitInfoComponent from './initInfoComponent';
-import DepositInfoComponent from './depositInfoComponent';
+import PaySmartDepositComponent from './paySmartDeposit/component';
 import WalletInfoComponent from './wallet/component';
 import ReviewTaskInfoComponent from './reviewTask/component';
 
@@ -15,8 +15,8 @@ class PolicyInfoComponent extends Component {
       switch (this.props.poolState.state) {
         case ('init'):
           return <InitInfoComponent />;
-        case ('depositInfo'):
-          return <DepositInfoComponent />;
+        case ('smartDeposit'):
+          return <PaySmartDepositComponent />;
         case ('wallet'):
           return <WalletInfoComponent />;
         case ('reviewTask'):

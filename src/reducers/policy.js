@@ -5,7 +5,7 @@ import * as types from '../constants/policy';
 const initialState = {
   isFetched: false,
   policy: {},
-  depositInfo: {},
+  smartDeposit: {},
   poolState: { state: 'init' },
   walletIsOpen: false,
   newGenerateWallet: false
@@ -15,8 +15,13 @@ function policyReducer(state = initialState, action) {
   switch (action.type) {
     case types.POLICY_GET:
       return objectAssign({}, state, { policy: action.payload });
-    case types.POLICY_SMARTDEPOSIT_INFO_GET:
-      return objectAssign({}, state, { depositInfo: action.payload });
+    case types.POLICY_SMART_DEPOSIT_INFO_GET:
+      return objectAssign({}, state, { smartDeposit: action.payload });
+    case types.POLICY_SMART_DEPOSIT_INFO_SEND: {
+      const smartDeposit = state.smartDeposit;
+      smartDeposit.status = 1;
+      return objectAssign({}, state, { poolState: { state: 'init' } }, { smartDeposit });
+    }
     case types.REVIEW_TASKS_GET:
       return objectAssign({}, state, { reviewTasks: action.payload.results });
     case types.POOL_STATE_CHANGE:

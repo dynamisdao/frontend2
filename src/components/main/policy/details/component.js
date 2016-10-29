@@ -6,10 +6,13 @@ import { connect } from 'react-redux';
 import * as PolicyActions from '../../../../actions/policy';
 
 import { urls } from '../../../../routes';
+import StatusSubmittedDetailsComponent from './statusSubmitted/component';
+import StatusOnP2PReviewDetailsComponent from './statusOnP2PReview/component';
 
 const POLICY_STATE = [
   { label: 'POLICY_STATUS_INIT', state: 1 },
   { label: 'POLICY_STATUS_SUBMITTED', state: 2 },
+  { label: 'POLICY_STATUS_ON_P2P_REVIEW', state: 3 },
   { label: 'POLICY_STATUS_ON_RISK_ASSESSMENT_REVIEW', state: 4 },
   { label: 'POLICY_STATUS_APPROVED', state: 5 },
   { label: 'POLICY_STATUS_ON_SMART_DEPOSIT_REFUND', state: 6 },
@@ -28,7 +31,6 @@ class PolicyDetailsComponent extends Component {
     this.renderPolicyStatusOnRiskAssessmentReview =
     this.renderPolicyStatusOnRiskAssessmentReview.bind(this);
     this.handleEditPolicy = this.handleEditPolicy.bind(this);
-    this.handlePayDeposit = this.handlePayDeposit.bind(this);
   }
 
   componentWillMount() {
@@ -42,17 +44,14 @@ class PolicyDetailsComponent extends Component {
     browserHistory.push(urls.main.historyForm1.path);
   }
 
-  handlePayDeposit(event) {
-    event.preventDefault();
-    this.props.changePoolState('depositInfo');
-  }
-
   renderPolicyDetails() {
     switch (this.props.policy.state) {
       case POLICY_STATE.find(s => s.label === 'POLICY_STATUS_INIT').state:
         return this.renderPolicyStatusInit();
       case POLICY_STATE.find(s => s.label === 'POLICY_STATUS_SUBMITTED').state:
-        return this.renderPolicyStatusSubmitted();
+        return <StatusSubmittedDetailsComponent />;
+      case POLICY_STATE.find(s => s.label === 'POLICY_STATUS_ON_P2P_REVIEW').state:
+        return <StatusOnP2PReviewDetailsComponent />;
       default:
         return this.renderPolicyStatusSubmitted();
         {/*return <CustomSpiner />;*/}

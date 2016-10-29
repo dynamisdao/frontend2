@@ -73,7 +73,7 @@ class ExistWalletInfoComponent extends Component {
           </div>
           <div className="form-btn">
             <button type="submit" className="btn btn-block">Send Transaction</button>
-            <br/>
+            <br />
             <button className="btn btn-block">Download Your Wallet</button>
             <button className="btn btn-block">Upload Your Wallet</button>
             <button onClick={this.handleShowGenerateWalletModal} className="btn btn-block">Generate New Wallet</button>
