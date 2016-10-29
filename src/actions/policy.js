@@ -199,8 +199,8 @@ export function generateNewWallet(password, successCallback) {
 export function makeTransaction(data, password, policyId, successCallback) {
   return dispatch => {
     lightwallet.keystore.deriveKeyFromPassword(password, (err, pwDerivedKey) => {
-      const keystore = readKeystoreFromLocalstorage();
-      const address = keystore.getAddresses()[0];
+      const store = readKeystoreFromLocalstorage();
+      const address = store.getAddresses()[0];
       getTransactionCount(config.ETHEREUM_NODE, address, (errorr, nonce) => {
         const tx = lightwallet.txutils.valueTx({
           to: data.from_address,
@@ -210,11 +210,11 @@ export function makeTransaction(data, password, policyId, successCallback) {
           nonce
         });
         const signed = lightwallet.signing.signTx(
-          keystore,
+          store,
           pwDerivedKey,
           tx,
           address,
-          keystore.defaultHdPathString
+          store.defaultHdPathString
         );
         sendRawTransaction(config.ETHEREUM_NODE, signed, (signErr, hash) => {
           if (signErr) {

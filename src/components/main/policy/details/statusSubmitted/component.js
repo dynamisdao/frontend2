@@ -29,7 +29,7 @@ class StatusSubmittedDetailsComponent extends Component {
     const { policy, smartDeposit } = this.props;
     return (
       <div>
-      {smartDeposit.status ?
+      {smartDeposit.address_to_send ?
         <div className="panel-body">
           <div className="table table-policy-details">
             <table>
@@ -85,4 +85,9 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(PolicyActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StatusSubmittedDetailsComponent);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  null,
+  { pure: false }
+)(StatusSubmittedDetailsComponent);
