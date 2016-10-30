@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import * as PolicyActions from '../../../../../actions/policy';
 import CustomSpiner from '../../../../base/spiner/component';
+import PasswordModalComponent from '../../../../base/modals/passwordModal';
 
 const DEPOSIT_STATE = [
   { label: 'Waiting for smart deposit', key: 'INITIAL', state: 0 },
@@ -13,7 +14,11 @@ const DEPOSIT_STATE = [
 class StatusSubmittedDetailsComponent extends Component {
   constructor(props) {
     super(props);
+    this.state = { showModal: false };
     this.handlePayDeposit = this.handlePayDeposit.bind(this);
+    this.handleShowModal = this.handleShowModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.generateNewWallet = this.generateNewWallet.bind(this);
   }
 
   componentWillMount() {
@@ -25,8 +30,21 @@ class StatusSubmittedDetailsComponent extends Component {
     this.props.changePoolState('smartDeposit');
   }
 
+  handleShowModal() {
+    this.setState({ showModal: true });
+  }
+
+  handleCloseModal() {
+    this.setState({ showModal: false });
+  }
+
+  generateNewWallet(password) {
+    this.props.generateNewWallet(password, this.handleCloseModal);
+  }
+
   render() {
-    const { policy, smartDeposit } = this.props;
+    const { policy, smartDeposit, wallet } = this.props;
+    const { showModal } = this.state;
     return (
       <div>
       {smartDeposit.address_to_send ?
@@ -49,19 +67,33 @@ class StatusSubmittedDetailsComponent extends Component {
               </tbody>
             </table>
           </div>
-          <button
-            onClick={this.handlePayDeposit}
-            className="btn btn-block"
-            disabled={smartDeposit.status === 1}
-          >
-            {smartDeposit.status === 0 ?
-              <i className="material-icons">credit_card</i> :
-              <i className="fa fa-spin fa-spinner" />
-            }
-            &nbsp;Pay Smart Deposit
-          </button>
+          {wallet.address ?
+              <button
+                  onClick={this.handlePayDeposit}
+                  className="btn btn-block"
+                  disabled={smartDeposit.status === 1}
+              >
+                {smartDeposit.status === 0 ?
+                    <i className="material-icons">credit_card</i> :
+                    <i className="fa fa-spin fa-spinner"/>
+                }
+                &nbsp;Pay Smart Deposit
+              </button> :
+              <button
+                  onClick={this.handleShowModal}
+                  className="btn btn-block"
+              >
+                Generate New Wallet
+              </button>
+          }
         </div> : <CustomSpiner />
       }
+        <PasswordModalComponent
+            show={showModal}
+            handleSubmit={this.generateNewWallet}
+            handleClose={this.handleCloseModal}
+            labelSubmit="Ok"
+        />
       </div>
     );
   }
@@ -69,15 +101,18 @@ class StatusSubmittedDetailsComponent extends Component {
 
 StatusSubmittedDetailsComponent.propTypes = {
   policy: PropTypes.object.isRequired,
+  wallet: PropTypes.object,
   smartDeposit: PropTypes.object.isRequired,
   getSmartDeposit: PropTypes.func.isRequired,
-  changePoolState: PropTypes.func.isRequired
+  changePoolState: PropTypes.func.isRequired,
+  generateNewWallet: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
     policy: state.policy.policy,
-    smartDeposit: state.policy.smartDeposit
+    smartDeposit: state.policy.smartDeposit,
+    wallet: state.policy.wallet
   };
 }
 
