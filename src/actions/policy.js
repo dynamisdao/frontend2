@@ -162,18 +162,33 @@ export function changePoolState(values) {
   };
 }
 
-export function openWallet() {
-  return {
-    type: types.WALLET_OPEN
-  };
-}
-
 export function saveKeystore(keystore) {
   window.localStorage.keystore = keystore.serialize();
 }
 
 export function readKeystoreFromLocalstorage() {
   return lightwallet.keystore.deserialize(window.localStorage.keystore);
+}
+
+export function openWallet() {
+  return {
+    type: types.WALLET_OPEN
+  };
+}
+
+
+export function getWallet() {
+  return dispatch => {
+    const address = readKeystoreFromLocalstorage().getAddresses()[0];
+    if (address) {
+      getBalance(config.ETHEREUM_NODE, address, (signErr, balance) => {
+        const wallet = { address, balance };
+        dispatch({
+          type: types.WALLET_GET, payload: wallet
+        });
+      });
+    }
+  }
 }
 
 export function generateNewWallet(password, successCallback) {
@@ -192,6 +207,7 @@ export function generateNewWallet(password, successCallback) {
       });
       if (successCallback) successCallback.apply();
       toastr.success('New wallet generated');
+      getWallet();
     });
   };
 }
@@ -222,12 +238,11 @@ export function makeTransaction(data, password, policyId, successCallback) {
           } else {
             // eslint-disable-next-line no-console
             console.log(hash);
-            toastr.success(`Send succeeded. hash: ${hash}`);
+            dispatch({
+              type: types.TRANSACTION_SEND_SUCCESS, payload: hash
+            });
             successCallback.apply();
           }
-        });
-        dispatch({
-          type: types.TRANSACTION_MAKE
         });
       });
     });

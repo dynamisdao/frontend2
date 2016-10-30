@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import * as PolicyActions from '../../../../../actions/policy';
 
-import PasswordModalComponent from '../../../../base/modals/passwordModal';
+import PaySmartDepositModalComponent from './paySmartModal';
 
 class PaySmartDepositComponent extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class PaySmartDepositComponent extends Component {
     this.setState({ showModal: false });
   }
 
-  handleSubmit(password) {
+  handleSubmit(password, successCallback) {
     const data = {
       amount_in_wei: this.props.smartDeposit.cost_in_wei,
       from_address: this.props.smartDeposit.address_to_send
@@ -34,7 +34,7 @@ class PaySmartDepositComponent extends Component {
       this.props.policy.id,
       () => {
         this.props.sendSmartDeposit(this.props.policy.id, data);
-        this.handleCloseModal();
+        successCallback();
       }
     );
   }
@@ -71,12 +71,14 @@ class PaySmartDepositComponent extends Component {
               Send Transactions
             </button>
           </div>
-          <PasswordModalComponent
+          <PaySmartDepositModalComponent
             show={showModal}
             handleSubmit={this.handleSubmit}
+            sendSmartDeposit={this.props.sendSmartDeposit}
             handleClose={this.handleCloseModal}
-            labelSubmit="Ok"
             title={`You want send ${smartDeposit.cost_in_eth} eth`}
+            hash={smartDeposit.hash}
+            changePoolState={this.props.changePoolState}
           />
         </div>
       </div>
@@ -88,7 +90,8 @@ PaySmartDepositComponent.propTypes = {
   smartDeposit: PropTypes.object.isRequired,
   policy: PropTypes.object.isRequired,
   sendSmartDeposit: PropTypes.func.isRequired,
-  makeTransaction: PropTypes.func.isRequired
+  makeTransaction: PropTypes.func.isRequired,
+    changePoolState: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {

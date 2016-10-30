@@ -8,6 +8,7 @@ const initialState = {
   smartDeposit: {},
   poolState: { state: 'init' },
   walletIsOpen: false,
+    wallet: {},
   newGenerateWallet: false
 };
 
@@ -20,7 +21,12 @@ function policyReducer(state = initialState, action) {
     case types.POLICY_SMART_DEPOSIT_INFO_SEND: {
       const smartDeposit = state.smartDeposit;
       smartDeposit.status = 1;
-      return objectAssign({}, state, { poolState: { state: 'init' } }, { smartDeposit });
+      return objectAssign({}, state, { smartDeposit });
+    }
+    case types.TRANSACTION_SEND_SUCCESS: {
+        const smartDeposit = state.smartDeposit;
+        smartDeposit.hash = action.payload;
+        return objectAssign({}, state, { smartDeposit });
     }
     case types.REVIEW_TASKS_GET:
       return objectAssign({}, state, { reviewTasks: action.payload.results });
@@ -51,6 +57,8 @@ function policyReducer(state = initialState, action) {
       if (!state.walletIsOpen) poolState.state = 'wallet';
       return objectAssign({}, state, { walletIsOpen: !state.walletIsOpen }, { poolState });
     }
+    case types.WALLET_GET:
+        return objectAssign({}, state, { wallet: action.payload });
     case types.WALLET_NEW_GENERATE:
       return objectAssign({}, state, { newGenerateWallet: true });
     default:

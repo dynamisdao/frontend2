@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 
 import * as ProfileActions from '../../actions/profile';
+import * as PolicyActions from '../../actions/policy';
+
 import FooterComponent from '../base/footer/component';
 import HeaderLogedComponent from '../base/headerLoged/component';
 import { urls } from '../../routes';
@@ -18,7 +20,12 @@ class MainComponent extends Component {
       const accountId = window.localStorage.getItem('accountId');
       if (accountId) {
         Progress.show();
-        setTimeout(() => this.props.fetchProfile(accountId, () => Progress.hide()), 1500);
+        setTimeout(() => {
+          this.props.fetchProfile(accountId, () => Progress.hide());
+          if (window.localStorage.keystore) {
+            this.props.getWallet();
+          }
+        }, 1500);
       } else {
         this.props.relogin();
         browserHistory.push(urls.login.path);
@@ -63,11 +70,12 @@ MainComponent.propTypes = {
   user: PropTypes.object.isRequired,
   policy: PropTypes.object.isRequired,
   fetchProfile: PropTypes.func.isRequired,
+  getWallet: PropTypes.func.isRequired,
   relogin: PropTypes.func.isRequired
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(ProfileActions, dispatch);
+  return bindActionCreators(Object.assign(ProfileActions, PolicyActions), dispatch);
 }
 
 function mapStateToProps(state) {

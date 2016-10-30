@@ -110,16 +110,8 @@ $breakpoint-mobile-portrait {
 /*  Form-Wallet  */
 
 .form-wallet .form-row { margin-bottom: 24px; padding-right: 12px; }
-.form-wallet .form-body {
-	width: 50%;
-	float: left;
-	display: inline-block;
-}
-.form-wallet .form-btn {
-	width: 30%;
-	float: right;
-	display: inline-block;
-}
+.form-wallet .form-body { width: 60%; float: left; display: inline-block; }
+.form-wallet .form-btn { width: 30%; float: right; display: inline-block; }
 
 /*  Form-Smart-Deposit */
 
