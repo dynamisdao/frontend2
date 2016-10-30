@@ -41,7 +41,7 @@ class SignFormComponent extends Component {
     this.props.signPolicy(
       getPolicy(this.props.user),
       data,
-      () => browserHistory.push(urls.details.policy.path)
+      () => browserHistory.push(urls.main.policy.path)
     );
   }
 

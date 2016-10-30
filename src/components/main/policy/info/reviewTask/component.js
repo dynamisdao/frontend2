@@ -94,8 +94,10 @@ class ReviewTaskInfoComponent extends Component {
               </div>
               <div className="form-controls">
                 <textarea
-                  type="text" rows="5" className="field"
-                  value={
+                  type="text" rows="5"
+                  className="field"
+                  readOnly
+                  defaultValue={
                     JSON.stringify({
                       task_hash: 'things',
                       result: resultValue,

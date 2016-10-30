@@ -5,6 +5,13 @@ import * as types from '../constants/policy';
 import config from '../config';
 import { getHeaders } from '../utils';
 import { urls } from '../routes';
+import {
+  getBalance,
+  getTransactionCount,
+  sendRawTransaction,
+  getTransactionReceipt,
+  getFirstBlockHash
+} from './web3';
 
 const toastr = window.toastr;
 const lightwallet = window.lightwallet;
@@ -36,7 +43,7 @@ export function getPolicy(policyid, successCallback) {
   };
 }
 
-export function getDepositInfo(policyid) {
+export function getSmartDeposit(policyid) {
   return dispatch => {
     let isError = false;
     fetch(`${config.baseUrl}api/v1/policies/${policyid}/smart_deposit`,
@@ -52,7 +59,25 @@ export function getDepositInfo(policyid) {
       })
       .then(json => {
         if (!isError) {
-          dispatch({ type: types.POLICY_SMARTDEPOSIT_INFO_GET, payload: json });
+          dispatch({ type: types.POLICY_SMART_DEPOSIT_INFO_GET, payload: json });
+        }
+      });
+  };
+}
+
+export function sendSmartDeposit(policyid, data) {
+  return dispatch => {
+    fetch(`${config.baseUrl}api/v1/policies/${policyid}/smart_deposit/send`,
+      { method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify(data),
+        credentials: 'include'
+      })
+      .then(response => {
+        if (response.status >= 400) {
+          toastr.error('Transaction failed');
+        } else {
+          dispatch({ type: types.POLICY_SMART_DEPOSIT_INFO_SEND });
         }
       });
   };
@@ -137,18 +162,33 @@ export function changePoolState(values) {
   };
 }
 
-export function openWallet() {
-  return {
-    type: types.WALLET_OPEN
-  };
-}
-
 export function saveKeystore(keystore) {
   window.localStorage.keystore = keystore.serialize();
 }
 
 export function readKeystoreFromLocalstorage() {
   return lightwallet.keystore.deserialize(window.localStorage.keystore);
+}
+
+export function openWallet() {
+  return {
+    type: types.WALLET_OPEN
+  };
+}
+
+
+export function getWallet() {
+  return dispatch => {
+    const address = readKeystoreFromLocalstorage().getAddresses()[0];
+    if (address) {
+      getBalance(config.ETHEREUM_NODE, address, (signErr, balance) => {
+        const wallet = { address, balance };
+        dispatch({
+          type: types.WALLET_GET, payload: wallet
+        });
+      });
+    }
+  }
 }
 
 export function generateNewWallet(password, successCallback) {
@@ -167,6 +207,44 @@ export function generateNewWallet(password, successCallback) {
       });
       if (successCallback) successCallback.apply();
       toastr.success('New wallet generated');
+      getWallet();
+    });
+  };
+}
+
+export function makeTransaction(data, password, policyId, successCallback) {
+  return dispatch => {
+    lightwallet.keystore.deriveKeyFromPassword(password, (err, pwDerivedKey) => {
+      const store = readKeystoreFromLocalstorage();
+      const address = store.getAddresses()[0];
+      getTransactionCount(config.ETHEREUM_NODE, address, (errorr, nonce) => {
+        const tx = lightwallet.txutils.valueTx({
+          to: data.from_address,
+          gasPrice: 20000000000,
+          gasLimit: 30000,
+          value: data.amount_in_wei,
+          nonce
+        });
+        const signed = lightwallet.signing.signTx(
+          store,
+          pwDerivedKey,
+          tx,
+          address,
+          store.defaultHdPathString
+        );
+        sendRawTransaction(config.ETHEREUM_NODE, signed, (signErr, hash) => {
+          if (signErr) {
+            toastr.error(signErr);
+          } else {
+            // eslint-disable-next-line no-console
+            console.log(hash);
+            dispatch({
+              type: types.TRANSACTION_SEND_SUCCESS, payload: hash
+            });
+            successCallback.apply();
+          }
+        });
+      });
     });
   };
 }

@@ -62,18 +62,34 @@ class ExistWalletInfoComponent extends Component {
   }
 
   render() {
-    const { handleSubmit, generateNewWallet } = this.props;
+    const { handleSubmit, generateNewWallet, wallet } = this.props;
     const { showGenerateWalletModal, showSendTranactionModal } = this.state;
     return (
       <form onSubmit={handleSubmit(this.handleShowSendTranactionModal)}>
         <div className="panel-body form form-wallet">
           <div className="form-body">
+            <div className="form-row">
+              <input
+                  className="field"
+                  defaultValue={`Your current address: ${wallet.address}`}
+                  type="text"
+                  readOnly
+              />
+            </div>
+            <div className="form-row">
+              <input
+                  className="field"
+                  defaultValue={`You balance: ${wallet.balance}`}
+                  type="text"
+                  readOnly
+              />
+            </div>
             <Field name="toAddress" type="text" component={this.renderField} label="To Address" />
             <Field name="amount" type="text" component={this.renderField} label="Amount (Wei)" />
           </div>
           <div className="form-btn">
             <button type="submit" className="btn btn-block">Send Transaction</button>
-            <br/>
+            <br />
             <button className="btn btn-block">Download Your Wallet</button>
             <button className="btn btn-block">Upload Your Wallet</button>
             <button onClick={this.handleShowGenerateWalletModal} className="btn btn-block">Generate New Wallet</button>
@@ -100,7 +116,7 @@ class ExistWalletInfoComponent extends Component {
 
 ExistWalletInfoComponent.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  array: PropTypes.object.isRequired,
+  wallet: PropTypes.object.isRequired,
   generateNewWallet: PropTypes.func.isRequired
 };
 
