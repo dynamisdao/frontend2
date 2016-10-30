@@ -207,7 +207,7 @@ export function generateNewWallet(password, successCallback) {
       });
       if (successCallback) successCallback.apply();
       toastr.success('New wallet generated');
-      getWallet();
+      dispatch(getWallet());
     });
   };
 }
