@@ -1,32 +1,16 @@
 import React, { Component, PropTypes } from 'react';
-import { Field, reduxForm } from 'redux-form';
 
 import PasswordModalComponent from '../../../../../base/modals/passwordModal';
-
-export const fields = ['toAddress', 'amount'];
-
-const validate = values => {
-  const errors = {};
-  if (!values.amount) {
-    errors.amount = 'Required';
-  }
-  if (!values.toAddress) {
-    errors.toAddress = 'Required';
-  }
-  return errors;
-};
 
 class ExistWalletInfoComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = { showGenerateWalletModal: false, showSendTranactionModal: false, values: { } };
-    this.renderField = this.renderField.bind(this);
+    this.state = { showGenerateWalletModal: false };
     this.handleShowGenerateWalletModal = this.handleShowGenerateWalletModal.bind(this);
     this.handleGenerateWallet = this.handleGenerateWallet.bind(this);
-    this.handleShowSendTranactionModal = this.handleShowSendTranactionModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
   }
-
+  
   handleShowGenerateWalletModal() {
     this.setState({ showGenerateWalletModal: true });
   }
@@ -35,37 +19,15 @@ class ExistWalletInfoComponent extends Component {
     this.props.generateNewWallet(password, this.handleCloseModal);
   }
 
-  handleShowSendTranactionModal() {
-    this.setState({ showSendTranactionModal: true });
-  }
-
-  handleCloseModal(values) {
-    this.setState({
-      showGenerateWalletModal: false,
-      showSendTranactionModal: false,
-      values
-    });
-  }
-
-  renderField({ input, label, type, autoFocus, meta: { touched, error } }) {
-    return (
-      <div className="form-row">
-        <label htmlFor="field-email" className="form-label hidden">{label}</label>
-        <div>
-          <input {...input} autoFocus={autoFocus} className="field" placeholder={label} type={type} />
-        </div>
-        <div>
-          {touched && error && <span className="error">{error}</span>}
-        </div>
-      </div>
-    );
+  handleCloseModal() {
+    this.setState({ showGenerateWalletModal: false });
   }
 
   render() {
     const { handleSubmit, generateNewWallet, wallet } = this.props;
-    const { showGenerateWalletModal, showSendTranactionModal } = this.state;
+    const { showGenerateWalletModal } = this.state;
     return (
-      <form onSubmit={handleSubmit(this.handleShowSendTranactionModal)}>
+      <div>
         <div className="panel-body form form-wallet">
           <div className="form-body">
             <div className="form-row">
@@ -84,12 +46,8 @@ class ExistWalletInfoComponent extends Component {
                   readOnly
               />
             </div>
-            <Field name="toAddress" type="text" component={this.renderField} label="To Address" />
-            <Field name="amount" type="text" component={this.renderField} label="Amount (Wei)" />
           </div>
           <div className="form-btn">
-            <button type="submit" className="btn btn-block">Send Transaction</button>
-            <br />
             <button className="btn btn-block">Download Your Wallet</button>
             <button className="btn btn-block">Upload Your Wallet</button>
             <button onClick={this.handleShowGenerateWalletModal} className="btn btn-block">Generate New Wallet</button>
@@ -102,25 +60,14 @@ class ExistWalletInfoComponent extends Component {
           labelSubmit="Ok"
           title="Are you sure, that you want to generate a new wallet?"
         />
-        <PasswordModalComponent
-          show={showSendTranactionModal}
-          handleSubmit={generateNewWallet}
-          handleClose={this.handleCloseModal}
-          labelSubmit="Ok"
-          title="You want to make a transaction"
-        />
-      </form>
+      </div>
     );
   }
 }
 
 ExistWalletInfoComponent.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
   wallet: PropTypes.object.isRequired,
   generateNewWallet: PropTypes.func.isRequired
 };
 
-export default reduxForm({
-  form: 'existWalletForm',
-  validate
-})(ExistWalletInfoComponent);
+export default ExistWalletInfoComponent;
