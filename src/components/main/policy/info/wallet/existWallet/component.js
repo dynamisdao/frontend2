@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import download from 'downloadjs';
 
 import PasswordModalComponent from '../../../../../base/modals/passwordModal';
 
@@ -9,8 +10,10 @@ class ExistWalletInfoComponent extends Component {
     this.handleShowGenerateWalletModal = this.handleShowGenerateWalletModal.bind(this);
     this.handleGenerateWallet = this.handleGenerateWallet.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleWalletFile = this.handleWalletFile.bind(this);
+    this.handleDownloadWallet = this.handleDownloadWallet.bind(this);
   }
-  
+
   handleShowGenerateWalletModal() {
     this.setState({ showGenerateWalletModal: true });
   }
@@ -23,8 +26,21 @@ class ExistWalletInfoComponent extends Component {
     this.setState({ showGenerateWalletModal: false });
   }
 
+  handleWalletFile(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = event => {
+      this.props.readWallet(event.target.result);
+    };
+    reader.readAsText(file);
+  }
+
+  handleDownloadWallet() {
+    download(window.localStorage.keystore, 'wallet.json', 'application/json');
+  }
+
   render() {
-    const { handleSubmit, generateNewWallet, wallet } = this.props;
+    const { handleSubmit, generateNewWallet, wallet, downloadWallet } = this.props;
     const { showGenerateWalletModal } = this.state;
     return (
       <div>
@@ -33,7 +49,7 @@ class ExistWalletInfoComponent extends Component {
             <div className="form-row">
               <input
                   className="field"
-                  defaultValue={`Your current address: ${wallet.address}`}
+                  placeholder={`Your address: ${wallet.address}`}
                   type="text"
                   readOnly
               />
@@ -41,15 +57,21 @@ class ExistWalletInfoComponent extends Component {
             <div className="form-row">
               <input
                   className="field"
-                  defaultValue={`You balance: ${wallet.balance}`}
+                  placeholder={`You balance: ${wallet.balance}wei`}
                   type="text"
                   readOnly
               />
             </div>
           </div>
           <div className="form-btn">
-            <button className="btn btn-block">Download Your Wallet</button>
-            <button className="btn btn-block">Upload Your Wallet</button>
+            <button onClick={this.handleDownloadWallet} className="btn btn-block">Download Your Wallet</button>
+            <label htmlFor="wallet_upload" className="btn btn-block">Upload your wallet</label>
+            <input
+                id="wallet_upload"
+                type="file"
+                onChange={this.handleWalletFile}
+                className="hidden-file-input btn-block "
+            />
             <button onClick={this.handleShowGenerateWalletModal} className="btn btn-block">Generate New Wallet</button>
           </div>
         </div>
@@ -66,8 +88,9 @@ class ExistWalletInfoComponent extends Component {
 }
 
 ExistWalletInfoComponent.propTypes = {
-  wallet: PropTypes.object.isRequired,
-  generateNewWallet: PropTypes.func.isRequired
+    wallet: PropTypes.object.isRequired,
+    generateNewWallet: PropTypes.func.isRequired,
+    readWallet: PropTypes.func.isRequired
 };
 
 export default ExistWalletInfoComponent;

@@ -248,3 +248,13 @@ export function makeTransaction(data, password, policyId, successCallback) {
     });
   };
 }
+
+export function readWallet(json) {
+  return function(dispatch, getState) {
+    var keystore = lightwallet.keystore.deserialize(json);
+    saveKeystore(keystore);
+    dispatch(getWallet());
+    toastr.success('Wallet uploaded');
+  };
+}
+
