@@ -84,7 +84,7 @@ class PaySmartDepositComponent extends Component {
             handleSubmit={this.handleSubmit}
             sendSmartDeposit={this.props.sendSmartDeposit}
             handleClose={this.handleCloseModal}
-            title={`You want send ${smartDeposit.cost_in_eth} eth`}
+            title={`Are you sure you want to send ${smartDeposit.cost_in_eth} ETH?`}
             hash={smartDeposit.hash}
             changePoolState={this.props.changePoolState}
           />
