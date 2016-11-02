@@ -57,7 +57,7 @@ class ExistWalletInfoComponent extends Component {
             <div className="form-row">
               <input
                   className="field"
-                  placeholder={`You balance: ${wallet.balance}wei`}
+                  placeholder={`Your balance: ${wallet.balance} wei`}
                   type="text"
                   readOnly
               />
