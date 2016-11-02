@@ -52,7 +52,7 @@ class PaySmartDepositComponent extends Component {
             <div className="form-row">
               <input
                 className="field"
-                defaultValue={`amount: ${smartDeposit.cost_in_eth}`}
+                defaultValue={`Amount: ${smartDeposit.cost_in_eth} ETH`}
                 type="text"
                 readOnly
               />
@@ -60,7 +60,7 @@ class PaySmartDepositComponent extends Component {
             <div className="form-row">
               <input
                 className="field"
-                defaultValue={`address: ${wallet.address}`}
+                defaultValue={`To address: ${wallet.address}`}
                 type="text"
                 readOnly
               />
@@ -68,7 +68,7 @@ class PaySmartDepositComponent extends Component {
             <div className="form-row">
               <input
                   className="field"
-                  defaultValue={`your balance: ${wallet.balance}wei`}
+                  defaultValue={`Your balance: ${wallet.balance} wei`}
                   type="text"
                   readOnly
               />
