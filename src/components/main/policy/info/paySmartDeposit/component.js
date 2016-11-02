@@ -40,7 +40,7 @@ class PaySmartDepositComponent extends Component {
   }
 
   render() {
-    const { smartDeposit } = this.props;
+    const { smartDeposit, wallet } = this.props;
     const { showModal } = this.state;
     return (
       <div className="panel">
@@ -60,9 +60,17 @@ class PaySmartDepositComponent extends Component {
             <div className="form-row">
               <input
                 className="field"
-                defaultValue={`address: ${smartDeposit.address_to_send}`}
+                defaultValue={`address: ${wallet.address}`}
                 type="text"
                 readOnly
+              />
+            </div>
+            <div className="form-row">
+              <input
+                  className="field"
+                  defaultValue={`your balance: ${wallet.balance}wei`}
+                  type="text"
+                  readOnly
               />
             </div>
           </div>
@@ -89,6 +97,7 @@ class PaySmartDepositComponent extends Component {
 PaySmartDepositComponent.propTypes = {
   smartDeposit: PropTypes.object.isRequired,
   policy: PropTypes.object.isRequired,
+  wallet: PropTypes.object.isRequired,
   sendSmartDeposit: PropTypes.func.isRequired,
   makeTransaction: PropTypes.func.isRequired,
     changePoolState: PropTypes.func.isRequired
@@ -97,7 +106,8 @@ PaySmartDepositComponent.propTypes = {
 function mapStateToProps(state) {
   return {
     smartDeposit: state.policy.smartDeposit,
-    policy: state.policy.policy
+    policy: state.policy.policy,
+    wallet: state.policy.wallet
   };
 }
 
@@ -105,4 +115,9 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(PolicyActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaySmartDepositComponent);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+    null,
+    { pure: false }
+)(PaySmartDepositComponent);

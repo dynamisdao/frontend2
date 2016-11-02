@@ -110,13 +110,21 @@ $breakpoint-mobile-portrait {
 /*  Form-Wallet  */
 
 .form-wallet .form-row { margin-bottom: 24px; padding-right: 12px; }
-.form-wallet .form-body { width: 60%; float: left; display: inline-block; }
+.form-wallet .form-body { width: 69%; float: left; display: inline-block; }
 .form-wallet .form-btn { width: 30%; float: right; display: inline-block; }
+.form-wallet .hidden-file-input { width: 0.1px;  height: 0.1px;  opacity: 0;  overflow: hidden;  position: absolute;  z-index: -9999;  }
+.form-wallet .right {
+	padding-left: 0;
+	padding-right: 0;
+	width: 48%;
+	float: right;
+	margin-bottom: 12px;
+}
 
 /*  Form-Smart-Deposit */
 
 .form-smart-deposit .form-row { margin-bottom: 24px; padding-right: 12px; }
-.form-smart-deposit .form-body { width: 60%; float: left; display: inline-block; }
+.form-smart-deposit .form-body { width: 68%; float: left; display: inline-block; }
 .form-smart-deposit .form-btn { width: 30%; float: right; display: inline-block; }
 
 $breakpoint-tablet-portrait {

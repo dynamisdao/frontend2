@@ -7,6 +7,7 @@ class PasswordModalComponent extends Component {
     this.state = { isValid: true };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputField = this.handleInputField.bind(this);
+    this.handlePressEnter = this.handlePressEnter.bind(this);
   }
 
   handleSubmit() {
@@ -19,6 +20,23 @@ class PasswordModalComponent extends Component {
 
   handleInputField(event) {
     this.setState({ password: event.target.value, isValid: true });
+    if (event.which == 13 || event.keyCode == 13) {
+      if (!event.target.value) {
+        this.setState({ isValid: false });
+      } else {
+        this.props.handleSubmit(event.target.value);
+      }
+    }
+  }
+
+  handlePressEnter(event) {
+    if (event.which == 13 || event.keyCode == 13) {
+      if (!event.target.value) {
+        this.setState({ isValid: false });
+      } else {
+        this.props.handleSubmit(event.target.value);
+      }
+    }
   }
 
   render() {
@@ -39,6 +57,7 @@ class PasswordModalComponent extends Component {
               placeholder="Please enter your Password"
               type="password"
               onChange={this.handleInputField}
+              onKeyPress={this.handlePressEnter}
             />
             {!isValid ? <p className="error">Required</p> : null}
           </div>

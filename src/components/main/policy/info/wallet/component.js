@@ -17,8 +17,14 @@ class WalletInfoComponent extends Component {
           <ExistWalletInfoComponent
               generateNewWallet={this.props.generateNewWallet}
               wallet={this.props.wallet}
+              readWallet={this.props.readWallet}
+              getWallet={this.props.getWallet}
           /> :
-          <NewWalletInfoComponent generateNewWallet={this.props.generateNewWallet} />
+          <NewWalletInfoComponent
+              generateNewWallet={this.props.generateNewWallet}
+              readWallet={this.props.readWallet}
+              getWallet={this.props.getWallet}
+          />
         }
       </div>
     );
@@ -26,10 +32,12 @@ class WalletInfoComponent extends Component {
 }
 
 WalletInfoComponent.propTypes = {
-  user: PropTypes.object.isRequired,
-  wallet: PropTypes.object,
-  generateNewWallet: PropTypes.func.isRequired,
-  newGenerateWallet: PropTypes.bool.isRequired
+    user: PropTypes.object.isRequired,
+    wallet: PropTypes.object,
+    generateNewWallet: PropTypes.func.isRequired,
+    readWallet: PropTypes.func.isRequired,
+    getWallet: PropTypes.func.isRequired,
+    newGenerateWallet: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {

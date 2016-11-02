@@ -8,6 +8,7 @@ class NewWalletInfoComponent extends Component {
     this.state = { showModal: false };
     this.handleShowModal = this.handleShowModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleWalletFile = this.handleWalletFile.bind(this);
   }
 
   handleShowModal() {
@@ -18,6 +19,15 @@ class NewWalletInfoComponent extends Component {
     this.setState({ showModal: false });
   }
 
+  handleWalletFile(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = event => {
+      this.props.readWallet(event.target.result);
+    };
+    reader.readAsText(file);
+  }
+
   render() {
     const { generateNewWallet } = this.props;
     const { showModal } = this.state;
@@ -25,7 +35,13 @@ class NewWalletInfoComponent extends Component {
       <div className="panel-body form-wallet">
         <div>
           <button onClick={this.handleShowModal} className="btn btn-half-block">Generate New Wallet</button>
-          <button className="btn btn-half-block">Upload Wallet</button>
+          <label htmlFor="wallet_upload" className="btn btn-half-block right">Upload your wallet</label>
+          <input
+              id="wallet_upload"
+              type="file"
+              onChange={this.handleWalletFile}
+              className="hidden-file-input btn-block "
+          />
         </div>
         <PasswordModalComponent
           show={showModal}
@@ -39,7 +55,8 @@ class NewWalletInfoComponent extends Component {
 }
 
 NewWalletInfoComponent.propTypes = {
-  generateNewWallet: PropTypes.func.isRequired
+  generateNewWallet: PropTypes.func.isRequired,
+  readWallet: PropTypes.func.isRequired
 };
 
 export default NewWalletInfoComponent;
