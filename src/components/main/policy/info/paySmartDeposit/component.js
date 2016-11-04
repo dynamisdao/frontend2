@@ -68,7 +68,7 @@ class PaySmartDepositComponent extends Component {
             <div className="form-row">
               <input
                   className="field"
-                  value={`Your balance: ${wallet.balance ? converterBalance(wallet.balance) : null}ETH`}
+                  value={`Your balance: ${converterBalance(wallet.balance)}`}
                   type="text"
                   readOnly
               />
