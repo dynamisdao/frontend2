@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as PolicyActions from '../../../../../actions/policy';
-
+import { converterBalance } from '../../../../../utils';
 import PaySmartDepositModalComponent from './paySmartModal';
 
 class PaySmartDepositComponent extends Component {
@@ -52,7 +52,7 @@ class PaySmartDepositComponent extends Component {
             <div className="form-row">
               <input
                 className="field"
-                defaultValue={`amount: ${smartDeposit.cost_in_eth}`}
+                value={`amount: ${smartDeposit.cost_in_eth ? smartDeposit.cost_in_eth : null}`}
                 type="text"
                 readOnly
               />
@@ -60,7 +60,7 @@ class PaySmartDepositComponent extends Component {
             <div className="form-row">
               <input
                 className="field"
-                defaultValue={`address: ${wallet.address}`}
+                value={`address: ${wallet.address ? wallet.address : null}`}
                 type="text"
                 readOnly
               />
@@ -68,7 +68,7 @@ class PaySmartDepositComponent extends Component {
             <div className="form-row">
               <input
                   className="field"
-                  defaultValue={`your balance: ${wallet.balance}wei`}
+                  value={`your balance: ${wallet.balance ? converterBalance(wallet.balance) : null}ETH`}
                   type="text"
                   readOnly
               />
