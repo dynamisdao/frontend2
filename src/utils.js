@@ -212,5 +212,7 @@ export function converterBalance(wei) {
     }
     eth = eth.join("");
     return eth + 'ETH';
+  } else {
+    return '';
   }
 }
