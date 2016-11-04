@@ -199,3 +199,16 @@ export function getSmartDeposit(questions) {
   }
   return smartDeposit;
 }
+
+export function converterBalance(wei) {
+  let eth = wei.toString().split("");
+  while (eth.length < 19) {
+    eth.unshift(0);
+  }
+  eth.splice((eth.length - 18), 0, '.');
+  while(eth[eth.length-1] == 0) {
+    eth.pop();
+  }
+  eth = eth.join("");
+  return eth;
+}

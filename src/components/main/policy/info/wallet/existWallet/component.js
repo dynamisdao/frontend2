@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import download from 'downloadjs';
 
+import { converterBalance } from '../../../../../../utils';
+
 import PasswordModalComponent from '../../../../../base/modals/passwordModal';
 
 class ExistWalletInfoComponent extends Component {
@@ -49,7 +51,7 @@ class ExistWalletInfoComponent extends Component {
             <div className="form-row">
               <input
                   className="field"
-                  placeholder={`Your address: ${wallet.address}`}
+                  value={`Your address: ${wallet.address ? wallet.address : null}`}
                   type="text"
                   readOnly
               />
@@ -57,7 +59,7 @@ class ExistWalletInfoComponent extends Component {
             <div className="form-row">
               <input
                   className="field"
-                  placeholder={`Your balance: ${wallet.balance} wei`}
+                  value={`You balance: ${wallet.balance ? converterBalance(wallet.balance) : null}ETH`}
                   type="text"
                   readOnly
               />

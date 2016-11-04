@@ -31,7 +31,7 @@ function policyReducer(state = initialState, action) {
     case types.REVIEW_TASKS_GET:
       return objectAssign({}, state, { reviewTasks: action.payload.results });
     case types.POOL_STATE_CHANGE:
-      return objectAssign({}, state, { poolState: action.payload });
+      return objectAssign({}, state, {poolState: action.payload}, { walletIsOpen: (action.payload == 'wallet')});
     case types.REVIEW_TASK_GET: {
       const poolState = {
         state: 'reviewTask',
