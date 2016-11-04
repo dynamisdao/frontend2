@@ -109,6 +109,8 @@ class SignFormComponent extends Component {
                       To complete your application, you must sign all your information here with keybase:&nbsp;
                       <a href="https://keybase.io/sign" target="_blank" className="link"> https://keybase.io/sign.</a>
                       This will verify that all your information is accurate and we didn't change it.
+                      <br/>
+                      Please copy this text to your keybase.io <strong>Message to sign</strong> and click on <strong>Sign</strong> button.
                     </div>
                   </footer>
                   <footer className="package-foot">
@@ -120,7 +122,7 @@ class SignFormComponent extends Component {
                         <div className="form-body">
                           <div className="form-row">
                             <label htmlFor="field-singature" className="form-label hidden">
-                              Your Keybase Signature
+                              Your Keybase.io Signature
                             </label>
                             <div className="form-controls">
                               <textarea

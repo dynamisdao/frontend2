@@ -52,7 +52,7 @@ class PaySmartDepositComponent extends Component {
             <div className="form-row">
               <input
                 className="field"
-                value={`amount: ${smartDeposit.cost_in_eth ? smartDeposit.cost_in_eth : null}`}
+                value={`Amount: ${smartDeposit.cost_in_eth ? smartDeposit.cost_in_eth : null}`}
                 type="text"
                 readOnly
               />
@@ -60,7 +60,7 @@ class PaySmartDepositComponent extends Component {
             <div className="form-row">
               <input
                 className="field"
-                value={`address: ${wallet.address ? wallet.address : null}`}
+                value={`To address: ${wallet.address ? wallet.address : null}`}
                 type="text"
                 readOnly
               />
@@ -68,7 +68,7 @@ class PaySmartDepositComponent extends Component {
             <div className="form-row">
               <input
                   className="field"
-                  value={`your balance: ${wallet.balance ? converterBalance(wallet.balance) : null}ETH`}
+                  value={`Your balance: ${wallet.balance ? converterBalance(wallet.balance) : null}ETH`}
                   type="text"
                   readOnly
               />
@@ -84,7 +84,7 @@ class PaySmartDepositComponent extends Component {
             handleSubmit={this.handleSubmit}
             sendSmartDeposit={this.props.sendSmartDeposit}
             handleClose={this.handleCloseModal}
-            title={`You want send ${smartDeposit.cost_in_eth} eth`}
+            title={`Are you sure you want to send ${smartDeposit.cost_in_eth} ETH?`}
             hash={smartDeposit.hash}
             changePoolState={this.props.changePoolState}
           />

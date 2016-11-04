@@ -86,6 +86,7 @@ class StatusSubmittedDetailsComponent extends Component {
                 Generate New Wallet
               </button>
           }
+          <h5>Smart Deposit will be returned when the policy is closed</h5>
         </div> : <CustomSpiner />
       }
         <PasswordModalComponent
