@@ -11,8 +11,14 @@ import { urls } from '../../../routes';
 
 class DetailsIndexComponent extends Component {
 
+  componentWillMount() {
+    if (this.props.user.keybase_username) {
+      this.props.identity(this.props.user.keybase_username);
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user.keybase_username && !this.props.user.keybase_username) {
+    if (nextProps.user.keybase_username !== this.props.user.keybase_username && nextProps.user.keybase_username) {
       this.props.identity(nextProps.user.keybase_username);
     }
   }

@@ -64,7 +64,7 @@ class ReviewTaskInfoComponent extends Component {
     const { reviewTask, isFetched } = this.props;
     const { resultValue, reasonValue, isValid } = this.state;
     return (
-      <div className="panel">
+      <div className="panel panel-verefication">
 
         <div className="panel-head">
           <div className="panel-head-radio">
@@ -79,7 +79,7 @@ class ReviewTaskInfoComponent extends Component {
           <h2 className="panel-title">Verification Task</h2>
         </div>
         {reviewTask.data ?
-          <div className="panel-body panel-verefication">
+          <div className="panel-body">
             <div className="form">
               <div className="form-head">
                 <h5>Here is copy on how to verify this person's employment history records.</h5>
@@ -88,9 +88,11 @@ class ReviewTaskInfoComponent extends Component {
                 <span>{reviewTask.data.notes}</span>
               </div>
               <div className="form-controls">
+                <h5>Reason:</h5>
+              </div>
+              <div className="form-controls">
                 <textarea
                   type="text" rows="5" className="field"
-                  placeholder="Reason"
                   onChange={this.handleReasonValue}
                 />
               </div>
@@ -112,9 +114,11 @@ class ReviewTaskInfoComponent extends Component {
                 />
               </div>
               <div className="form-controls">
+                <h5>Signature:</h5>
+              </div>
+              <div className="form-controls">
                 <textarea
                   type="text" rows="5" className="field"
-                  placeholder="Signature"
                   onChange={this.handleSignValue}
                 />
                 {!isValid ? <p className="error">'Required'</p> : null}
