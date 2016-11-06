@@ -28,13 +28,14 @@ class PolicyInfoComponent extends Component {
 
     return (
       <div>
-        {renderPool()}
+        {this.props.children}
       </div>
     );
   }
 }
 
 PolicyInfoComponent.propTypes = {
+  children: PropTypes.element.isRequired,
   poolState: PropTypes.object.isRequired
 };
 

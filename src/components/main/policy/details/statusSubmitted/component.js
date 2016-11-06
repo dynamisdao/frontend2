@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import * as PolicyActions from '../../../../../actions/policy';
 import CustomSpiner from '../../../../base/spiner/component';
 import PasswordModalComponent from '../../../../base/modals/passwordModal';
+import { urls } from '../../../../../routes';
 
 const DEPOSIT_STATE = [
   { label: 'Waiting for smart deposit', key: 'INITIAL', state: 0 },
@@ -27,7 +29,7 @@ class StatusSubmittedDetailsComponent extends Component {
 
   handlePayDeposit(event) {
     event.preventDefault();
-    this.props.changePoolState('smartDeposit');
+    browserHistory.push(urls.main.policy.smartDeposit.path);
   }
 
   handleShowModal() {
@@ -105,7 +107,6 @@ StatusSubmittedDetailsComponent.propTypes = {
   wallet: PropTypes.object,
   smartDeposit: PropTypes.object.isRequired,
   getSmartDeposit: PropTypes.func.isRequired,
-  changePoolState: PropTypes.func.isRequired,
   generateNewWallet: PropTypes.func.isRequired
 };
 

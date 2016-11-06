@@ -86,7 +86,6 @@ class PaySmartDepositComponent extends Component {
             handleClose={this.handleCloseModal}
             title={`Are you sure you want to send ${smartDeposit.cost_in_eth} ETH?`}
             hash={smartDeposit.hash}
-            changePoolState={this.props.changePoolState}
           />
         </div>
       </div>
@@ -100,7 +99,6 @@ PaySmartDepositComponent.propTypes = {
   wallet: PropTypes.object.isRequired,
   sendSmartDeposit: PropTypes.func.isRequired,
   makeTransaction: PropTypes.func.isRequired,
-    changePoolState: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {

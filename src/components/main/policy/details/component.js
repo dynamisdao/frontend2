@@ -41,7 +41,7 @@ class PolicyDetailsComponent extends Component {
 
   handleEditPolicy(event) {
     event.preventDefault();
-    browserHistory.push(urls.main.historyForm1.path);
+    browserHistory.push(urls.details.historyForm1.path);
   }
 
   renderPolicyDetails() {
@@ -185,7 +185,6 @@ class PolicyDetailsComponent extends Component {
 PolicyDetailsComponent.propTypes = {
   policy: PropTypes.object.isRequired,
   getPolicy: PropTypes.func.isRequired,
-  changePoolState: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 };
 

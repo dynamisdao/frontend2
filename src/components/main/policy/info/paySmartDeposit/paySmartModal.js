@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Modal } from 'react-bootstrap';
+import { browserHistory } from 'react-router';
+
+import { urls } from '../../../../../routes';
 
 class PaySmartDepositModalComponent extends Component {
     constructor(props) {
@@ -26,7 +29,7 @@ class PaySmartDepositModalComponent extends Component {
     }
 
     handleClose() {
-        this.props.changePoolState('init');
+        browserHistory.push(urls.main.policy.path);
         this.props.handleClose();
     }
 
@@ -80,7 +83,6 @@ PaySmartDepositModalComponent.propTypes = {
     handleClose: PropTypes.func.isRequired,
     show: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    changePoolState: PropTypes.func.isRequired,
     title: PropTypes.string,
     hash: PropTypes.string
 };

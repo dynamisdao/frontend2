@@ -10,6 +10,7 @@ import { urls } from '../../../routes';
 class HeaderLogedComponent extends Component {
   constructor(props) {
     super(props);
+    this.state = {isWalletOpen: false}
     this.handleLogout = this.handleLogout.bind(this);
     this.handleOpenWallet = this.handleOpenWallet.bind(this);
   }
@@ -22,7 +23,12 @@ class HeaderLogedComponent extends Component {
 
   handleOpenWallet(event) {
     event.preventDefault();
-    this.props.openWallet();
+    if (this.state.isWalletOpen) {
+       browserHistory.goBack();
+    } else {
+      browserHistory.push(urls.main.policy.wallet.path);
+    }
+    this.setState({isWalletOpen: !this.state.isWalletOpen});
   }
 
   render() {
@@ -97,16 +103,13 @@ class HeaderLogedComponent extends Component {
 
 HeaderLogedComponent.propTypes = {
   user: PropTypes.object.isRequired,
-  walletIsOpen: PropTypes.bool.isRequired,
-  openWallet: PropTypes.func.isRequired,
   isNavigation: PropTypes.bool,
   logout: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    user: state.profile.user,
-    walletIsOpen: state.policy.walletIsOpen
+    user: state.profile.user
   };
 }
 

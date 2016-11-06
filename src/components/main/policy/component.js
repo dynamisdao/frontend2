@@ -13,7 +13,7 @@ class PolicyComponent extends Component {
         <section className="section section-policy">
           <div className="cols">
             <div className="col col-3of5">
-              <PolicyInfoComponent />
+              {this.props.children}
             </div>
             <div className="col col-2of5">
               <div className="panel panel-details">
@@ -27,5 +27,9 @@ class PolicyComponent extends Component {
     );
   }
 }
+
+PolicyComponent.propTypes = {
+  children: PropTypes.element.isRequired
+};
 
 export default PolicyComponent;

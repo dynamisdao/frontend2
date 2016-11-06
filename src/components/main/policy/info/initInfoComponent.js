@@ -2,9 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 
-import { urls } from '../../../../routes';
-
-
 class InitInfoComponent extends Component {
 
   render() {

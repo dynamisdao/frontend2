@@ -19,6 +19,10 @@ class ReviewTaskInfoComponent extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentWillMount() {
+    this.props.getReviewTask(this.props.routeParams.taskId);
+  }
+
   handleResultValue(value) {
     return () => {
       this.setState({ resultValue: value });
@@ -38,12 +42,12 @@ class ReviewTaskInfoComponent extends Component {
       this.setState({ isValid: false });
     } else {
       event.preventDefault();
-      this.props.signReviesTask(this.props.reviewTask.id, { signed_message: this.state.signValue });
+      this.props.signReviewTask(this.props.reviewTask.id, { signed_message: this.state.signValue });
     }
   }
 
   render() {
-    const getRadioFireld = (label, value, state, handler, defaultChecked) => (
+    const getRadioField = (label, value, state, handler, defaultChecked) => (
       <li>
         <div className="radio">
           <input
@@ -61,15 +65,16 @@ class ReviewTaskInfoComponent extends Component {
     const { resultValue, reasonValue, isValid } = this.state;
     return (
       <div className="panel">
+
         <div className="panel-head">
           <div className="panel-head-radio">
-            {getRadioFireld('Verify', 'yes', 'radio', this.handleResultValue('yes'), true)}
+            {getRadioField('Verify', 'yes', 'radio', this.handleResultValue('yes'), true)}
           </div>
           <div className="panel-head-radio">
-            {getRadioFireld('Falsify', 'no', 'radio', this.handleResultValue('no'))}
+            {getRadioField('Falsify', 'no', 'radio', this.handleResultValue('no'))}
           </div>
           <div className="panel-head-radio">
-            {getRadioFireld('Can\'t tell', 'null', 'radio', this.handleResultValue('null'))}
+            {getRadioField('Can\'t tell', 'null', 'radio', this.handleResultValue('null'))}
           </div>
           <h2 className="panel-title">Verification Task</h2>
         </div>
@@ -97,7 +102,7 @@ class ReviewTaskInfoComponent extends Component {
                   type="text" rows="5"
                   className="field"
                   readOnly
-                  defaultValue={
+                  value={
                     JSON.stringify({
                       task_hash: 'things',
                       result: resultValue,
@@ -133,14 +138,17 @@ class ReviewTaskInfoComponent extends Component {
 }
 
 ReviewTaskInfoComponent.propTypes = {
-  reviewTask: PropTypes.object.isRequired,
-  signReviesTask: PropTypes.func.isRequired,
-  isFetched: PropTypes.bool.isRequired
+  getReviewTask: PropTypes.func.isRequired,
+  signReviewTask: PropTypes.func.isRequired,
+  isFetched: PropTypes.bool.isRequired,
+  reviewTask: PropTypes.object,
+  routeParams: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    isFetched: state.policy.isFetched
+    isFetched: state.policy.isFetched,
+    reviewTask: state.policy.reviewTask
   };
 }
 

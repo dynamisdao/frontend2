@@ -83,7 +83,7 @@ export function sendSmartDeposit(policyid, data) {
   };
 }
 
-export function getReviesTasks() {
+export function getReviewTasks() {
   return dispatch => {
     let isError = false;
     fetch(`${config.baseUrl}api/v1/review-tasks/`,
@@ -105,7 +105,7 @@ export function getReviesTasks() {
   };
 }
 
-export function getReviesTask(id) {
+export function getReviewTask(id) {
   return dispatch => {
     let isError = false;
     fetch(`${config.baseUrl}api/v1/review-tasks/${id}/`,
@@ -127,7 +127,7 @@ export function getReviesTask(id) {
   };
 }
 
-export function signReviesTask(id, data) {
+export function signReviewTask(id, data) {
   return dispatch => {
     let isError = false;
     dispatch({ type: types.REVIEW_TASK_SIGN_START });
@@ -144,6 +144,7 @@ export function signReviesTask(id, data) {
         } else {
           toastr.success('Task signed');
           dispatch({ type: types.REVIEW_TASK_SIGN_SUCCESS, payload: id });
+          browserHistory.push(urls.main.policy.path);
         }
         return response.json();
       })
@@ -152,13 +153,6 @@ export function signReviesTask(id, data) {
           toastr.error(json.non_field_errors[0]);
         }
       });
-  };
-}
-
-export function changePoolState(values) {
-  return {
-    type: types.POOL_STATE_CHANGE,
-    payload: { state: values }
   };
 }
 
