@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import * as types from '../constants/history';
 import { CREATE_POLICY } from '../constants/profile';
+import {fetchProfile} from './profile';
 import config from '../config';
 import { getHeaders } from '../utils';
 
@@ -86,8 +87,8 @@ export function signPolicy(policyid, data, successCallback) {
         if (response.status >= 400) {
           isError = true;
         } else {
-          if (successCallback) successCallback.apply();
           dispatch({ type: types.POLICY_SIGN_SUCCESS });
+          dispatch(fetchProfile(window.localStorage.accountId, successCallback));
         }
         return response.json();
       })

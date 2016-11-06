@@ -33,7 +33,7 @@ class HistoryForm1Component extends Component {
                   addPosition={this.props.addPosition}
                   deletePosition={this.props.deletePosition}
                   positionList={this.props.positionList}
-                  fileList={this.props.fileList}
+                  file={this.props.file}
                   uploadHistoryFile={this.props.uploadHistoryFile}
                   user={this.props.user}
                 />
@@ -49,7 +49,7 @@ class HistoryForm1Component extends Component {
 HistoryForm1Component.propTypes = {
   addPosition: PropTypes.func.isRequired,
   positionList: PropTypes.array.isRequired,
-  fileList: PropTypes.array.isRequired,
+  file: PropTypes.object,
   deletePosition: PropTypes.func.isRequired,
   initialPosition: PropTypes.func.isRequired,
   createPolicy: PropTypes.func.isRequired,
@@ -61,7 +61,7 @@ HistoryForm1Component.propTypes = {
 function mapStateToProps(state) {
   return {
     positionList: state.history.positionList,
-    fileList: state.history.fileList,
+    file: state.history.file,
     user: state.profile.user
   };
 }

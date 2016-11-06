@@ -11,7 +11,6 @@ import FooterComponent from '../base/footer/component';
 import HeaderLogedComponent from '../base/headerLoged/component';
 import { urls } from '../../routes';
 
-const pathsWithNavigationMenu = ['/policy'];
 
 class MainComponent extends Component {
 
@@ -46,7 +45,7 @@ class MainComponent extends Component {
         {user.keybase_username && policy.data ?
           <div>
             <HeaderLogedComponent
-              isNavigation={pathsWithNavigationMenu.indexOf(location.pathname) !== -1}
+              isNavigation
             />
             <div className="main">
               <div className="shell">

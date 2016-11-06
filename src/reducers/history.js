@@ -4,7 +4,6 @@ import * as types from '../constants/history';
 
 const initialState = {
   positionList: [],
-  fileList: [],
   isFetched: false,
   questions: {
     howLongStay: 0,
@@ -20,11 +19,9 @@ function profileReducer(state = initialState, action) {
     }
     case types.ADD_POSITION: {
       const positionList = state.positionList;
-      const position = action.payload.values;
-      position.files = state.fileList;
-      positionList.push(position);
-      window.localStorage.setItem('positionList', JSON.stringify(positionList));
-      return objectAssign({}, state, positionList, { fileList: [] });
+      positionList.push(action.payload.values);
+      window.localStorage.positionLis = JSON.stringify(positionList);
+      return objectAssign({}, state, positionList);
     }
     case types.DELETE_POSITION: {
       const editPositionList = state.positionList;
@@ -34,14 +31,12 @@ function profileReducer(state = initialState, action) {
       return objectAssign({}, state, { positionList: editPositionList });
     }
     case types.HISTORY_FILE_UPLOAD: {
-      const fileList = state.fileList;
       const file = {
         ipfs_hash: action.payload.ipfs_hash,
         mimetype: action.payload.meta.mimetype,
         name: action.payload.meta.name
       };
-      fileList.push(file);
-      return objectAssign({}, state, fileList);
+      return objectAssign({}, state, { file });
     }
     case types.POLICY_UPDATE: {
       return objectAssign({}, state);
