@@ -29,20 +29,21 @@ class MainComponent extends Component {
         this.props.relogin();
         browserHistory.push(urls.login.path);
       }
+    } else if (window.localStorage.keystore) {
+      this.props.getWallet();
     }
   }
 
   render() {
-    const { user, policy } = this.props;
+    const { user, policy, wallet, location } = this.props;
     const renderInitialPage = () => (
       <div className="panel-initial">
         <span className="logo">Dynamis</span>
       </div>
     );
-    const { location } = this.props;
     return (
       <div className="wrapper">
-        {user.keybase_username && policy.data ?
+        {user.keybase_username && policy.data && wallet?
           <div>
             <HeaderLogedComponent
               isNavigation
@@ -68,6 +69,7 @@ MainComponent.propTypes = {
   location: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   policy: PropTypes.object.isRequired,
+  wallet: PropTypes.object,
   fetchProfile: PropTypes.func.isRequired,
   getWallet: PropTypes.func.isRequired,
   relogin: PropTypes.func.isRequired
@@ -80,7 +82,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     user: state.profile.user,
-    policy: state.policy.policy
+    policy: state.policy.policy,
+    wallet: state.policy.wallet
   };
 }
 
