@@ -56,7 +56,8 @@ class HistoryForm extends Component {
       toValue: 'to',
       fromIsValid: true,
       toIsValid: true,
-      dateIsValid: true
+      dateIsValid: true,
+      fileList: []
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
@@ -67,6 +68,14 @@ class HistoryForm extends Component {
     this.handleCheckBoxField = this.handleCheckBoxField.bind(this);
     this.handleComplete = this.handleComplete.bind(this);
     this.handleFile = this.handleFile.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.file != this.props.file) {
+      let fileList = this.state.fileList;
+      fileList.push(nextProps.file);
+      this.setState({fileList});
+    }
   }
 
   handleComplete(event) {
@@ -85,6 +94,7 @@ class HistoryForm extends Component {
       }
       position.from = this.state.fromValue;
       position.currentJob = this.state.currentJob;
+      position.files = this.state.fileList;
       this.props.addPosition(position);
       this.props.initialize();
       this.setState({
@@ -110,7 +120,8 @@ class HistoryForm extends Component {
         currentJob: position.currentJob,
         fromIsValid: true,
         toIsValid: true,
-        dateIsValid: true
+        dateIsValid: true,
+        fileList: position.files
       });
       this.props.deletePosition(position.id);
     };
@@ -185,7 +196,10 @@ class HistoryForm extends Component {
       this.props.uploadHistoryFile(
         3,
         { filename, data_url, mimetype },
-        () => Progress.hide()
+        () => {
+          Progress.hide();
+
+        }
       );
     });
   }
@@ -205,8 +219,8 @@ class HistoryForm extends Component {
   }
 
   render() {
-    const { handleSubmit, positionList, user, fileList } = this.props;
-    const { currentJob, toIsValid, fromIsValid, dateIsValid } = this.state;
+    const { handleSubmit, positionList, user } = this.props;
+    const { currentJob, toIsValid, fromIsValid, dateIsValid, fileList } = this.state;
     return (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
         <div className="form-head">
@@ -378,14 +392,13 @@ class HistoryForm extends Component {
 HistoryForm.propTypes = {
   addPosition: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  untouch: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
   positionList: PropTypes.array.isRequired,
   initialize: PropTypes.func.isRequired,
   deletePosition: PropTypes.func.isRequired,
   uploadHistoryFile: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  fileList: PropTypes.array.isRequired
+  file: PropTypes.object
 };
 
 export default reduxForm({

@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
 import PolicyDetailsComponent from './details/component';
-import PolicyInfoComponent from './info/component';
 import PolicyPoolComponent from './pool/component';
 
 class PolicyComponent extends Component {
