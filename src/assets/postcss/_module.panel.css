@@ -55,6 +55,9 @@
 
 /*  Panel Task  */
 
+.panel-verefication {
+    background: #F9F9F9;
+}
 .panel-verefication .form-notes {
     float: left;
     margin-right: 12px;
