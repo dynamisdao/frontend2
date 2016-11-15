@@ -59,7 +59,7 @@ class ExistWalletInfoComponent extends Component {
             <div className="form-row">
               <input
                   className="field"
-                  value={`You balance: ${converterBalance(wallet.balance)}`}
+                  value={`Your balance: ${converterBalance(wallet.balance)}`}
                   type="text"
                   readOnly
               />

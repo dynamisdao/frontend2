@@ -211,7 +211,7 @@ export function converterBalance(wei) {
       eth.pop();
     }
     eth = eth.join("");
-    return eth + 'ETH';
+    return eth + ' ETH';
   } else {
     return '';
   }

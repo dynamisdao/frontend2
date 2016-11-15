@@ -28,7 +28,7 @@ class LoginComponent extends Component {
                   <StepsAsideComponent
                     body={
                       <p>
-                        <span>Dynamis - Peer to peer insurance</span> - Using Ethereum
+                        <span>Dynamis is a Peer to peer insurance</span>. We use Ethereum
                         to build the next generation of financial apps running on the blockchain
                       </p>}
                   />
